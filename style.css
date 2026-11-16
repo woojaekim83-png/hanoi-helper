@@ -227,8 +227,22 @@ main { padding: 20px 20px 0; }
 .facts { list-style: none; margin: 0; padding: 0; }
 .facts li:last-child { border-bottom: 0; }
 
+/* 설치 안내 띠 */
+.install {
+  display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+  background: var(--tint-yellow); border-bottom: 1px solid #f1e3a6; font-size: 13px; color: var(--charcoal);
+}
+.install-icon { font-size: 18px; }
+.install-text { flex: 1; min-width: 0; line-height: 1.45; }
+.install-btn {
+  flex: none; padding: 7px 12px; border-radius: var(--r-md); background: var(--accent); color: #fff;
+  font-weight: 700; font-size: 13px; text-decoration: none; white-space: nowrap;
+}
+.install-close { flex: none; border: 0; background: none; font-size: 14px; color: var(--steel); cursor: pointer; padding: 4px; }
+
 /* 베트남어 */
-.viet-cats { margin-top: 0; }
+.viet-cats { margin-top: 0; gap: 6px; }
+.viet-cats .chip { padding: 5px 10px; font-size: 13px; line-height: 1.4; }
 .tone-legend { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 14px; padding: 10px 12px; background: var(--surface); border-radius: var(--r-md); font-size: 12px; color: var(--slate); }
 .tone-legend b { margin-right: 4px; }
 .t-ngang { --tc: #787774; } .t-sac { --tc: #d9480f; } .t-huyen { --tc: #1c64d9; }

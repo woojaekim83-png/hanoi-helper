@@ -40,6 +40,12 @@ window.VIET = [
     { vi: 'Mười nghìn', ko: '므어이 응인', mean: '10,000동' },
     { vi: 'Một trăm nghìn', ko: '못 짬 응인', mean: '100,000동' },
     { vi: 'Năm trăm nghìn', ko: '남 짬 응인', mean: '500,000동' },
+    { vi: 'Một triệu', ko: '못 찌에우', mean: '1,000,000동 (백만)' },
+    { vi: 'Hai triệu rưỡi', ko: '하이 찌에우 즈어이', mean: '2,500,000동 (250만)' },
+    { vi: 'Mười triệu', ko: '므어이 찌에우', mean: '10,000,000동 (천만)' },
+    { vi: 'Một trăm triệu', ko: '못 짬 찌에우', mean: '100,000,000동 (1억)' },
+    { vi: 'Một tỷ', ko: '못 띠', mean: '1,000,000,000동 (10억)' },
+    { vi: 'Mười tỷ', ko: '므어이 띠', mean: '10,000,000,000동 (100억)' },
   ]},
   { id: 'shop', icon: '🏪', name: '판매점', items: [
     { vi: 'Cái này bao nhiêu tiền?', ko: '까이 나이 바오 니에우 띠엔', mean: '이거 얼마예요?' },

@@ -162,6 +162,51 @@ $('#place-cancel').addEventListener('click', () => sheet.close());
 $('#place-reset').addEventListener('click', () => { store.del('place'); renderDock(); sheet.close(); });
 sheet.addEventListener('click', (e) => { if (e.target === sheet) sheet.close(); }); // 바깥 누르면 닫기
 
+/* ───── 홈 화면 설치 안내 ───── */
+// 카카오톡 등 앱 안의 브라우저에서는 '홈 화면에 추가'가 안 되므로 외부 브라우저로 안내
+(function setupInstall() {
+  const ua = navigator.userAgent;
+  const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+  if (standalone || store.get('installHidden') === '1') return;
+  const isIOS = /iPhone|iPad|iPod/i.test(ua);
+  const isAndroid = /Android/i.test(ua);
+  const isKakao = /KAKAOTALK/i.test(ua);
+  const inApp = isKakao || /NAVER|Line\/|Instagram|FBAN|FBAV|DaumApps|everytimeApp/i.test(ua);
+  const box = $('#install'), text = $('#install-text'), btn = $('#install-btn');
+  const show = (msg, label, href) => {
+    text.innerHTML = msg; box.hidden = false;
+    if (label) { btn.textContent = label; btn.hidden = false; if (href) btn.href = href; }
+  };
+  const url = location.href.split('#')[0];
+
+  if (isKakao) {
+    show('카카오톡 안에서는 홈 화면에 추가가 안 돼요.', isIOS ? '사파리로 열기' : '크롬으로 열기',
+      'kakaotalk://web/openExternal?url=' + encodeURIComponent(url));
+  } else if (inApp && isAndroid) {
+    show('이 앱 안에서는 설치가 안 돼요.', '크롬으로 열기',
+      'intent://' + url.replace(/^https?:\/\//, '') + '#Intent;scheme=https;package=com.android.chrome;end');
+  } else if (inApp) {
+    show('오른쪽 아래 <b>⋯</b> 또는 <b>공유</b> → <b>Safari로 열기</b> 후 홈 화면에 추가하세요.');
+  } else if (isIOS) {
+    show('하단 <b>공유(□↑)</b> → <b>홈 화면에 추가</b>를 누르면 앱처럼 쓸 수 있어요.');
+  } else {
+    // 안드로이드 크롬·PC 크롬/엣지: 설치 가능해지면 버튼 표시
+    let deferred;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault(); deferred = e;
+      show('홈 화면에 설치하면 앱처럼 바로 열 수 있어요.', '앱 설치');
+    });
+    btn.addEventListener('click', async (e) => {
+      if (!deferred) return;
+      e.preventDefault();
+      deferred.prompt();
+      await deferred.userChoice; deferred = null; box.hidden = true;
+    });
+    window.addEventListener('appinstalled', () => { box.hidden = true; });
+  }
+  $('#install-close').addEventListener('click', () => { box.hidden = true; store.set('installHidden', '1'); });
+})();
+
 /* ───── 시작 ───── */
 renderViet(); renderCalendar(); renderDock();
 tick(); setInterval(tick, 15000);
