@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" href="icon-192.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="베트남도우미">
-  <link rel="stylesheet" href="style.css?v=18">
+  <link rel="stylesheet" href="style.css?v=19">
 </head>
 <body>
   <div class="app">
@@ -173,7 +173,8 @@
   <!-- 목적지 설정 시트 -->
   <dialog class="sheet" id="place-sheet" aria-labelledby="sheet-title">
     <form method="dialog" id="place-form">
-      <h2 id="sheet-title">내 목적지</h2>
+      <!-- autofocus를 제목에 둬서 창이 열릴 때 입력칸에 자동 커서·키보드가 뜨지 않게 함 -->
+      <h2 id="sheet-title" tabindex="-1" autofocus>내 목적지</h2>
       <p class="meta">처음엔 우리은행 베트남 본점으로 정해져 있어요. 원하는 곳으로 바꾸면 이 휴대폰에 저장돼요.</p>
       <label>이름<input class="input" name="title" required maxlength="30" placeholder="예: 우리 집"></label>
       <label>설명<input class="input" name="sub" maxlength="40" placeholder="예: 롯데센터 근처"></label>
@@ -191,13 +192,13 @@
   </dialog>
 
   <!-- ?v= 숫자는 수정할 때마다 올려서 휴대폰에 예전 파일이 남지 않게 합니다 -->
-  <script src="data.js?v=18"></script>
-  <script src="viet1.js?v=18"></script>
-  <script src="viet2.js?v=18"></script>
-  <script src="viet3.js?v=18"></script>
-  <script src="viet4.js?v=18"></script>
-  <script src="cities.js?v=18"></script>
-  <script src="app.js?v=18"></script>
-  <script src="features.js?v=18"></script>
+  <script src="data.js?v=19"></script>
+  <script src="viet1.js?v=19"></script>
+  <script src="viet2.js?v=19"></script>
+  <script src="viet3.js?v=19"></script>
+  <script src="viet4.js?v=19"></script>
+  <script src="cities.js?v=19"></script>
+  <script src="app.js?v=19"></script>
+  <script src="features.js?v=19"></script>
 </body>
 </html>

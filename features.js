@@ -225,6 +225,7 @@ $('#dock-main').addEventListener('click', () => {
   const p = getPlace();
   form.title.value = p.title; form.sub.value = p.sub || ''; form.query.value = p.query;
   sheet.showModal();
+  $('#sheet-title').focus({ preventScroll: true }); // 입력칸 자동 선택 방지 (키보드 안 뜸)
 });
 form.addEventListener('submit', () => {
   store.set('place', JSON.stringify({ title: form.title.value.trim(), sub: form.sub.value.trim(), query: form.query.value.trim() }));

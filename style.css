@@ -423,6 +423,7 @@ a.day:active { background: var(--accent-soft); }
   padding: 12px 14px calc(12px + env(safe-area-inset-bottom));
   background: rgba(255,255,255,.96);
   border-top: 1px solid var(--hairline);
+  -webkit-backdrop-filter: blur(8px); /* 아이폰 사파리용 */
   backdrop-filter: blur(8px);
 }
 .dock-main {
@@ -456,7 +457,8 @@ a.day:active { background: var(--accent-soft); }
 .sheet h2 { margin: 0; font-size: 20px; }
 .sheet .meta { margin: -6px 0 0; }
 .sheet label { display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600; color: var(--slate); }
-.sheet .input { height: 44px; font-size: 15px; font-weight: 400; color: var(--ink); }
+.sheet .input { height: 44px; font-size: 16px; font-weight: 400; color: var(--ink); } /* 16px 미만이면 아이폰이 화면을 확대함 */
+#sheet-title { outline: none; }
 .sheet-link { color: var(--accent); font-size: 14px; font-weight: 600; text-decoration: none; }
 .hint { margin: 0; padding: 10px 12px; background: var(--tint-yellow); border-radius: var(--r-md); font-size: 13px; color: var(--charcoal); line-height: 1.5; }
 .sheet-actions { display: flex; gap: 8px; justify-content: flex-end; }
