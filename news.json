@@ -1,6 +1,14 @@
 {
- "updatedAt": "2026.11.16 19:35 (KST)",
+ "updatedAt": "2026.11.16 20:46 (KST)",
  "items": [
+  {
+   "title": "[증시] 베트남 증시, VN지수 0.11% 상승…거래대금 21.5% 감소",
+   "source": "굿모닝베트남미디어",
+   "time": "2026-11-16T19:43+09:00",
+   "region": "vn",
+   "category": "금융",
+   "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5EeGtlSFdFVHJtZV9wLUxZaFFzeTVPOGZEMGxrdU0wblRJRFJPQmVtV0RDRjlMUkRuZFdzelB3WGNlUUdxRlZGODh6Z0JfOEVYUXR4Mm9WSzZ0c2pXLUJfX2VpM28ta0VDN1BKbVB1SS0?oc=5"
+  },
   {
    "title": "하노이에 영향을 미칠 예정인 한랭 전선에 대한 최신 정보입니다.",
    "source": "Vietnam.vn",
@@ -8,14 +16,6 @@
    "region": "vn",
    "category": "생활",
    "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNVXpDQ0Q2M1hybXBVWXJtSlM0TjJHLWlLa3pOSWczMUxnWEI3T1ZOS0NONllxWXRKRXdYLTdfdEI2MVNJMDZaUmRiNkd4VVd6UlY2VUZYS1oxZGk2eWp2ME1JWDFwLW0wVVg5RWM5NTVpNTlOM0FLcnZmcjRvRW05ejZIMlR4VENmdjZOZ0Vtai04eVBKcEE?oc=5"
-  },
-  {
-   "title": "우크라, 미중러 정상회담 앞두고 모스크바·크림반도 드론 공세",
-   "source": "연합뉴스TV",
-   "time": "2026-11-16T19:21+09:00",
-   "region": "kr",
-   "category": "시사",
-   "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1lc0JublZLMUFVXzR0ZTNseENSa2luWGJLRTJjUGZzeVpmRzBGWFVETEhtaFJ1VjBTVllMbW5xa2xaTVdIdEM4TGFKY1NqajhjYkkxR2EwR3ROVk1CWF9waElYcFVBbjQ?oc=5"
   },
   {
    "title": "하노이시는 전기 및 친환경 에너지 버스로의 전환을 가속화하고 있습니다.",
@@ -30,8 +30,16 @@
    "source": "대한민국 정책브리핑",
    "time": "2026-11-16T19:08+09:00",
    "region": "kr",
-   "category": "사회",
+   "category": "시사",
    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1TWUZ6OHhaTHR0MWtaZmhBMTZISGZ5dXMxdG5laEx6bGhrQnpvQWt3THJRb2kxNlE0YmVBb0hRWlA2TnpxRERMRkxlNmpfVUxuVTdnbnRIZTJHLXRnT3JqelpHUDRaQ0hHSTlNeA?oc=5"
+  },
+  {
+   "title": "수능 ‘전파 차단’ 검토, 현실성 있나",
+   "source": "조선일보",
+   "time": "2026-11-16T18:59+09:00",
+   "region": "kr",
+   "category": "시사",
+   "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPU2tVVkpQdUEwQThKbWFCX1M2YUJra25JVW9wRW5STkszOUhwMlZTMndQQzJhWXhLSG1LQ1ZTZGFMbGNfMW93QlZqeXBpR1JhNXU5Z2FuMWZ4Rl9TVjAyNEdlT3NIVWk3bXNyOUxoQ0dvcGFFVjlSSDhZWWlUYVVwbTJmNA?oc=5"
   },
   {
    "title": "[베트남 증시] 중앙銀 외환 시장 개입 효과에 실망, 혼조...유동성 감소세 지속",
@@ -42,12 +50,28 @@
    "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE01Z0NUa2dNMEwwZ1ljMlJBYV9UX0s3RXZGa21mOXdKY1VseFY3eU9US2JBZnRYMFFGclVxTW8xU05MYUNMZkY4WXBXUDVHaG5KNnpJamhJQkhXZkFX?oc=5"
   },
   {
+   "title": "미중러 정상회담 앞두고 우크라, 모스크바·크림반도 겨눴다",
+   "source": "연합뉴스",
+   "time": "2026-11-16T18:23+09:00",
+   "region": "kr",
+   "category": "시사",
+   "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFA2emQwSEtma1FjYU9leG5XUE1GUW9VUkdHR244MWJuMWtPYlhkbzkwSkNablQ0ZmxhamNtQlEwRURoSUVZdjRiVF9TazhrNHZDZEdXX1RGYTE0d2PSAWBBVV95cUxQbmhtN0ZiczlVVHpEQjkzeXBXdlk4ZHFYSklLUHE0alJxVkxoRTZSSkNPV1BQNWhyY3FnMUpna2d6M1RBZ1ZoRWV5MHM5Sk5tSnV6NmVIZHNtUjJlUl94eVc?oc=5"
+  },
+  {
    "title": "베트남우리은행, 모바일뱅킹 전면 개편 '뉴원' 띄우고 현지 공략 가속",
    "source": "인사이드비나",
    "time": "2026-11-16T18:12+09:00",
    "region": "vn",
    "category": "금융",
    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9Sc3UtTldVZHltdnhJTmE2YUkyT0JiOXFqcFFxSEc4LVRQUU5uaEdyWkFBdU9HZlJTbnVrSXF4YWdFU3VfYUxFTEoxX3NEY0dmNlVlaXM1alFEbHZqZE5JR2xyb1k4ejRqOXh2RA?oc=5"
+  },
+  {
+   "title": "은행업에서의 블록체인 활용: 디지털 결제 및 무역 금융 활성화.",
+   "source": "Vietnam.vn",
+   "time": "2026-11-16T18:11+09:00",
+   "region": "krvn",
+   "category": "금융",
+   "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPNVFsb0dDdDZmU1JwSlJhM0w4LUxya0RicEpWVEJxSUthMnpOZFBMbzg3a2poZnpLUUIzWFpFSEVRXzVZN0VvdUZKM0x4MEFUUWx2S19zZkFkSWJrYXhfU0RUYzV0R1lLTDBjZ2VRLW1kand2TldNUUhYQ1JpVEdRWFQyMW9uYjQ3ZkstdUIxMkVuMUxCV1lrRHdBYi1nQS1Fa0NfWV9MT2NZQQ?oc=5"
   },
   {
    "title": "베트남 떠나지 않는 韓기업들…국내 은행은 '수익성 방어' 고심",
@@ -58,12 +82,20 @@
    "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE5VTjBYYlQ5RlU1RW42S1ViUDF1akpPOFlkODZCMjN0QTRRRXA3WmVWSE9nLVlRZ0ZrcEp6U2tKb0UwbnhfZF9LN0JUd25INkVmY2o4c2pqT0dORF9Cb1A2MXN3TjJmM2l6?oc=5"
   },
   {
-   "title": "춘천시, 베트남 람동성과 교류협력 강화…경제·관광 등 확대 논의",
-   "source": "뉴스1",
-   "time": "2026-11-16T18:00+09:00",
-   "region": "krvn",
+   "title": "루비오 “김정은, 정권 생존 원할 뿐 팽창주의자 아냐”",
+   "source": "서울신문",
+   "time": "2026-11-16T18:06+09:00",
+   "region": "kr",
+   "category": "시사",
+   "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE03ZWhFU1RtVzVBVzBZakttX0VPcjFYdWhCeVdQb2ZYYXFMU3ptVld4QWtXTjdqTGUxVG5YRU9qM0x6MEk4djMzUF8yQXJsQUY3Rk1BTDdvYWJtUVV5QTM0TXdCX2w0SGhFMzV3VWRqRDdNMWZERk5V?oc=5"
+  },
+  {
+   "title": "지난해 다주택자 4만4천 명 증가…60대 이상이 약 절반",
+   "source": "KBS 뉴스",
+   "time": "2026-11-16T18:01+09:00",
+   "region": "kr",
    "category": "경제",
-   "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTFA1TXQzMDVjOHo4UGhJUWwyNklpbGlCWFI3TXc4eS1Xb3E2eVVBZERSY2hJaENOYUs0czQ4OWlnZ2RZVzA4ZUNtSExYSUlQdXJZSVlYTg?oc=5"
+   "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTFB1UTJJZWFNYVJSWENQZXNZZUNkTnljMjJENjR0SF8yTWlTWDdPME4xSzRIM2VEeDM0dU1KeXZXWU9OZ1ZIemJ3aV92RTBLM2UtSTdUWDhLM1ZMQ1N4ZmxJbEVmeVl2Zw?oc=5"
   },
   {
    "title": "석방 논란에… 대법, 한덕수 ‘내란죄’ 19일 선고",
@@ -90,20 +122,20 @@
    "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE4ydFdZbmRQX0FockVxeXF3WE4tTFJET2c0Z1hiejBhckcwS3dDTUY4ZnYxR1FQbFNqTV9rTURuLVFvMm1uQ2dBM2E4N2xMUkdCdUxqUXNDeENwUdIBX0FVX3lxTE9UUUxPTlBlek9YSWVWRUtKdHgwUTAzWjhNWTl6dDR1Q01EVWNvbFU4RHpvQkZ2RUFhMWJTZ3h0OEJXSXluNWtnOFFMemtOdldRd3BYZlBoMzhQSlNrNUxj?oc=5"
   },
   {
-   "title": "12월 23일 개최되는 제16회 2026 대한민국 글로벌파워브랜드 대상과 국회 산업통상자원중소벤처기업위원장 표창 수상, JM그룹 김정민 회장",
-   "source": "코리아타임뉴스",
-   "time": "2026-11-16T17:50+09:00",
-   "region": "krvn",
-   "category": "교민",
-   "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5SbUlWMktfX0FGMGViNHZtQ2xlYVV5LVJNTDliWXhBQk0xcDAzTDQtaXFtUHJ2OFdYQl8teW1VbzV3QlFRVkxHSlcxWHlCMjFnRnlNVGtGOXI4MFo2d1lYRTcxMDF5WUpYUHc?oc=5"
-  },
-  {
    "title": "리튬이온배터리, 충전율 높을수록 발화 위험 상승",
    "source": "KBS 뉴스",
    "time": "2026-11-16T17:44+09:00",
    "region": "kr",
-   "category": "사회",
+   "category": "시사",
    "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE5nbXNheEllaFdDaG4zc3B0anpzTmlpWjROd3Rsemh2SWlaeUtXSkRORnEwVF9OWFZkMm43NU80eWluTkt0YXNhQk9qZ0dMbExFci1yNFA0eEVNVEZiREN6RzNYMG5pZw?oc=5"
+  },
+  {
+   "title": "JM그룹 김정민 회장, 12월 23일 개최되는 제16회 2026 대한민국 글로벌파워브랜드 대상과 국회 산업통상자원중소벤처기업위원장 표창 수상",
+   "source": "한국시사경제",
+   "time": "2026-11-16T17:38+09:00",
+   "region": "krvn",
+   "category": "교민",
+   "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBHeUFkaTE3cmhmcDlzTUREY1hxd2F3b0hvb3BBNHgtdjU2WW1CS3I3dEQ0Ylk0NXl0WG5SNkFSZDNlZnB4YXlFMF9LbjF1bWN6WDB2SHVFbWxtLU1EbXdmcEROU2JvY0VGZWc?oc=5"
   },
   {
    "title": "美 법원, 삼성·SK하이닉스·마이크론 DRAM 담합소송 각하 기각",
@@ -115,35 +147,11 @@
   },
   {
    "title": "춘천시, 베트남 람동성 교류협력 확대…달랏과 10년 인연 이어",
-   "source": "연합뉴스",
+   "source": "연합뉴스 한민족센터",
    "time": "2026-11-16T17:29+09:00",
-   "region": "vn",
+   "region": "krvn",
    "category": "경제",
-   "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBkdUZreUEwSGdoZzQ0aWk3dnhHX3pFSjhvOE1XQjR4ZWlORGRlWXV6OWg5NzY0d1Z6SUxwWEM0Z1daczQ1SEpVeVpRWkFLTjhmbTJBeFdqenJ5SU3SAWBBVV95cUxQdEo2ZEt2QjlGYU16Ym5XV21PMGwzLW9xVEVZek42MXlHRUlZM3ZzdldSRDZtS1dxWmpYbVlMVkZyS1dZcXZOMW92THVCTUZMTjlKRVZidTJPaExxcks5Qkg?oc=5"
-  },
-  {
-   "title": "정부, 수능 시험장 모든 스마트기기 반납·공공 와이파이 차단 추진",
-   "source": "대한민국 정책브리핑",
-   "time": "2026-11-16T17:23+09:00",
-   "region": "kr",
-   "category": "시사",
-   "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5GYkpmbWNVNE5OWTd1R19uS2RRdDBrMW9OU0RkcDE5cFR3YmdGcUdwekJFZTAzSUdZLTA0YzdkOGs4X3pRX2s3RFFkLXN3RW9UM1owc05MTjBpRWx5azhXbFEyVk9OSmdzNURSMg?oc=5"
-  },
-  {
-   "title": "두나무마저 적자 전환…코인 거래소들 '버티기' 한계",
-   "source": "전자신문",
-   "time": "2026-11-16T17:22+09:00",
-   "region": "kr",
-   "category": "경제",
-   "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE1sbnljcDhTMU5rMTk1UDVDa3FfNzNId1l0S21LeG54SmVCX1hsOTIxa0pHRVcycDBzNGJnbThYZHJ6emp2ajk3ODkwMlVjUQ?oc=5"
-  },
-  {
-   "title": "李대통령, 이용철·안덕수 인사청문요청안 재가",
-   "source": "뉴스핌",
-   "time": "2026-11-16T17:16+09:00",
-   "region": "kr",
-   "category": "사회",
-   "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE56elJPMjd1Mzhpd0NaTS0zSGlDV2dmcGtlTGxLM2tkRktJbTNQWXE4Y3hXazRmb05OYWRvLTNRVktLaGRMSExZOW1aRm9QQzA3Zk12bk5SZkxLQ2Fs?oc=5"
+   "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE45SmJraE96RzRlLXRBUTE0MmpzZS1Xdk5kMUJ5Zm8yRUNYYUdIQnp4dXg1QTZabTVBZGRnTUxaUTRSX0E1ZUotU3VhWDY3SUpGYUJPRjhEb3d2VXJTV045ZmV6aHM1eHctaUZrOFd2RVk3X1Zo?oc=5"
   },
   {
    "title": "’주담대 변동금리 기준’ 코픽스, 2년 8개월 만에 최고",
@@ -170,12 +178,12 @@
    "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE5JM0JtanU3dDV2M2lYOEN3ZHJxanpGTWdDeDl4SlNEeWlXSkY1SFFhUDVzNWZkRXJZaUM1TEZET1IzS1I2WGtZc09PTjJ6cUhIMHdrTHo3akp1RXRFTVlqTXhVYUlOeTFrUHBMckQ1cFJEbU0?oc=5"
   },
   {
-   "title": "이 대통령 “한-아세안 교역 연 3천억달러 시대 나아가겠다”",
-   "source": "한겨레",
+   "title": "경북도, 농지 위반사항 한시 정리 추진",
+   "source": "데일리대구경북뉴스",
    "time": "2026-11-16T17:09+09:00",
    "region": "kr",
-   "category": "시사",
-   "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBWdEhES2NkVmVzZmRSNVJXM2R5QXpQUXVBenZNRUtJeDc4UW8wRmlBS1kwNDQxS1dOc0lFc01MTG5McnFLSWdTNzFzU05NdXliR1FtRGZ2RV9fSC1FaG5xTk50ZlRuZ1ZTWWRv?oc=5"
+   "category": "사회",
+   "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTFBFd1gxbFhjaUgzLThKeTh3YUN5ZEhpdm9wMWpsZWFXZGFlSE1xUmx4dFgtOERVV3BSUzgxWDVrTEJ4QzcwZE10bXMtVzd1TExxT3llcGRUQUNucDB1bmgxajV2SnVzUQ?oc=5"
   },
   {
    "title": "해외 주택사업 정상화 시동거는 부영···'19년 표류' 하노이 공사 재개",
@@ -218,20 +226,20 @@
    "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPRjZmazRDUlJqdk5jVmxNM1hJSjg5b3ZFYVF1ZGRiamR0M2lwd1ZBbEhrVFJsOXROSEN5dHFhTUdYdWwtTVRPcmdJenFzYWVRMTZFLU1KczMxcmZzTVZTcGlfcVdpZG14amJ1UDVjejRHNDE1czRhXzlSc2lndFd5TFJOaXUzb3RkWUZ4S25R?oc=5"
   },
   {
-   "title": "수성구. ‘수성못 수상공연장 조성’ 합의서 채결",
-   "source": "데일리대구경북뉴스",
-   "time": "2026-11-16T16:53+09:00",
-   "region": "kr",
-   "category": "시사",
-   "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9iTkQwalhtY055SHJjVjRNV25veUdMLWVQbm1iQUpMOG9RQmNreVk0ZmFZaGdXVy1vUFVvLUc4ZjRuazhXU2l6U1h0a25adFZjZFlmT3ZrSzZpRGtJbkthOUVYWm5NZw?oc=5"
-  },
-  {
    "title": "한국도로공사, 11월 15일부터 고속도로 제설대책 시행",
    "source": "데일리대구경북뉴스",
    "time": "2026-11-16T16:53+09:00",
    "region": "kr",
    "category": "시사",
    "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1mYkRpbmdaV2F4LWlrRmtiQmItVjBZS1EzREotYXJDWFBQZmpJeV94YTZ0dTl6OTgtRzhpU25yZjhRX0xSUFJBSUE1RkNIUVlBdzR4a3hybGJwQXIxNTFZXzJBNkl2QQ?oc=5"
+  },
+  {
+   "title": "수성구. ‘수성못 수상공연장 조성’ 합의서 채결",
+   "source": "데일리대구경북뉴스",
+   "time": "2026-11-16T16:53+09:00",
+   "region": "kr",
+   "category": "사회",
+   "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9iTkQwalhtY055SHJjVjRNV25veUdMLWVQbm1iQUpMOG9RQmNreVk0ZmFZaGdXVy1vUFVvLUc4ZjRuazhXU2l6U1h0a25adFZjZFlmT3ZrSzZpRGtJbkthOUVYWm5NZw?oc=5"
   },
   {
    "title": "춘천시, 베트남 람동성과 교류협력 강화… 10년 인연 잇는다",
@@ -250,20 +258,12 @@
    "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE52d3JERG9hUmF0Wmo0bGlPbjl4aGZMR2ZsWkNObUxmU1lyZzRad0d5RjdQeTRaUnZ6R3hOV2RneWFmeWJXRVFtc0U2WjZIeWR3cXZpaFRkanhxQVpwWEFXOFZUcWJjNFVaRFdKQVZsNFFMM2p1?oc=5"
   },
   {
-   "title": "카카오뱅크까지 품은 애플페이…삼성페이와 경쟁 본격화하나",
-   "source": "연합뉴스",
-   "time": "2026-11-16T16:51+09:00",
-   "region": "kr",
-   "category": "경제",
-   "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFAzY0JQalR4MHVlOENzcUZUR1JueGJtRVlEbEp5UExHRDFlaE9GQUxZUGozU0VDSDhEZkZuOThYZEc1MVFWTnU4aFB6dENBQkZTSktDSzJsVm9oZzjSAWBBVV95cUxPNVZYTXhtcXU2bVVTM1Npa1duWGZBcllPX0MtYWJ2WlFjNnUycnlYblk3LUd5elB0SG05WDI2OU5qaUFfOHllN3B0cFpaOHNiYU51ejZyS2QwYlMwMmY0ZXc?oc=5"
-  },
-  {
-   "title": "[속보] 이 대통령, 이용철 법무장관·안덕수 국세청장 후보자 인사청문요청안 재가",
-   "source": "한겨레",
-   "time": "2026-11-16T16:46+09:00",
+   "title": "이 대통령, 법무장관·국세청장 후보자 인사청문요청안 재가",
+   "source": "KBS 뉴스",
+   "time": "2026-11-16T16:49+09:00",
    "region": "kr",
    "category": "시사",
-   "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE11TktTUkxMWHJuQmtLRElwaUc4dzRzR1RLYWlVUXdWOFQ1aG04c0VteERTMEZMbDlid2NlMm5Mc2tObHNXY0xJZklYNFdnWnVEMVdyMmdzTVBhZmxsU0dTOXdQWWlRWm9oMzJz?oc=5"
+   "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE5zbWJ1Nl9uUDRhN2xSYjRGNUpTZl8zdWZ3bXpOV0FScWdkWk9qVUEzcktlVjFOR1FTSWtuT3h1SkZNUlplc0hCREdHOUVDb1F4M0pVb3d2dHpKVXdGR1Q2RWloZnphUQ?oc=5"
   },
   {
    "title": "[㈔시화호지속가능파트너십] 시화호 청소년 '유스 앰배서더', 베트남서 환경 복원 경험 전파",
@@ -274,36 +274,28 @@
    "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5hbFV0RGs5NlpBS05EUlhFSTR0ZGd5T29jLUxwdW1oUmhQNXdnNUJ1Mi1SUXBUaXI5cUc2VnN6NzdPVWg0VDJQR0FCVDFVd3NYU3N2Z2ZxMEtySGl6eXZtVlZMYXdrNkZvdDU5d3J4cGdKTWNPbGfSAXZBVV95cUxOYWxVdERrOTZaQUtORFJYRUk0dGRneU9vYy1McHVtaFJoUDV3ZzVCdTItUlFwVGlyOXFHNlZzejc3T1VoNFQyUEdBQlQxVXdzWFNzdmdmcTBLckhpenl2bVZWTGF3azZGb3Q1OXdyeHBnSk1jT2xn?oc=5"
   },
   {
+   "title": "’젠슨황 쇼크’에 하이닉스 털썩…SK그룹 시총 장중 1천조원 깨지기도",
+   "source": "연합뉴스TV",
+   "time": "2026-11-16T16:41+09:00",
+   "region": "kr",
+   "category": "경제",
+   "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBCdC1OanBiNXNJMXAyQ3BTV1hPMHNwczYxNThoU2RaV1k1RWpiYmtpWGI4SERWZjl1aUZiLTdUQ3F4R2UzbXFRSlZYemRwVVhBdzZqOERzVlJiMHJlU1BsenZjZVhNV28?oc=5"
+  },
+  {
+   "title": "[속보] 李대통령, 이용철 법무장관 후보·안덕수 국세청장 후보 인사청문요청안 재가",
+   "source": "뉴스핌",
+   "time": "2026-11-16T16:38+09:00",
+   "region": "kr",
+   "category": "사회",
+   "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE8wOE1kNWtPZ3JQcHNHWlI3Tm8wRWhGNW94ODA4anBfamNfM0I4QUQtLWp6engySU1GUHc0QXF3c29YMm9ETEZJc2RmX2d6aUxwUE5uQ2NNTERuS2RI?oc=5"
+  },
+  {
    "title": "수원 영통·화성 동탄 ‘날았다’…경기 집값 상승률, 서울 앞질렀다",
    "source": "경기일보",
    "time": "2026-11-16T16:36+09:00",
    "region": "kr",
    "category": "경제",
    "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBYVnRzYjR4eFM3SFBFYS05M3l0Vng2aDZFRnJ4YUUzcnhCZ3RSa3pONHVVWjhWX0E1M0Vib1d2a00wcWtlZklROHZWeWJKLWN5V01hNDVPdmxnQ2s?oc=5"
-  },
-  {
-   "title": "‘외모 비하·막말’ 청주 초등학교 운동부 코치 아동 학대 혐의 수사",
-   "source": "KBS 뉴스",
-   "time": "2026-11-16T16:29+09:00",
-   "region": "kr",
-   "category": "사회",
-   "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9VVmZiZDdYTFBBRmtlUnEwb3VIYmxkWVBuVFRXVDJpMGc2OTY3cnE4MmZVR0xYXzhaWmVxRXN4QUtSdFo5T2xFNWV2OENVdE9MeFd6RmhDbEU4cVpnN21ELVN1MmM1Zw?oc=5"
-  },
-  {
-   "title": "[속보] 대법, 한덕수 ‘내란 혐의’ 19일 심리 아닌 선고하기로···징역 15년 확정 여부 주목",
-   "source": "경향신문",
-   "time": "2026-11-16T16:27+09:00",
-   "region": "kr",
-   "category": "사회",
-   "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE16Q0g1VXl5aEZrMkpEdl9EN0lYc00xc1gxRmVCbzF6T2hPckVKdl9VU1ZvYzEyZFpab04yaTJGamt2aUh5OHVWYUVZLURGQWV6NERVU1FiMmFLZ9IBX0FVX3lxTE9NbnFfejlZQmpXUGpqQlpLZnlORkRyME5IX3EyekFwTTlYTEpURkVVVjk1bXZuS25WaWFzS0VGTVh5LWZQOEVqTWVDOTFSWDV2U0gzLUJjTmxDUWdmTUJR?oc=5"
-  },
-  {
-   "title": "與 초선모임 \"최민희 엄중 징계하라\" 성명서",
-   "source": "조선일보",
-   "time": "2026-11-16T16:26+09:00",
-   "region": "kr",
-   "category": "시사",
-   "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPa250NHdpN296SlNQTm51XzU2Y0VzN3NqZFM4X3hjanYyTVFSVFFXSWc0UEVIR2gtdnd1Y29sUy1QQWFOc1FSbXo5cFFDV01BWTQzYk05T2ZDM3FLTWczMmJWeGRxZFdBTHQ3MDg0djlCemZmdzdBUmtYQS1udmppWmhQSVBFa29XMlYyeFdlNTQ?oc=5"
   },
   {
    "title": "원/달러 환율, 강달러·증시 급락에도 하락…1,330원대 중반",
@@ -314,12 +306,28 @@
    "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE9BaTY3THlmRldLTmZtSHFWQkZ0WnBZQS1vd2RjclloMEFiUW9vSGotUzdod3BNN0tyZnVxbnNiWXRCRmZIVzhxaXZHaXBLZXhLYUE?oc=5"
   },
   {
+   "title": "\"미중러 회담서 북핵 논의 가능성 작아…보여주기 행사될 듯\"",
+   "source": "연합뉴스TV",
+   "time": "2026-11-16T16:18+09:00",
+   "region": "kr",
+   "category": "시사",
+   "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1BSHNreE96emFIUFpOcFBGaEtrdGp6MHQ4a19ORFg0dVd6ZXRIOHNaUWNySVRic2ZQZzg3TE9EQXFKcVp2VmMzN01ibHJHbnkwTXNiS3ZaVXE4b0NDRG9OR0N4VlF5cEE?oc=5"
+  },
+  {
    "title": "젠슨 황 떠난 엔비디아‥\"AI 자금 지원 축소\" 전망",
    "source": "MBC 뉴스",
    "time": "2026-11-16T16:15+09:00",
    "region": "kr",
    "category": "경제",
    "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE12cENIV2VCYklRcm9EbkN3N2QtSUppTU41eG9GajlNdnFKZW1MS1RlTUdkX0FpQ0ViS2JiWTg2WFlYQmNhVDNBZmdZVS1vQ3k3TmEyc25ETXdidEFHMTV5QXdiTGxZNWtuZndOaEtCTVV3YTh50gF0QVVfeXFMTkJRdlFiTTNIRVQxWURnSlB1dWhYdVY0NHpJUzRGZzEtYUp6QldXT2Y2X01MQWdVNG1PaHBiRU9TQlFnd1dnLVdpcE1KR1I2X01VZlJ6UTgxbERqdWJGNGlrNC1CeFJ3eWttVHZURWhTb0JGNHE?oc=5"
+  },
+  {
+   "title": "현대카드 독점 깨졌다…애플페이에 카카오뱅크 체크카드도 '쏙'",
+   "source": "지디넷코리아",
+   "time": "2026-11-16T16:11+09:00",
+   "region": "kr",
+   "category": "경제",
+   "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBzdjdjUzZncGk4TXVZNGJUR1NvdU1ScmlRRElCWldwdWFzbEVac1NZMU9GeWRxMFZfSklqSy1lMzUtWG1CSmo0SkZnRkl6SzhPVDNMcTlB?oc=5"
   },
   {
    "title": "봉화군, 베트남 호치민시 인문사회과학대 총장 홍보대사 위촉",
@@ -338,12 +346,20 @@
    "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1SZFRDck95b3JKTV9fQUVIeF9SN0ltN3hXSnNhNlF1MXRmV0lrYU5tRG9rd0JBUW84TmVKVXl2eG5Xazg1UmsyZXJoNnYwTHF1dFd3N3ZyckNXTThxT1pCNVpkSDU2OF90?oc=5"
   },
   {
-   "title": "美전문가들 \"미중러 북핵논의 가능성낮아…제2얄타 아닌 사진용\"",
-   "source": "연합뉴스",
-   "time": "2026-11-16T16:08+09:00",
+   "title": "시민단체, 성북구 10대 살인사건에 “성착취 피해 청소년에 국가가 답해야”···제도 개선·예산 확충 요구",
+   "source": "경향신문",
+   "time": "2026-11-16T16:04+09:00",
    "region": "kr",
    "category": "시사",
-   "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9wTGFnZWtkRVdDRHlqbjdodXUzOWxiN3JGYUtwYnpIVTFGUHQxWGtpOXdKLUtCVFEyX1RNNE5FU01vem4xY3E0cmFPeWdyUFRBX1RiLWZTWWgyN1XSAWBBVV95cUxOVkVEaC1GUjFuMFFiNmlGUVRxSmFlUV9rT0Y2NGVIVHB5M2NoUktFZ2lxVVhUeV9fWmN3emlSdllWNlZCLXVaYlJ5VkdoZHpGRENmbkI1OU9EQmYwRER0cTI?oc=5"
+   "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBoWGdXdThmeVpUNHNhejJwSjNlWGcwcnpXbEFmeWkwbzM0UzA4d0ZCR1F1RElpM2FwZnVEc0MyYnpNNU9EdjJMOS1SOUVBMDIxdUR0NTJ1ZkU4Z9IBX0FVX3lxTFAwN3BsSkNla1RwTUlIS0dWZUo4RWJjTUs3ZzBuUFc5OXRZWXRoM3dORVg4NS1IYmg0TEc0MllOOXpwYmllMlZUOUVGcXNMRkhVYmw4UU1VQkM2QmJtS2dZ?oc=5"
+  },
+  {
+   "title": "상주시, 스마트팜 혁신밸리 선제적 방역으로 병해충 예방 강화",
+   "source": "데일리대구경북뉴스",
+   "time": "2026-11-16T15:54+09:00",
+   "region": "kr",
+   "category": "사회",
+   "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE5TYzY1Q0lMcHJkODdSLVk4RmxydmMzY0g0ekVqdFF0c2pMZlNPWGZfTFhiQTFCeHFTeUxXalhHREp0N1R0N2c3UVRNTG9wd1dMLWxHLWdCVGI3NnZWY3dFODNDYXZqdw?oc=5"
   },
   {
    "title": "[사회] 한국 장기·영주 이민 11% 감소…OECD 보고서",
@@ -362,12 +378,12 @@
    "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBrQkY4M1Y1Rk5uZUJ4cEZvRW1pNV8wNkRGUG9EX3VEU3V0eC1fS1lJY25KYnNjYjB1ZWlrWFFHblhSUTRHMW9pc1UwWm1tcklTanVqQ25OeVRSdw?oc=5"
   },
   {
-   "title": "길 찾기 문 열렸지만 경쟁은 이제 시작… 구글 지도가 넘어야 할 ‘현지 정보’ 장벽",
-   "source": "Chosunbiz",
-   "time": "2026-11-16T15:43+09:00",
+   "title": "외국인이 먼저 담았다…차세대 '성장·가치주'는?",
+   "source": "한국경제",
+   "time": "2026-11-16T15:35+09:00",
    "region": "kr",
    "category": "경제",
-   "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPRUxZVUQ4b0NPNzV4aTBYcnNleVdhOEt5engteU93SVFab3NJaVZ3cUpLT2ZaVGlDVE9WYm9WQkFVVU5hVFlFTDFCd2tTZTd2ZFF1anBiVlFoN3l1ejFrRlBYN3NxTGlhM3YyN3Q3bUh2MFZrY2pwelN2WDNkd25jTDdn?oc=5"
+   "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5vWXh1UXpLT2RCVjAzeFNqMTluZkx4WXdTNFRtZ1BhTXk4RUFZSi1iWUNsUWxUUHZ3T19lZ0tMQktJYjBKSkpDbXVscVJwWW5iRno2TTBCMVNsQQ?oc=5"
   },
   {
    "title": "한-미얀마 봉제산업시찰단, 베트남 한인 봉제기업, 미얀마서 생산협력 모색…KOGAM·KOTRA 사절단, 제도·공장 현장 연결",
@@ -394,14 +410,6 @@
    "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTFBsa21SSXBwRnBCbjl4Y0tBRjlSZzY1VUZ0aXdKS0xGR2dGaWFkSlpjZ0t4cjBrbDRvblFMNk1wS1k2Z1dHQ2xuQk9UUm5icE5Wa19RbGtDUUU5Z092bkpYSWR3eE91MmlfcUtwVzdnbw?oc=5"
   },
   {
-   "title": "주택 소유 최상·하위 10% 자산 격차 최대 52배 '역대 최대'",
-   "source": "MBC 뉴스",
-   "time": "2026-11-16T14:47+09:00",
-   "region": "kr",
-   "category": "경제",
-   "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE96UHBYUjAzbXdWMGhaVHRRLUV3ZUxNNDVBcmU4TkQwTVRVckdNVTNRdEdZTmp6N2U2eVFuQTdBbkV3RmVCOWx1eU15WFp4RE5XVnA0X0djb1o3OGQxdmFZWDhGVzBqNjNwNTJ4R1FOZFpVbkI10gF0QVVfeXFMTzhpOFVFcUFnV3laODF2ZUpvbVhIaksxT3UxOTR5SU9CWEl6dHlhU05XekRVZHlwRl9XUGZpMEp5MVgtOWxEMVdlRGNtRHl6RlIyaWdsZ0M3YWhYOUYtRXhOZlA0bl95YWVjb0VPYjQyMVBlRmg?oc=5"
-  },
-  {
    "title": "법무부 \"변호사 시험서 AI 안경 검사‥전파탐지기 도입 검토\"",
    "source": "MBC 뉴스",
    "time": "2026-11-16T14:44+09:00",
@@ -424,6 +432,14 @@
    "region": "vn",
    "category": "경제",
    "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTFBqWWRFVjNmVTBzbnVKZWtiRk1JaGVjMV9vTVB5M3JmazB2eTk5cU9uRDlJTXlNN05IS2dkNjFPYkxtZXFDZmdqU3lfMmgwb0dKNnJaS2pQMmlmNHRxbmRrbUVPdw?oc=5"
+  },
+  {
+   "title": "법원행정처장 \"한덕수 판결문 대략 완성‥법리 따라 판단\"",
+   "source": "MBC 뉴스",
+   "time": "2026-11-16T14:38+09:00",
+   "region": "kr",
+   "category": "사회",
+   "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9TUDVfaFFyOGE4UlozRjVsV2JWTEU4Y2dlTzdzamFuNnJSNGtrTHlTdHhvc0JUOGNiZmpSMVhrVUhZMlVXUUJXZE4tcjVjUnRMMVNoYmRPdVU0b2ZqdWRfQ3Z1cDZ3czRRYkQ4bkZtNU03MGItNENz0gF3QVVfeXFMT1kzZ2l6VzNGam1HejF0bXBQUUhGeEFkRTZPby1hMEFNTGhYejRVVHFqc0Q3a21DNTkyRDBEV0VDNnNsV2lsUFN5REFzV2ltRjhSZ1pSZ2Z5dHl0NWFoSF9SMWlHd0ZSMGlPcElkZVFFNzcwWlhrWTg?oc=5"
   },
   {
    "title": "[사회/보건] 베트남, 뇌졸중 사망자 4년 새 2배 증가…2025년 3만3,100명",
@@ -458,6 +474,30 @@
    "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5iOUd2cVdZTEt4dFQ0LTJKQUM3VGwxUmplRnZVMHFMcTRXVDB6WHNqNlJWSEhlcjR3eVNDTDlDa0pKLW1lM3FZZmZHTzN4YjBuQVhzdGZrUllmRXB6Nm4xbQ?oc=5"
   },
   {
+   "title": "남양유업, 베트남·인니 식품박람회 참가…동남아 수출 확대 추진",
+   "source": "파이낸셜신문",
+   "time": "2026-11-16T14:26+09:00",
+   "region": "vn",
+   "category": "경제",
+   "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1LYjl6UTcyRGNYUmpkSElocU1EYjNqcWZIdXpqRDA3bG0yaEFHTGNMdDh6azdDLWxrYVJXdzZLeERTVHVXekpIb0VoUVNEMVhLTHFiUE0tNXh6RC05UThkcFJYYVJZcGhFZEZZ?oc=5"
+  },
+  {
+   "title": "조정식 “헌법개정자문위 공동위원장에 김형오·정세균 위촉”",
+   "source": "한겨레",
+   "time": "2026-11-16T14:23+09:00",
+   "region": "kr",
+   "category": "사회",
+   "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTFBFeV8yTmdFbGFlSW1xNjhVM3lBLUZKMi1pMW5pNF9pallMQ0VVUVFzOEM0dHgzS1lhQl8xWkxpZzFYZkRSNGVLMkFNMnUzUVpFam1tN0ZsQzhwRWI0QXZlNDQ5VW5XMmZxS0J5S3JScmJPV1Q5?oc=5"
+  },
+  {
+   "title": "베트남 다낭, 세계적 여행 가이드 론리플래닛 선정 ‘연말 추천 여행지’ …썬월드 바나힐 대표 명소로 소개",
+   "source": "livesnews.com",
+   "time": "2026-11-16T14:12+09:00",
+   "region": "vn",
+   "category": "사회",
+   "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE1BVnV3VVFGUFBfQ2t2T1NLUjNvZXk4SU4wWm1CVXRrOUdKd21LZnV6S0ltbG82QTFXTXNrNjNURzQwb24tUm1KMGk3dU5Kbm1EVWotQldCT3ZFX05i?oc=5"
+  },
+  {
    "title": "경주 민간 조류학습장 거위 고병원성 조류인플루엔자 확진에 따른 방역 강화",
    "source": "데일리대구경북뉴스",
    "time": "2026-11-16T14:12+09:00",
@@ -466,7 +506,7 @@
    "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTFB6TldLdnFDQVlFcXhDdEphVTg1RkNEQkdFaFpvNUxQdnVBZEhlMDI4ckM5UWVJQXE5bkpnb0V6U1dPN3h3OUNfUUVqWHQ4M0pud0YxbDI3YmFSdi1Ra1NJYXdLcHpFUQ?oc=5"
   },
   {
-   "title": "[ 국제/금융] 국제 금값, 온스당 3,900달러선 등락…미 연준 의사록에 시장 주목",
+   "title": "[국제/금융] 국제 금값, 온스당 3,900달러선 등락…미 연준 의사록에 시장 주목",
    "source": "굿모닝베트남미디어",
    "time": "2026-11-16T14:08+09:00",
    "region": "vn",
@@ -486,7 +526,7 @@
    "source": "한겨레",
    "time": "2026-11-16T13:38+09:00",
    "region": "kr",
-   "category": "사회",
+   "category": "시사",
    "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE00ZUxOSkF4Z3V3Qm5mbHRmeWFxR1BoT3JMaFRjSDM2TnFwamMtQ2RySVE1RDJQdkZjbjBfaXQybkZEcFVnX3IwTzdEeVVnc1lHWWtfSWR4Z0JlTE1vdEpIQlc5UnpBWnJhdGgwRXZOaWt5V0k5?oc=5"
   },
   {
@@ -506,6 +546,22 @@
    "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5Icmk2TnJ0OUlRZUctVjA0ZnhYbWo4MS10N1FtYlFWNE91NG95cXpWdXVZN0VWQk1oN1NIRmxZV2dfZjVnNDlzRXRZLUt1T0ltcV81UU8tczZVWFNVdV9TeC1ILXNhM2cxdHEwUVhn?oc=5"
   },
   {
+   "title": "“교도소 보내달라”···부산서 10대 여성에 흉기 휘두른 20대, 계획 범죄 정황",
+   "source": "경향신문",
+   "time": "2026-11-16T12:15+09:00",
+   "region": "kr",
+   "category": "시사",
+   "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE92S1ZxZlJJRVdMUkJoRGhMQmlhMkppWDlGTS1qQXBraC1vNmdhT0VhdzhzdjFLNGV2UjdxQllqVGc0a0ZCSXlHdDFMWl9iS0JTX0ttOFhoNkpud9IBX0FVX3lxTFByX0ZZdmR6UG05Z0xRUUloUDYzSXN1S3I5aDl5Q1A0MUNXaVlkVFBWMW9BUk1HczZiZng2SW8xakg5VTJFbVVHX2ZHTE1uNk91bEQtcnE0VUNaXzM1Ujdj?oc=5"
+  },
+  {
+   "title": "경찰, 10대 소녀 살인범 조사에 프로파일러 투입…범행동기 침묵",
+   "source": "연합뉴스",
+   "time": "2026-11-16T12:00+09:00",
+   "region": "kr",
+   "category": "사회",
+   "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1IUU5BaGJpU1BkNnlTUkdnZlprRzhxSWpnR0p1RTJhNEI2WUVOWElGZ2xhQWl2UE9QQ1RmMWVuM2piWDBmVDhvR2NCd3JkRG5RNm5pbjBaLVdpSnPSAWBBVV95cUxQTWRkTkZjUGszVFlHcDJLb0JPcFpjbzJUOGVhU0tIU2dsanlGdWNxOGpDV2hOYTUyUDliRjdjTzhReG9yXzRZREIyVVBIQ2tRZk9ldlBKRkhqd1Vjd29ua04?oc=5"
+  },
+  {
    "title": "하노이에서는 버스 운전기사와 그 가족에게 무료 버스 및 지하철 티켓을 제공합니다.",
    "source": "Vietnam.vn",
    "time": "2026-11-16T11:54+09:00",
@@ -520,30 +576,6 @@
    "region": "krvn",
    "category": "교민",
    "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxONF9EdkstNXlIZTV3a2JZN2tSNGR4TnM2eEdtc3JsOXhUdnpXaUZBcl9iXzB4SUVtd2g0SFhwN2Z3V0JDbUlOX0ZxNGdKN2Z5NDh1X091QmhfVWVBek9sRFRUMG9scGpRaVN4bTIwY3ZaNXIzNVJxR1hlS3Q1eHN3UGdfOTNwOU13NFpOYnpJc1JybFE4ZlczODVxdElVVlAxS2hXdDFtaw?oc=5"
-  },
-  {
-   "title": "영덕군, 의성~영덕선 제5차 국가철도망 반영 총력",
-   "source": "데일리대구경북뉴스",
-   "time": "2026-11-16T11:52+09:00",
-   "region": "kr",
-   "category": "사회",
-   "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE5BRVpQakRQT2hKRDdlMEdTbDJGUVhhQWRLZXdjVk4zejgtaDdOLXlOMDdJZTdCMWd6OVFEeTlONkxSQWwtSVpLUmRXdjNoSF91dllVX21YLXZiaHhMY3pMYk9XLXRZUQ?oc=5"
-  },
-  {
-   "title": "모르는 10대 여성 찌른 20대 구속…\"살해하려 흉기 미리 준비\"",
-   "source": "연합뉴스",
-   "time": "2026-11-16T11:38+09:00",
-   "region": "kr",
-   "category": "시사",
-   "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE15VmtUYTZFY2hyWUk0aWxhb2poVUJRdTJiUmVVbFpRRjN0anZ4VEhBbS00a3IzVlZFNGpSRU1TLTF1U05BOTZiQ0lTcnJRak9BLVdtUU8tWTR3MnfSAWBBVV95cUxQWDA3LTFaTnlTMDZKc2NtMTVVUnpRekl0bHRuODNBMjBiSG15WHQ3NzhWRnRGbzZ1TW1RaHJveGVtS0l6akNEQ0pzNmZLWXRjZmdYVlR3eDhtYUFBRjJuTVY?oc=5"
-  },
-  {
-   "title": "정점식 \"이 정부서 개헌 없다‥조정식 사퇴하라\"",
-   "source": "MBC 뉴스",
-   "time": "2026-11-16T11:25+09:00",
-   "region": "kr",
-   "category": "사회",
-   "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBGTUJBZ1RIeFZ1bGpkRlNWbk9zOXVpSC1iOFdLM0JWWDF3Wi04TzFFVW82RUlZc0Yzci1sc0VxOENnZnRhU3pWbkl4MnpLYzRPa1BYTy1kc0hxQ0laYkRKc3JRYzk1ZjFSaFYzQl9MV3QyQmVVRkR1aNIBeEFVX3lxTE1KVWc5VVJ0QWpBVzljaDEyQ21SNk5PS2h2MlpDWnUtWEZmMUFrWm9BN3daR0JvcFdJSDctWWctMlFuTzdBWmkwMVdqVVpEcDZ2T2lBQ1IwVWQtZ0JDVWlNbUFqZWxFT1J2S2hOdlRfSHBjUU5IeWdYSA?oc=5"
   },
   {
    "title": "도심 건설 현장:",
@@ -562,20 +594,12 @@
    "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQVmNFYlZxV2VUOEJlUVI0eVJKeEgwZXp3XzRNV1lXdldnUk9RT1lmSnlMMnRWOGMyRVdGQXJSRHkyb0hseGVITDNWY3BFb0R3em95ZjQxWnlVVTI3MlRWVW1yVVE0Rmw0eFNBSy1temM3ZFhPMExfNWwxdHdJUHN4Mi02RQ?oc=5"
   },
   {
-   "title": "110만원대까지 내려온 SK하이닉스…\"실적으로 증명해야\"",
-   "source": "한국경제",
-   "time": "2026-11-16T11:15+09:00",
+   "title": "내일 전국에 약한 가을비...수능일 영하권에 곳곳 비도",
+   "source": "조선일보",
+   "time": "2026-11-16T11:04+09:00",
    "region": "kr",
-   "category": "경제",
-   "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE15U1dlbGtiU3Q2cEpaY05uNmdnUU9TTUNnM0RxS2trd2NkRDVuY2xIUkMyQTktTGJJRk5pVlZ4WkZZUXdPYUZhbDQzeDhWcWpHV3NDbklrT2JzQQ?oc=5"
-  },
-  {
-   "title": "SKT, 효성중공업과 초대형 AI 데이터센터 짓는다",
-   "source": "연합인포맥스",
-   "time": "2026-11-16T11:08+09:00",
-   "region": "kr",
-   "category": "경제",
-   "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBLRFZ3MWxtYkFxWDZEX092SHdvZkVIN09NaUhSWU0wb0RlTW9MS29JSTRWUHpqMVFYSWx3YmhsLWdlMDJVN3hmWG53dVZxVXVib205eGxBX3lLY0VCYlc2QXh1b0gydWZ4SFV6S1hoUFU?oc=5"
+   "category": "사회",
+   "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOYThkVndTZ0hWY09nakpiaWdqR19EWlVHMjRQMGdhTDFjdS1NbnY3VTBzQURYQVZWUENBa1o1cEJhLVZ2OGYxejYtaTk1RHRxMDFzWkFCSWticVlZMkxuU2FpZWVNOG1DNVFkZldUcENhMjdDeXJZd0dfMXpFYkROaFNVWDV5aklFSDhmZzRoZDhCZ3YtVlk0?oc=5"
   },
   {
    "title": "태광그룹, 베트남 공상부와 22억 달러 규모 ‘남딘 1 화력발전소’ BOT 계약 체결",
@@ -618,14 +642,6 @@
    "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTFAteFBBYV9MVFI1QVBhVW9SWDRvSGFnb0RKT3ZqUGRJZmdGeDAzbUlSRkhyWDNfWGlDNkpJLXpPV01vMG1USC1BUg?oc=5"
   },
   {
-   "title": "李 지지율 36.4%…국힘 43%, 민주 34.6% 오차 밖 [리얼미터]",
-   "source": "조선일보",
-   "time": "2026-11-16T10:41+09:00",
-   "region": "kr",
-   "category": "사회",
-   "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOZDV0VU1VLVlsQ0hDckxoUTdRQ29KeFFTd1UtY2kwTE1pY18wNWF2R19PbUp3akIyLUpPNWZnS2QwVnZXV2lNOFUwUncwSXlnWTJLeE1Id1h5RVFZMEZrTXJDT1dHc3dJbFZuM29Xa2w5b1Ezd1UxeDNKNG9SQ2I5b3dWNzl5VExDUUE2dl9kZ3I?oc=5"
-  },
-  {
    "title": "남양유업, 베트남·인니 국제 식품박람회 잇단 출격…동남아 수출 영토 확장",
    "source": "식품음료신문",
    "time": "2026-11-16T10:32+09:00",
@@ -640,14 +656,6 @@
    "region": "vn",
    "category": "경제",
    "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBOVjhKejZyT0lpTkxWMlBjNnZZV3ExblpYbjRqVlZnc1BuX3ZvYzdVODd2eFd3NUZNLUtJR2JsdUZDTUtaVnBGYW9hRnVELVVVWVRmejV5amdoYkx5dlJtcVBybzdFR2Q4SFlaRkQ2aFg?oc=5"
-  },
-  {
-   "title": "에이플러스에셋, 3분기 순익 66억·20%↑…누적 이익 작년치 넘어",
-   "source": "연합인포맥스",
-   "time": "2026-11-16T10:14+09:00",
-   "region": "kr",
-   "category": "경제",
-   "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9ocS1VcVJEazh5Q3ZGeHJaWUVBb1hHSTNBNy1sdUhhSXlVY2NCeDhyUTM5NVl5d2lwa1U4SW1kT2ZvVVZNQWNjbkhRdklLWk5TanBpWVB0c1pkd1BVYWJsM0pDSjRhbEQyeDJGZV9KbUXSAXRBVV95cUxNTmZSYnlzd21DR092WG9fWGF2TlJtaFBsc0VFWWprRUEtQXFTaGRYOTJ4SnQtdFN6azRUc2hJbEp2eTBlWHRfWS1jZF9NdDNYcld3UDJzOG9heUpOSTYtbkRDNnpPbkhGOEI4UVQ0MEdXTkc3cA?oc=5"
   },
   {
    "title": "국힘, 특검법 '거부권' 행사 촉구‥\"오늘이 법치주의 마지막\"",
@@ -672,6 +680,14 @@
    "region": "kr",
    "category": "사회",
    "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1yMjdVNkQ5Sm9RYjRKdEh6LW4xNURuemFVTU44bllmYnU5akdYQWxGVU9EMDJtS3UybW1heE9QU0V0WnBKMV9FRFpUVjRyOFptSXJsQk1hOW1TZy1iaEtLX1VlTUNhdw?oc=5"
+  },
+  {
+   "title": "삼성SDI, 美서 수조원대 ESS 배터리 수주…블랙록 소유 에너지 기업에 공급",
+   "source": "조선일보",
+   "time": "2026-11-16T10:02+09:00",
+   "region": "kr",
+   "category": "경제",
+   "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPVjNiT0ZxRGlqeFBkYnZvSl93UFJlakhWcXhfbGdfVUR0alFoNkdTbU9Mby1VeEF2eVpkeUtMeURPWTFTNlFZZm9pQjdxcTdhYkxiWUJ3VHNBekh5Mll6NUR3bDB1LWhsNnNrU0pnZVhkdDJJNFBtN1NaOTlScDdsaW5UaWlNTE55TzNIUXlGYw?oc=5"
   },
   {
    "title": "신성대학교 서명범 총장, 베트남 박하기술대학교 방문",
@@ -706,14 +722,6 @@
    "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5WWGlBbXdGQ2I5eHhzRFZYNlY4NVdiN2RuMTdMaVhCc2hzZFhjMkRlQlZINHRJTEgyT3BVWm40dzZHV0lyenhCSUFPdjFVWWFYZDRkN0lVYWEzQQ?oc=5"
   },
   {
-   "title": "포근한 주말 가고 쌀쌀한 월요일…낮에는 포근, 강원 산지엔 눈 소식",
-   "source": "한겨레",
-   "time": "2026-11-16T09:06+09:00",
-   "region": "kr",
-   "category": "사회",
-   "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9QQlJwNDBmNXlnQnV3Y0wzSVAtYlJPaFlGOEFtVkg1RUFHU3VtdndCLXBvVFd4OFJ6Y24zYXZuUURSSXJHLTBWbHRpVGR2dFBDSDhDbU10TUR1WXJHZEcyUkxzWk5yWDZXQ09Ubw?oc=5"
-  },
-  {
    "title": "한국세라믹기술원, 베트남과 첨단 세라믹 소재 공급망 다변화 협력방안 논의",
    "source": "전자신문",
    "time": "2026-11-16T09:05+09:00",
@@ -746,6 +754,14 @@
    "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQN3FtR3RNc2dZd3E1LWpKVXBJVTJDdEZWZUdkSEhtUGViN1Q0dkN5c3MyZHVXNHRfM3RTZjBGc3RTbTJSZHlBUVBrV0dqQjJjcnBEejZGWTZwX2pKcUNya2N6Nzg3ZzVSRWNkUGRkV1VRM0JIZTdGRDVzMkc2MmUxMFBuMFZ2T2I2eFJiZ1g1SVF6RkFYYklHaDJJVWNMaGpsZUt3MWpn?oc=5"
   },
   {
+   "title": "\"앤트로픽 IPO 청약에 중국·홍콩 기관투자자 배제\"",
+   "source": "연합뉴스",
+   "time": "2026-11-16T08:40+09:00",
+   "region": "kr",
+   "category": "경제",
+   "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBkV1NHTkRhVkVITWFEVTQ3UVRzRDRWX1pHWkhiT05jNmFsTHR3TlFWX1E4cEdhSXBWQmttMlRFdkR6V0NESUpUeEx3OTJ4eTdhSkUzVTN1cDRBNFnSAWBBVV95cUxOQ2ptX0o4YXlOY3kySTBjTXhXdUZQYWNSRWhsZ0xiOHF1aC1Ea3NMZlVJR2Q0OHVIMExVQ1BqNW5NRHhvYkFOMTdZOUFuNEltY1hmLTEyWDgtZ0RXNFkyS3I?oc=5"
+  },
+  {
    "title": "일본에 거주하는 베트남인 약 1,000명이 모여 '베트남 마을'을 만들어 역대 최대 규모를 기록했습니다.",
    "source": "Vietnam.vn",
    "time": "2026-11-16T08:39+09:00",
@@ -754,20 +770,12 @@
    "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQOGNhdzJBVHJVOG9PV2ROT1otekZaVlB3eFFubm5PZTV5RC1lODk4UDRUOTlRMnJpSWJyVld0QmdQQnNhZ2huS2hMSUpfOTVHUVE4Nmk5NXVyeHBCNGFXVnRfSm12cHBGUDJpUWwydHRrR3FBR0NuNXlaV21raXVEd29jeVZJeWZsVUZyeXRGMA?oc=5"
   },
   {
-   "title": "베트남 중앙은행, 은행권 AI 관리 규정 전격 시행... 개인 1,000만 동·법인 5,000만 동 초과 자동이체 '고위험' 분류",
-   "source": "아세안데일리 뉴스",
-   "time": "2026-11-16T08:28+09:00",
-   "region": "vn",
-   "category": "금융",
-   "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE8wdU1kYUNJYmV3UlhZdjlYd2xpNnZqTWVpX3B0NFZ4eTJKQXJMUGFyakhUR1QwRU00cThrbW10ZXJlSV9TaDJMYXZzM3N3akR0alBCeGVBOHRuaTB6TmdkdHNfNkNlSlllRlAtNlRPbV9TZw?oc=5"
-  },
-  {
-   "title": "루비오 “김정은은 팽창주의자 아냐, 정권 생존만 원해”···이란과 구분",
-   "source": "경향신문",
-   "time": "2026-11-16T07:51+09:00",
+   "title": "[속보] 이 대통령 지지율 36.4%…국힘 43.0%·민주 34.6% [리얼미터]",
+   "source": "매일경제",
+   "time": "2026-11-16T08:00+09:00",
    "region": "kr",
-   "category": "시사",
-   "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBZbmN0YTVWQnZwZHBURlA0MFozcHBsTnd4cEpVSktkSlJNWmRUOENJaGtlNnQ0Yk12anIwOWJ2V2dwX1JodERGRG1lQmJWZ0JJRmwyR2E2MGtvUdIBX0FVX3lxTE9PaWQ5dDAwZkx5cEZEb3VlS0pNREhMdHc1NVR6VDNiN1g2ejJrNTUzem00UmVWam5xYnowVEVDaHBXTS1TbUpTM1ZkbHgtQ3hRZUluaHFocHFGZk1nSEUw?oc=5"
+   "category": "사회",
+   "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9VNzg1VDAtRHRBRVpBVkJPR1JGSXR2bWV3Y1NuOUVGaVR4bGxqOFYwaXI3MElNTWZsQldDLUYyMnpWWHJWRGR4c2ZkZmR5U09IQm8ybF9R?oc=5"
   },
   {
    "title": "민주평통 베트남협의회, 한국 전통문화 체험 전시회 ‘평화의 붓길전’ 개최(NUAC Vietnam Council Hosts Korean Traditional Culture Exhibition ‘Brushstrokes of Peace’)",
@@ -786,12 +794,12 @@
    "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTFB5WlFqblYwMjVBM2swdUZ6ckZQcExGVTBvSjBXaHZjcmRTTkJwdEJ6MlpRaHJEVmttTjUyc3I0OGhKUjJCMUlGRU9PVnpsVGkwWk1JNWZvYlF2V3Vlbkk1QTdDV1d1Y1g3aEJVVFFR?oc=5"
   },
   {
-   "title": "[단독] 내연녀, 빚 갚으려 성매매 시켰나… \"사업하며 못낸 월세 수천만원\"",
-   "source": "조선일보",
-   "time": "2026-11-16T05:01+09:00",
+   "title": "수능 문제지·답안지 배송 시작…경찰 호송 속 전국 이동",
+   "source": "뉴스1",
+   "time": "2026-11-16T06:00+09:00",
    "region": "kr",
-   "category": "시사",
-   "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNR2hYRGFWZ29CSHJtVlZ0c24yRWZzMmxTU0hvaFlDcjJxQzFaWlI3QkZ1SXliV3B0c2VEaDhKaEhCNnYzUjFzVWJlcXh3TGVJUFlGVDZtZ3prejJNcVBiUXNsdzB5SHNVTmpId0Q1d1lFRG9oWG5oUTFEZUxsb1UyWGUyMWJ6RkY1c194OFhiMzA?oc=5"
+   "category": "사회",
+   "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1wcjAtLWFTcklyYnpqSGlZWjJjS2Q0OHNuUHpNc3k3Mmd0S1doNmFCSF9XUFVHNDlHMzIwNlhDQThQMFljc2Zkc3dNekNjRDFkSEJjVnYyU0lxdw?oc=5"
   },
   {
    "title": "[뉴스브리핑] 베트남서 관광버스 사고…한국인 사망",
@@ -840,6 +848,14 @@
    "region": "krvn",
    "category": "교민",
    "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPc21iaXdGbkVScU44XzlleWxhY3ZleTZxUE4tVmFMbktacEM1a3B3TkNEMW1GUWxSd2MzUzN0TTJ1SEhrcURUb21Ub1hVNUs2RVNvN2o2amptN0t2aWVZQWcxQkxLV1Joa3VPaXlPY1ZISWRqYTNHaHdkQ0o2MGtOcFJwVUtyUThQdFRUbVJmcjM3dw?oc=5"
+  },
+  {
+   "title": "산업장관 \"석유 최고가격제 연장, 아직 불가피…정상화 여건 만들어야\"",
+   "source": "연합인포맥스",
+   "time": "2026-11-15T19:12+09:00",
+   "region": "kr",
+   "category": "경제",
+   "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE13MjhxTjlwaDU1ZWFPbHhBMXNOd1RGYXJfeEhMRlVmRENTaXh4Z1NSWEZFQy0zV2RoR1ZYVHl5bmZqWHBHNW80cjZleU91bGJ4Q1JkbHhfZUthdXhGQlNIZ183UVJIRUxGVl9JN3pvTEY?oc=5"
   },
   {
    "title": "이형일 부총리, 경제현안간담회서 물가 관리 방안 논의",
@@ -938,6 +954,14 @@
    "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE4yQVBjUjF3ZVFRMVExR3pkWGhqV0RIVkdHVm5JMU15eHNXb2htY01aQ3pGd2VOZnVDZk5PVXIxYjFHNERLWk1iVGJkcjJlM05oajN3SlZjMS04NjFXVnVJaVUxSi1qX0JBRFJDRmxWVzc?oc=5"
   },
   {
+   "title": "한국 어린이 뮤지컬이 하노이와 하이퐁 관객들을 찾아옵니다.",
+   "source": "Vietnam.vn",
+   "time": "2026-11-15T03:46+09:00",
+   "region": "krvn",
+   "category": "교민",
+   "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQbWNfVXc3V1dqOXV2TEx3bGlsRU1yS3liS3ZucmZzU3hJb3JsOUVuLWZuWVlURnJOSlhkQkJCdldFYVlHSXpneDRDVkZpMFpuZEtsYWNBWVlRMzAyU09sSm1Rd3d1QlZfS3dPMG9nY3hCWmZ2Q3p3S2JmU0NhZU9YRWpTeE9ob19VZzMyREFzbkF4cUZTdEE?oc=5"
+  },
+  {
    "title": "하노이는 한랭 전선이 강해지기 전에 기온이 32°C까지 오를 수 있습니다.",
    "source": "Vietnam.vn",
    "time": "2026-11-15T00:36+09:00",
@@ -986,6 +1010,14 @@
    "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE90V2FJWm5kZVNVZk5IR2p1TWY0V25tUng4QU55cWk5VVhoVTQyZENuVkgzeXRNeTNVcTVrWEVnWTNfSngxSzNFX1NCcmpsMV9Yc2J5c1pR?oc=5"
   },
   {
+   "title": "하노이시 당위원회 초대 서기의 이름을 딴 학교 설립 70주년을 기념합니다.",
+   "source": "Vietnam.vn",
+   "time": "2026-11-14T19:09+09:00",
+   "region": "krvn",
+   "category": "교민",
+   "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNZ3BrRmRVcklqMTU2LXFUZjBENkRpUDNBdzdtZ1RudE5janl1Q0VUWktWLUdJZVRTamVxWDlXNC02MkZPQW1lWEFfbUNyekJzRzBNMG5zaVdYNXZaY1Rrcy14SFcwMEgyN3ZRaFNqT2lRSjhFSE5EYjAtUU9ZR295Qnl2bHBRVW9qY2pBVkJUaFltSkpPRy03dkppeUdaZw?oc=5"
+  },
+  {
    "title": "학교와 기업을 연결하여 학생들에게 실질적인 교육 기회를 확대합니다.",
    "source": "Vietnam.vn",
    "time": "2026-11-14T18:51+09:00",
@@ -1000,6 +1032,14 @@
    "region": "vn",
    "category": "생활",
    "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPNkNxcmdFdGpNN2RnaEx3N1FWamIxVFdZczdpaEgwZm9sWUVlVnFBWlBuSUhWdjc2aUhueDhuVjBCN1pwcEtiSkktdEhpdjFWRkxHOTMzeV9oa0VURmtQTFQ5N2E3YkttVEVybnBZSlA5VkFpQW1kc1B4bXZFVjVsck01Yk9INmxRSHZCYWFodlgyN3RuaWJDOUxWcENVQVk?oc=5"
+  },
+  {
+   "title": "베트남 중앙은행, 은행권 AI 관리 규정 전격 시행... 개인 1,000만 동·법인 5,000만 동 초과 자동이체 '고위험' 분류",
+   "source": "아세안데일리 뉴스",
+   "time": "2026-11-14T17:00+09:00",
+   "region": "vn",
+   "category": "금융",
+   "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE8wdU1kYUNJYmV3UlhZdjlYd2xpNnZqTWVpX3B0NFZ4eTJKQXJMUGFyakhUR1QwRU00cThrbW10ZXJlSV9TaDJMYXZzM3N3akR0alBCeGVBOHRuaTB6TmdkdHNfNkNlSlllRlAtNlRPbV9TZw?oc=5"
   },
   {
    "title": "베트남 항공교통관리공사, 미국 항공 인프라 사고 이후 예방 및 대응 강화",
@@ -1050,14 +1090,6 @@
    "url": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxQNG9COWYwVGpFeTd4UUFERDl3UTFCVDdkX0tYTk9hZHBoa3U5bERhWUMzZDhjYl9OSzNtTEllZ2NQcFhRbWhpLTlpZXlIZmZPRWN5TVA5alZKLVpKLWIwQS1Yd3RMM3hyRUFrSm1iaDNWQl9BWGp3M1g3alE2dnNlTEg1VmUtcHdJUGFpU2tadHhTbmxhUVZSMFd3bHItTlRkRkdqR1RNZ1VPaFZFODBDcXVIXzkwd2pKb3huclluN1d5M2tIdEZaUm15VU5IemRKbnZMZFMzLWI3d1pQVDhpUzhRM09xdkgz?oc=5"
   },
   {
-   "title": "베트남 남부의 전통 민속 음악, 고전 오페라, 그리고 아오자이 의상은 모두 베트남 문화의 날을 위해 마련된 것입니다.",
-   "source": "Vietnam.vn",
-   "time": "2026-11-14T12:58+09:00",
-   "region": "vn",
-   "category": "사회",
-   "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPemtTLTB0MElpeHIwa2pFem1OSVNzUDcwZVY2UXdYRVkwaU5zOVlGaERVSlF4S2RydG9mRWluTmtwZkRkdkViLUhyc2w1aGMtcHRoNUxwc0ZhWm15LWphb1RNQ3dhbmE3R2NrbTVWUWJjUHdUVWJRSnFHaGVWZndFYnRNeDdhTUR6ZmhqSy1QZ1NYNXc?oc=5"
-  },
-  {
    "title": "산지 디지털화부터 라이브 커머스까지… 하노이 및 전국 여러 지방 농산물 유통 혁신 가속",
    "source": "Thông tấn xã Việt Nam",
    "time": "2026-11-14T10:09+09:00",
@@ -1094,7 +1126,7 @@
    "source": "시티타임스 CityTimes",
    "time": "2026-11-14T06:45+09:00",
    "region": "vn",
-   "category": "경제",
+   "category": "금융",
    "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTFBXSzFIRkwxQTVUY3N2Z1VQZWRyRXdaNXRRaHpqSzRJZzNTMWF0NVdRakQ4VERaTkc3YzhVYWtMVjBBM2k1dDFRbEFROTBwQklRUUFxVUp2d1RUQ3I2N1NSQmQ5RHVFVm5QcGQwQUZ30gFyQVVfeXFMUHNTSURNUmVtSVpkeFpmcXpucEhSdGJPUE1wZDRWVTZSczBrUHhZSGpZWDFra05tejdhdm8zXzhmUTcwWTlYUGkzcFB1REdlVUJfZ29hWjZLRFNKTThweHdvZUp2RzB5clVRMkRZLVJPY0dn?oc=5"
   },
   {
@@ -1146,28 +1178,12 @@
    "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOcTNtMTJoZUlUbGtZQ04xNEY4OWxzVUo1UHFVMm9sVFBRMWVTZWZ6YXpBMkNJdGVjcDlmcmdtRFhld3RQZ0F1YTNSM1dwOWFVWjZTU1FMcFFpX0dVaG5TZHJ3Y2VzSVBwd0VTSHNCODBsSjVRcXFyUV9LZjZlQzRiM1IxemV6NnBqbVZ1NmxVUXRhTTNScmJJYU1kbUk?oc=5"
   },
   {
-   "title": "정부는 EVN이 수익금을 실패한 투자 비용을 충당하는 데 사용할 수 있도록 허용합니다.",
-   "source": "Vietnam.vn",
-   "time": "2026-11-13T21:52+09:00",
-   "region": "vn",
-   "category": "사회",
-   "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOajkyRHRFR0kwOVRPUGJjZTJsOTE0OWhkdlRqYm5UTGgxODkxTk4zMmx0UzNLMG94R3UzTVpmRXlOcWpyOENrNV9jWklJdlo4enJQTVIyZmt0dmM5M0pmUTVERnIydUdadWc1UEhYTGtCRDZDVDlFNzB4WTNVenh1SWZ0Z0NESzRLSHlhb3diM1ZxUE1QV3VHMA?oc=5"
-  },
-  {
    "title": "[보건/사회] 베트남, 암보다 심장·혈관 질환 사망 더 많았다…고령화가 바꾼 죽음의 통계",
    "source": "굿모닝베트남미디어",
    "time": "2026-11-13T21:08+09:00",
    "region": "vn",
    "category": "사회",
    "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1oTXJRTk1SakFhYVk4NE9hT2EtRzVVcExfcm1tSGxuam83Vk9GN1VOSUtBSEFLY2w3OXJ4ZUU4WXBGcXpDWGZLdlFTb3dYbWlvRVVtWENQOXZ5YU04OXpiZ3hPV1ZhUW9SV2NfeE9Dd3Y?oc=5"
-  },
-  {
-   "title": "AI 발전 둔화와 2027년 베트남 주식 시장의 '밝은 미래' 시나리오.",
-   "source": "Vietnam.vn",
-   "time": "2026-11-13T21:02+09:00",
-   "region": "vn",
-   "category": "금융",
-   "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQd0J4bG1yWDR0VmpkM1NWSHg3cHhFSTNTVlp3QWNubk1rZ0g5dGFLWjNvZHRHN2dlcVl2SjBVOHZXV0RENDVscjR2MndPVmZTWmdHSGZITVpCOHBxRHkxNThYMVB6Y0xrbnJlS2tXTlR5bzNKemJLX3hJdlZmM3FzcUJVcml2VVY2cnB1SG41RkZfY2JsZVVv?oc=5"
   },
   {
    "title": "부동산 거래가 부진하고 있으며, 중개업체의 65%가 수수료 지급 지연을 겪고 있습니다.",
@@ -1184,22 +1200,6 @@
    "region": "krvn",
    "category": "금융",
    "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9HTmpmM21ZUXFXN3lyRlFjVGZVTzVfTjdId2dGeUx1dXUySzQwZ0VpSmYwUzVlYXkxSHdjU3duVTdWT2JOSlVnWEFhM2xuMDBVQk1aYUt1dVUxVnE5eHJKM2kxVDdkeWFIR3A0S0hB0gFuQVVfeXFMT0dOamYzbVlRcVc3eXJGUWNUZlVPNV9ON0h3Z0Z5THV1dTJLNDBnRWlKZjBTNWVheTFId2NTd25VN1ZPYk5KVWdYQWEzbG4wMFVCTVphS3V1VTFWcTl4ckozaTFUN2R5YUhHcDRLSEE?oc=5"
-  },
-  {
-   "title": "베트남과 한국 간 협력을 증진하여 반도체 공급망을 장악한다.",
-   "source": "Vietnam.vn",
-   "time": "2026-11-13T20:01+09:00",
-   "region": "krvn",
-   "category": "경제",
-   "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNaWVFV2FQWEF3V2RWNjNTeFUtMWpPemdxa0NkNkwxaV9MQVI3cm5xUjdER0VvNXNSWFY3TGRieWVYeXM0eUxJYWdibE1xa1gxVkxkVlNQRXQ5cEgzNWc5SkVMRVZ2MWlpdFBaZkJGNjFJYy1oN3h2T1NXaTNNazBHdWtwQzRXYUVsc3hlRTdR?oc=5"
-  },
-  {
-   "title": "[베트남 주간 이슈] 인도네시아 넘어선 베트남 경제…효성 1.3조·현대차 1000억 '첨단 베팅'",
-   "source": "인사이드비나",
-   "time": "2026-11-13T19:58+09:00",
-   "region": "vn",
-   "category": "생활",
-   "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5UOFpwcmFObzFaQTM5ekRJM3p4WjNXaHRCanhvT0lpS0NCdHdmWC1VQXlvT2VueGlOTUFTM284bVNwd3plb0oyWl8xZ3pKa3JjcHY3WTRUcmEtVDlGbER1RTJveU9kSXhMU2pJNg?oc=5"
   }
  ]
 }
