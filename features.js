@@ -28,6 +28,13 @@ function rubyLine(vi, ko) {
   }).join('');
 }
 
+/* ───── 구글 번역 연결 (무료 · 인증키 없음) ───── */
+// 구글 번역 웹 주소로 열면, 휴대폰에 구글 번역 앱이 있으면 앱으로 열려요.
+const gtUrl = (text, sl, tl) =>
+  `https://translate.google.com/?sl=${sl}&tl=${tl}&op=translate&text=${encodeURIComponent(String(text).trim())}`;
+const gtBtn = (text, sl, tl) =>
+  `<a class="gt" href="${gtUrl(text, sl, tl)}" target="_blank" rel="noopener" title="구글 번역에서 보기" aria-label="구글 번역에서 보기">G</a>`;
+
 let vietCat = store.get('vietCat') || VIET[0].id;
 function renderViet() {
   $('#viet-cats').innerHTML = VIET.map((c) =>
@@ -37,19 +44,20 @@ function renderViet() {
   $('#viet-list').innerHTML = cat.items.map((row) => {
     // 형식: [베트남어, 한글 발음, 뜻, '단어:뜻|단어:뜻']  (옛 형식 {vi, ko, mean}도 지원)
     const [vi, ko, mean, words = ''] = Array.isArray(row) ? row : [row.vi, row.ko, row.mean, row.w];
+    // 단어마다 오른쪽에 작은 구글 번역 아이콘 → 누르면 구글 번역(앱이 있으면 앱)으로 바로 열림
     const wl = words.split('|').filter(Boolean).map((x) => {
       const [w, m] = x.split(':');
-      return `<li><b>${esc(w)}</b><span>${esc(m || '')}</span></li>`;
+      return `<li><b>${esc(w)}${gtBtn(w, 'vi', 'ko')}</b><span>${esc(m || '')}</span></li>`;
     }).join('');
     return `
-    <li><button class="phrase" type="button" data-vi="${esc(vi)}">
+    <li><div class="phrase" role="button" tabindex="0" data-vi="${esc(vi)}">
       <span class="ph-main">
         <span class="ph-mean">${esc(mean)}</span>
         <span class="ph-ko">${rubyLine(vi, ko)}</span>
-        <span class="ph-vi">${esc(vi)} <span class="say" aria-hidden="true">🔊</span></span>
+        <span class="ph-vi">${esc(vi)} <span class="say" aria-hidden="true">🔊</span>${gtBtn(vi, 'vi', 'ko')}</span>
       </span>
       ${wl ? `<ul class="ph-words">${wl}</ul>` : ''}
-    </button></li>`;
+    </div></li>`;
   }).join('');
 }
 $('#tone-legend').innerHTML = Object.values(TONES).map((t) =>
@@ -73,7 +81,23 @@ function speakTTS(text, done) {
   u.onend = done; u.onerror = done;
   speechSynthesis.speak(u);
 }
+// 번역 검색창: 기본 한국어 → 베트남어, 버튼으로 방향 바꾸기
+let gtKoVi = store.get('gtDir') !== 'vi-ko';
+const gtDirLabel = () => { $('#gt-dir').textContent = gtKoVi ? '한 → 베' : '베 → 한'; $('#gt-text').placeholder = gtKoVi ? '궁금한 한국어를 입력하세요' : '베트남어를 입력하세요'; };
+gtDirLabel();
+$('#gt-dir').addEventListener('click', () => { gtKoVi = !gtKoVi; store.set('gtDir', gtKoVi ? 'ko-vi' : 'vi-ko'); gtDirLabel(); });
+$('#gt-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const q = $('#gt-text').value.trim();
+  if (!q) { $('#gt-text').focus(); return; }
+  window.open(gtKoVi ? gtUrl(q, 'ko', 'vi') : gtUrl(q, 'vi', 'ko'), '_blank', 'noopener');
+});
+
+$('#viet-list').addEventListener('keydown', (e) => {
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('phrase')) { e.preventDefault(); e.target.click(); }
+});
 $('#viet-list').addEventListener('click', (e) => {
+  if (e.target.closest('a.gt')) return; // 번역 아이콘을 누르면 소리 대신 구글 번역만 열기
   const b = e.target.closest('.phrase'); if (!b) return;
   document.querySelectorAll('.phrase.speaking').forEach((x) => x.classList.remove('speaking'));
   b.classList.add('speaking');
