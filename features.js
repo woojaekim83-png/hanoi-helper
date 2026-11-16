@@ -210,5 +210,5 @@ sheet.addEventListener('click', (e) => { if (e.target === sheet) sheet.close(); 
 /* ───── 시작 ───── */
 renderViet(); renderCalendar(); renderDock();
 tick(); setInterval(tick, 15000);
-showTab(location.hash.slice(1) || store.get('tab') || 'news');
+showTab(location.hash.slice(1) || 'rate'); // 처음 열면 항상 환율 탭
 window.addEventListener('hashchange', () => showTab(location.hash.slice(1)));

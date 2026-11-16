@@ -2,21 +2,13 @@
 // 앱에 표시되는 데이터. 내용을 바꾸고 싶으면 이 파일만 고치면 됩니다.
 // ─────────────────────────────────────────────
 
-// 뉴스 목록 (지금은 직접 입력하는 방식 — 나중에 RSS/API로 자동화 가능)
-// region: 'vn' 베트남 | 'krvn' 한-베 | 'kr' 한국
-// url을 비워두면 제목으로 구글 뉴스 검색 결과가 열립니다.
+// 뉴스는 GitHub Actions가 3시간마다 자동으로 모아 news.json에 저장합니다
+// (scripts/fetch_news.py — 검색어를 바꾸려면 그 파일의 FEEDS를 고치세요).
+// 아래는 news.json을 못 불러올 때만 쓰는 비상용 목록입니다.
 window.NEWS = {
-  updatedAt: '2026.11.16 08:50 (KST)',
+  updatedAt: '',
   items: [
-    { title: '베트남 중앙은행, 11일부터 USD 현물 정기 매입…주 2회 달러당 25,500동', source: '굿모닝베트남미디어', date: '11.11', region: 'vn', category: '금융', url: '' },
-    { title: 'VN지수 1,743 마감, 보름 만에 최고…중앙銀 달러 매입 발표에 금융·부동산주 강세', source: '뉴스핌', date: '11.10', region: 'vn', category: '금융', url: '' },
-    { title: '[예시] 하노이 도심 오토바이 배출가스 규제 단계적 시행 안내', source: '예시 기사', date: '11.09', region: 'vn', category: '생활', url: '' },
-    { title: '[예시] 하노이 메트로 노선 운행 시간과 요금 정리', source: '예시 기사', date: '11.08', region: 'vn', category: '생활', url: '' },
-    { title: '[예시] 베트남 수출 동향과 하반기 성장률 전망', source: '예시 기사', date: '11.08', region: 'vn', category: '경제', url: '' },
-    { title: '[예시] 한-베 교역 확대…한국 기업 베트남 투자 동향', source: '예시 기사', date: '11.07', region: 'krvn', category: '경제', url: '' },
-    { title: '[예시] 한국인 체류자 대상 비자·거주증 제도 변경 사항', source: '예시 기사', date: '11.06', region: 'krvn', category: '사회', url: '' },
-    { title: '[예시] 원·달러 환율 주간 동향', source: '예시 기사', date: '11.06', region: 'kr', category: '금융', url: '' },
-    { title: '[예시] 국내 주요 시사 이슈 한눈에 보기', source: '예시 기사', date: '11.05', region: 'kr', category: '시사', url: '' },
+    { title: '뉴스를 불러오지 못했어요. 인터넷 연결을 확인해 주세요 (누르면 구글 뉴스 검색)', source: '안내', date: '', region: 'vn', category: '생활', url: 'https://news.google.com/search?q=%ED%95%98%EB%85%B8%EC%9D%B4&hl=ko&gl=KR&ceid=KR:ko' },
   ],
 };
 

@@ -11,7 +11,7 @@ const store = {
 /* ───── 탭 전환 ───── */
 const TABS = ['rate', 'news', 'viet', 'life'];
 function showTab(name) {
-  if (!TABS.includes(name)) name = 'news';
+  if (!TABS.includes(name)) name = 'rate';
   document.querySelectorAll('.tab').forEach((b) => b.setAttribute('aria-selected', b.dataset.tab === name));
   TABS.forEach((t) => ($('#panel-' + t).hidden = t !== name));
   store.set('tab', name);
@@ -28,8 +28,29 @@ const REGIONS = [
   { id: 'kr', label: '한국', flag: 'KR' },
 ];
 const REGION_NAME = { vn: '베트남', krvn: '한-베', kr: '한국' };
-const CATEGORIES = ['전체', '경제', '금융', '생활', '사회', '시사', '일반'];
-const newsState = { region: 'vn', category: '전체' };
+const CATEGORIES = ['전체', '생활', '경제', '금융', '사회', '교민', '시사'];
+const newsState = { region: 'all', category: '전체', limit: 30 };
+let newsData = { updatedAt: '', items: [] };
+
+// news.json: GitHub Actions가 3시간마다 자동으로 모아 둔 뉴스
+async function loadNews() {
+  try {
+    const r = await fetch('news.json?t=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error(r.status);
+    newsData = await r.json();
+  } catch {
+    newsData = NEWS; // 못 불러오면 data.js의 기본 목록
+  }
+  renderNews();
+}
+function ago(iso) {
+  if (!iso) return '';
+  const m = Math.round((Date.now() - new Date(iso)) / 60000);
+  if (m < 60) return `${Math.max(m, 1)}분 전`;
+  if (m < 1440) return `${Math.round(m / 60)}시간 전`;
+  const d = new Date(iso);
+  return `${d.getMonth() + 1}.${d.getDate()}`;
+}
 
 function renderNewsFilters() {
   $('#region').innerHTML = REGIONS.map((r) =>
@@ -40,29 +61,35 @@ function renderNewsFilters() {
   ).join('');
 }
 function renderNews() {
-  const items = NEWS.items.filter((n) =>
+  const items = (newsData.items || []).filter((n) =>
     (newsState.region === 'all' || n.region === newsState.region) &&
     (newsState.category === '전체' || n.category === newsState.category)
   );
-  $('#news-meta').textContent = `${items.length}건 · 업데이트 ${NEWS.updatedAt} · 기사를 누르면 원문이 열립니다`;
-  $('#news-list').innerHTML = items.length
-    ? items.map((n) => {
-        const url = n.url || 'https://news.google.com/search?hl=ko&q=' + encodeURIComponent(n.title.replace(/^\[예시\]\s*/, ''));
+  $('#news-meta').textContent = `${items.length}건 · 업데이트 ${newsData.updatedAt || '-'} · 3시간마다 자동 갱신 · 누르면 원문`;
+  const shown = items.slice(0, newsState.limit);
+  $('#news-list').innerHTML = shown.length
+    ? shown.map((n) => {
+        const url = n.url || 'https://news.google.com/search?hl=ko&q=' + encodeURIComponent(n.title);
         return `<a class="news" href="${esc(url)}" target="_blank" rel="noopener">
           <div class="tags"><span class="tag cat">${esc(n.category)}</span><span class="tag reg">${REGION_NAME[n.region] || ''}</span></div>
           <h3>${esc(n.title)}</h3>
-          <div class="src">${esc(n.source)} · ${esc(n.date)}</div>
+          <div class="src">${esc(n.source)} · ${esc(n.time ? ago(n.time) : n.date || '')}</div>
         </a>`;
-      }).join('')
+      }).join('') + (items.length > shown.length
+        ? `<button class="more" id="news-more" type="button">더 보기 (${items.length - shown.length}건 남음)</button>` : '')
     : '<div class="card empty">해당 조건의 뉴스가 없어요</div>';
 }
+$('#news-list').addEventListener('click', (e) => {
+  if (e.target.id !== 'news-more') return;
+  newsState.limit += 30; renderNews();
+});
 $('#region').addEventListener('click', (e) => {
   const b = e.target.closest('button'); if (!b) return;
-  newsState.region = b.dataset.r; renderNewsFilters(); renderNews();
+  newsState.region = b.dataset.r; newsState.limit = 30; renderNewsFilters(); renderNews();
 });
 $('#category').addEventListener('click', (e) => {
   const b = e.target.closest('button'); if (!b) return;
-  newsState.category = b.dataset.c; renderNewsFilters(); renderNews();
+  newsState.category = b.dataset.c; newsState.limit = 30; renderNewsFilters(); renderNews();
 });
 
 /* ───── 환율 ───── */
@@ -172,10 +199,17 @@ async function loadToday() {
 }
 
 /* ───── 시작 ───── */
-renderNewsFilters(); renderNews();
+renderNewsFilters(); loadNews();
 renderPresets(); renderConverter(); renderNotes(); loadRates(); loadToday();
 
 // 웹앱(PWA): 오프라인에서도 열리도록 서비스 워커 등록
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
-  navigator.serviceWorker.register('sw.js').catch(() => {});
+  const hadController = !!navigator.serviceWorker.controller;
+  navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' })
+    .then((reg) => reg.update()).catch(() => {});
+  // 새 버전이 설치되면 한 번 자동 새로고침해서 최신 화면 보여주기
+  let reloaded = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (hadController && !reloaded) { reloaded = true; location.reload(); }
+  });
 }
