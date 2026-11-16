@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ko">
 <head>
   <meta charset="utf-8">
@@ -52,7 +52,7 @@
 <body>
   <div class="wrap">
     <header>
-      <div class="top"><span>🇻🇳 베트남 도시 안내</span><a href="./#life">← 도우미로</a></div>
+      <div class="top"><span>🇻🇳 베트남 도시 안내</span><a href="./" id="back" data-tab="life">← 도우미로</a></div>
       <div class="city"><span class="ic" id="ic"></span><div><h1 id="name"></h1><small id="vi"></small></div></div>
       <p class="intro" id="intro"></p>
     </header>
@@ -116,6 +116,14 @@
 
     const W = [[0, '☀️', '맑음'], [2, '🌤️', '구름 조금'], [3, '☁️', '흐림'], [48, '🌫️', '안개'], [57, '🌦️', '이슬비'],
       [67, '🌧️', '비'], [77, '🌨️', '눈'], [82, '🌧️', '소나기'], [99, '⛈️', '뇌우']];
+    // 앱이 미리 받아 둔 날씨가 있으면 바로 표시 (그 뒤 최신 값으로 갱신)
+    try {
+      const cache = JSON.parse(localStorage.getItem('wxCache') || '{}')[`${c.lat.toFixed(2)},${c.lon.toFixed(2)}`];
+      if (cache && cache.temp != null) {
+        const [, ic, tx] = W.find(([m]) => cache.code <= m) || W[0];
+        $('#wx').textContent = `${ic} ${Math.round(cache.temp)}° ${tx}`;
+      }
+    } catch {}
     fetch(`https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&forecast_days=1&timezone=Asia%2FHo_Chi_Minh`)
       .then((r) => r.json()).then((j) => {
         const [, ic, tx] = W.find(([m]) => j.current.weather_code <= m) || W[0];
@@ -123,5 +131,6 @@
         $('#minmax').textContent = `${Math.round(j.daily.temperature_2m_max[0])}° / ${Math.round(j.daily.temperature_2m_min[0])}°`;
       }).catch(() => { $('#wx').textContent = '정보 없음'; });
   </script>
+  <script src="back.js"></script>
 </body>
 </html>

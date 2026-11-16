@@ -49,6 +49,25 @@ function showTab(name) {
 }
 document.querySelectorAll('.tab').forEach((b) => b.addEventListener('click', () => showTab(b.dataset.tab)));
 
+// 손가락으로 좌우로 쓸어서 탭 이동 (왼쪽으로 쓸면 다음 탭, 오른쪽으로 쓸면 이전 탭)
+(function setupSwipe() {
+  let sx = 0, sy = 0, t0 = 0, skip = false;
+  const area = document.querySelector('main');
+  area.addEventListener('touchstart', (e) => {
+    const t = e.touches[0]; sx = t.clientX; sy = t.clientY; t0 = Date.now();
+    // 입력칸, 가로로 스크롤되는 영역(월 선택 등)에서는 탭 이동 안 함
+    skip = e.touches.length > 1 || !!e.target.closest('input, select, textarea, .months, .vn-map, [data-noswipe]');
+  }, { passive: true });
+  area.addEventListener('touchend', (e) => {
+    if (skip) return;
+    const t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
+    if (Math.abs(dx) < 70 || Math.abs(dx) < Math.abs(dy) * 1.8 || Date.now() - t0 > 700) return;
+    const cur = TABS.indexOf(document.querySelector('.tab[aria-selected="true"]')?.dataset.tab);
+    const next = cur + (dx < 0 ? 1 : -1);
+    if (next >= 0 && next < TABS.length) showTab(TABS[next]);
+  }, { passive: true });
+})();
+
 /* ───── 뉴스 ───── */
 const REGIONS = [
   { id: 'all', label: '전체' },
@@ -291,19 +310,75 @@ async function loadToday() {
   const vn = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' }));
   $('#today-date').textContent = `📅 ${vn.getMonth() + 1}.${vn.getDate()}(${'일월화수목금토'[vn.getDay()]})`;
   $('#today-date').title = `${date} · 내 구글 캘린더 열기`;
-  // 날씨·미세먼지는 내 목적지(지점 또는 수동 주소)가 있는 지역 기준
+  // 날씨·미세먼지는 내 지역(지점 또는 수동 주소) 기준
   const p = getPlace();
   const wk = `weather.html?lat=${p.lat}&lon=${p.lon}&name=${encodeURIComponent(p.region)}`;
   $('#today-weather').href = wk; $('#today-air').href = wk;
-  try {
-    const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${p.lat}&longitude=${p.lon}&current=temperature_2m,weather_code&timezone=Asia%2FHo_Chi_Minh`);
-    const c = (await r.json()).current;
-    const [, icon, text] = WEATHER.find(([max]) => c.weather_code <= max) || WEATHER[0];
-    $('#today-weather').textContent = `${icon} ${p.region} ${Math.round(c.temperature_2m)}° ${text}`;
-    $('#today-weather').title = `${p.region} 현재 ${Math.round(c.temperature_2m)}° ${text} · 주간 날씨 보기`;
-    $('#today-weather').hidden = false;
-  } catch { /* 날씨를 못 불러오면 날짜만 표시 */ }
-  loadAir(p);
+  // ① 미리 받아 둔 값이 있으면 바로 표시 → ② 없으면 '불러오는 중'을 먼저 보여주고 받아옴
+  if (!renderWx(p)) {
+    $('#today-weather').textContent = `⏳ ${p.region} 날씨…`; $('#today-weather').hidden = false;
+    $('#today-air').hidden = true;
+  }
+  const k = wxKey(p.lat, p.lon), c = WX[k];
+  if (!c || Date.now() - c.at > WX_FRESH) { await fetchWx([[p.lat, p.lon]]); renderWx(p); }
+}
+
+/* ───── 날씨·미세먼지 빠르게: 여러 곳을 한 번에 받아 저장해 두기 ───── */
+const WX_FRESH = 20 * 60 * 1000; // 20분 동안은 저장해 둔 값을 그대로 사용
+const wxKey = (lat, lon) => `${(+lat).toFixed(2)},${(+lon).toFixed(2)}`;
+let WX = {};
+try { WX = JSON.parse(localStorage.getItem('wxCache') || '{}') || {}; } catch {}
+const saveWx = () => { try { localStorage.setItem('wxCache', JSON.stringify(WX)); } catch {} };
+
+// 날씨 서버 연결이 가끔 20초 넘게 멈추는 경우가 있어서: 4초 안에 답이 없으면 끊고 다시 시도 (최대 3번)
+async function getJson(url, tries = 3) {
+  for (let i = 0; i < tries; i++) {
+    const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 4000);
+    try { const r = await fetch(url, { signal: ctl.signal }); if (r.ok) return await r.json(); }
+    catch {} finally { clearTimeout(timer); }
+  }
+  return null;
+}
+// 좌표 여러 개의 현재 날씨 + 초미세먼지를 동시에 받아오기 (Open-Meteo는 한 번에 여러 지점 조회 가능)
+async function fetchWx(points) {
+  const lat = points.map((x) => (+x[0]).toFixed(4)).join(','), lon = points.map((x) => (+x[1]).toFixed(4)).join(',');
+  const [w, a] = await Promise.all([
+    getJson(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=Asia%2FHo_Chi_Minh`),
+    getJson(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=pm2_5&timezone=Asia%2FHo_Chi_Minh`),
+  ]);
+  const ws = w ? (Array.isArray(w) ? w : [w]) : [], as = a ? (Array.isArray(a) ? a : [a]) : [];
+  points.forEach(([la, lo], i) => {
+    const k = wxKey(la, lo), old = WX[k] || {};
+    const cw = ws[i]?.current, ca = as[i]?.current;
+    if (!cw && !ca) return;
+    WX[k] = { temp: cw ? cw.temperature_2m : old.temp, code: cw ? cw.weather_code : old.code,
+      pm: ca ? ca.pm2_5 : old.pm, at: Date.now() };
+  });
+  saveWx();
+}
+// 저장된 값으로 헤더 그리기 (있으면 true)
+function renderWx(p) {
+  const c = WX[wxKey(p.lat, p.lon)];
+  if (!c || c.temp == null) return false;
+  const [, icon, text] = WEATHER.find(([max]) => c.code <= max) || WEATHER[0];
+  const el = $('#today-weather');
+  el.textContent = `${icon} ${p.region} ${Math.round(c.temp)}° ${text}`;
+  el.title = `${p.region} 현재 ${Math.round(c.temp)}° ${text} · 주간 날씨 보기`;
+  el.hidden = false;
+  if (c.pm != null) {
+    const [, label, aicon, color] = airLevel(c.pm);
+    const air = $('#today-air');
+    air.innerHTML = `${aicon} 미세먼지 <b style="color:${color}">${label}</b>`;
+    air.title = `초미세먼지(PM2.5) ${Math.round(c.pm)}㎍/㎥`;
+    air.hidden = false;
+  }
+  return true;
+}
+// 앱을 열면 우리은행 전 지점 + 지도 도시들의 날씨를 한 번에 미리 받아 둠 → 지역을 바꾸면 즉시 표시
+function prefetchWx() {
+  const pts = [...BRANCHES, ...(window.CITIES || [])].map((x) => [x.lat, x.lon]);
+  const stale = pts.filter(([la, lo]) => { const c = WX[wxKey(la, lo)]; return !c || Date.now() - c.at > WX_FRESH; });
+  if (stale.length) fetchWx(stale).then(() => renderWx(getPlace()));
 }
 
 /* ───── 미세먼지 (초미세먼지 PM2.5, ㎍/㎥) ───── */
@@ -316,23 +391,12 @@ const AIR_LEVELS = [
   [Infinity, '아주나쁨', '🤢', '#c92a2a'],
 ];
 const airLevel = (pm) => AIR_LEVELS.find(([max]) => pm <= max);
-async function loadAir(p = getPlace()) {
-  try {
-    const r = await fetch(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${p.lat}&longitude=${p.lon}&current=pm2_5,pm10&timezone=Asia%2FHo_Chi_Minh`);
-    const pm = (await r.json()).current.pm2_5;
-    if (pm == null) return;
-    const [, label, icon, color] = airLevel(pm);
-    const el = $('#today-air');
-    el.innerHTML = `${icon} 미세먼지 <b style="color:${color}">${label}</b>`;
-    el.title = `초미세먼지(PM2.5) ${Math.round(pm)}㎍/㎥`;
-    el.hidden = false;
-  } catch { /* 못 불러오면 표시 안 함 */ }
-}
 
 /* ───── 시작 ───── */
 renderNewsFilters(); loadNews();
 applyAppName();
 renderPresets(); renderConverter(); renderPolicy(); renderNotes(); loadRates(); loadToday(); loadMarket();
+setTimeout(prefetchWx, 300); // 내 지역 날씨를 먼저 받고 나서 나머지 지역을 미리 받아 둠
 
 // 웹앱(PWA): 오프라인에서도 열리도록 서비스 워커 등록
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {

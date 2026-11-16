@@ -1,7 +1,7 @@
 ﻿// 서비스 워커: 한 번 열어본 화면을 저장해 두었다가 인터넷이 끊겨도 보여줍니다.
 // 전략: 항상 서버에 새 버전이 있는지 확인(no-cache) → 실패하면 저장본 사용
-const CACHE = 'hanoi-helper-v28';
-const FILES = ['./', 'index.html', 'weather.html', 'style.css', 'app.js', 'features.js', 'data.js', 'viet1.js', 'viet2.js', 'viet3.js', 'viet4.js', 'news.json', 'market.json', 'cities.js', 'city.html', 'manifest.webmanifest', 'icon.svg', 'icon-192.png', 'icon-512.png', 'images/10000-back.jpg', 'images/10000-front.jpg', 'images/100000-back.jpg', 'images/100000-front.jpg', 'images/20000-back.jpg', 'images/20000-front.jpg', 'images/200000-back.jpg', 'images/200000-front.jpg', 'images/50000-back.jpg', 'images/50000-front.jpg', 'images/500000-back.jpg', 'images/500000-front.jpg'];
+const CACHE = 'hanoi-helper-v30';
+const FILES = ['./', 'index.html', 'weather.html', 'style.css', 'app.js', 'features.js', 'data.js', 'viet1.js', 'viet2.js', 'viet3.js', 'viet4.js', 'news.json', 'market.json', 'cities.js', 'city.html', 'back.js', 'manifest.webmanifest', 'icon.svg', 'icon-192.png', 'icon-512.png', 'images/10000-back.jpg', 'images/10000-front.jpg', 'images/100000-back.jpg', 'images/100000-front.jpg', 'images/20000-back.jpg', 'images/20000-front.jpg', 'images/200000-back.jpg', 'images/200000-front.jpg', 'images/50000-back.jpg', 'images/50000-front.jpg', 'images/500000-back.jpg', 'images/500000-front.jpg'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(FILES.map((f) => new Request(f, { cache: 'reload' })))).catch(() => {}));

@@ -191,7 +191,7 @@ function renderMap() {
   const pins = CITIES.map((c) => {
     const [dx, dy] = ICON_NUDGE[c.id] || [0, 0];
     const x = +mx(c.lon) + dx, y = +my(c.lat) + dy;
-    return `<a href="city.html?c=${c.id}" target="_blank" rel="noopener" class="pin">
+    return `<a href="city.html?c=${c.id}" class="pin" data-return="life">
       <title>${c.name}</title>
       <circle cx="${x}" cy="${y}" r="9.5" />
       <text x="${x}" y="${y + 4.5}" text-anchor="middle">${c.icon}</text></a>`;
@@ -202,7 +202,7 @@ function renderMap() {
       ${pins}
     </svg>`;
   $('#city-list').innerHTML = CITIES.map((c) =>
-    `<a href="city.html?c=${c.id}" target="_blank" rel="noopener"><span>${c.icon}</span>${c.name}</a>`).join('');
+    `<a href="city.html?c=${c.id}" data-return="life"><span>${c.icon}</span>${c.name}</a>`).join('');
 }
 
 /* ───── 하단 바: 내 목적지 (구글 지도) ───── */
@@ -330,6 +330,19 @@ sheet.addEventListener('click', (e) => { if (e.target === sheet) sheet.close(); 
 /* ───── 시작 ───── */
 renderViet(); renderCalendar(); renderDock(); renderMap();
 tick(); setInterval(tick, 15000);
-showTab('rate'); // 앱을 켜면 항상 경제(환율) 탭부터
-window.addEventListener('pageshow', (e) => { if (e.persisted) showTab('rate'); }); // 뒤로가기 캐시로 다시 열릴 때도
+// 도시 안내·주간 날씨는 같은 창에서 열고, 휴대폰 뒤로가기로 돌아오면 보던 탭을 다시 보여줌
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('a[data-return]');
+  if (!a) return;
+  try { sessionStorage.setItem('returnTab', a.dataset.return === 'current'
+    ? (document.querySelector('.tab[aria-selected="true"]')?.dataset.tab || 'rate') : a.dataset.return); } catch {}
+});
+function startTab() {
+  let t = null;
+  try { t = sessionStorage.getItem('returnTab'); sessionStorage.removeItem('returnTab'); } catch {}
+  showTab(t || 'rate'); // 평소에는 앱을 켜면 항상 경제(환율) 탭부터
+  if (t === 'life') $('#vn-map')?.scrollIntoView({ block: 'center' }); // 지도에서 보던 자리로
+}
+startTab();
+window.addEventListener('pageshow', (e) => { if (e.persisted) startTab(); }); // 뒤로가기로 돌아왔을 때
 window.addEventListener('hashchange', () => showTab(location.hash.slice(1)));
