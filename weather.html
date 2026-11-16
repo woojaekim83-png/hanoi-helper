@@ -95,6 +95,14 @@
 
         // 오늘·내일 생활 팁
         const tips = [];
+        // 미세먼지 (PM2.5, 5단계)
+        try {
+          const a = await (await fetch('https://air-quality-api.open-meteo.com/v1/air-quality?latitude=21.03&longitude=105.85&current=pm2_5&timezone=Asia%2FHo_Chi_Minh')).json();
+          const pm = a.current.pm2_5;
+          const lv = [[8, '아주좋음', '😄'], [15, '좋음', '🙂'], [35, '보통', '😐'], [75, '나쁨', '😷'], [Infinity, '아주나쁨', '🤢']].find(([m]) => pm <= m);
+          document.querySelector('#now .d').insertAdjacentHTML('beforeend', `<br>${lv[2]} 미세먼지 <b>${lv[1]}</b> (PM2.5 ${Math.round(pm)}㎍/㎥)`);
+          if (pm > 35) tips.push('😷 미세먼지가 나빠요. 마스크를 챙기고 창문을 닫아 두세요.');
+        } catch {}
         if (Math.max(d.precipitation_probability_max[0], d.precipitation_probability_max[1]) >= 60) tips.push('☔ 오늘·내일 비 소식이 있어요. 우산을 챙기세요.');
         if (d.temperature_2m_max[0] >= 33) tips.push('🥵 낮 기온이 높아요. 물을 자주 마시세요.');
         if (d.temperature_2m_min[0] <= 15) tips.push('🧥 아침저녁 쌀쌀해요. 겉옷을 챙기세요.');

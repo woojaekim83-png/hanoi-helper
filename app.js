@@ -228,14 +228,41 @@ const WEATHER = [
 ];
 async function loadToday() {
   const date = new Date().toLocaleDateString('ko-KR', { timeZone: 'Asia/Ho_Chi_Minh', month: 'long', day: 'numeric', weekday: 'short' });
-  $('#today-date').textContent = `📅 ${date}`;
+  const vn = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' }));
+  $('#today-date').textContent = `📅 ${vn.getMonth() + 1}.${vn.getDate()}(${'일월화수목금토'[vn.getDay()]})`;
+  $('#today-date').title = `${date} · 내 구글 캘린더 열기`;
   try {
     const r = await fetch('https://api.open-meteo.com/v1/forecast?latitude=21.03&longitude=105.85&current=temperature_2m,weather_code&timezone=Asia%2FHo_Chi_Minh');
     const c = (await r.json()).current;
     const [, icon, text] = WEATHER.find(([max]) => c.weather_code <= max) || WEATHER[0];
-    $('#today-weather').textContent = `${icon} 하노이 ${Math.round(c.temperature_2m)}° ${text} ›`;
+    $('#today-weather').textContent = `${icon} ${Math.round(c.temperature_2m)}° ${text}`;
+    $('#today-weather').title = `하노이 현재 ${Math.round(c.temperature_2m)}° ${text} · 주간 날씨 보기`;
     $('#today-weather').hidden = false;
   } catch { /* 날씨를 못 불러오면 날짜만 표시 */ }
+  loadAir();
+}
+
+/* ───── 미세먼지 (초미세먼지 PM2.5, ㎍/㎥) ───── */
+// 5단계: 한국 환경부 기준(좋음 ~15 · 보통 ~35 · 나쁨 ~75 · 매우나쁨 76~)에 '아주좋음(~8)'을 더함
+const AIR_LEVELS = [
+  [8, '아주좋음', '😄', '#1c7ed6'],
+  [15, '좋음', '🙂', '#2b8a3e'],
+  [35, '보통', '😐', '#e67700'],
+  [75, '나쁨', '😷', '#e8590c'],
+  [Infinity, '아주나쁨', '🤢', '#c92a2a'],
+];
+const airLevel = (pm) => AIR_LEVELS.find(([max]) => pm <= max);
+async function loadAir() {
+  try {
+    const r = await fetch('https://air-quality-api.open-meteo.com/v1/air-quality?latitude=21.03&longitude=105.85&current=pm2_5,pm10&timezone=Asia%2FHo_Chi_Minh');
+    const pm = (await r.json()).current.pm2_5;
+    if (pm == null) return;
+    const [, label, icon, color] = airLevel(pm);
+    const el = $('#today-air');
+    el.innerHTML = `${icon} 미세먼지 <b style="color:${color}">${label}</b>`;
+    el.title = `초미세먼지(PM2.5) ${Math.round(pm)}㎍/㎥`;
+    el.hidden = false;
+  } catch { /* 못 불러오면 표시 안 함 */ }
 }
 
 /* ───── 시작 ───── */

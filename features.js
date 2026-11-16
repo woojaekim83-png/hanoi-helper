@@ -162,10 +162,15 @@ $('#cal-next').addEventListener('click', () => moveMonth(1));
 
 // 알아두면 좋은 것: 분야별로 접었다 펼치기 (첫 분야만 펼친 상태)
 $('#facts').innerHTML = FACTS.map((g, i) => `
-  <li><details class="fact-group"${i === 0 ? ' open' : ''}>
+  <li><details class="fact-group" name="facts"${i === 0 ? ' open' : ''}>
     <summary><span class="fg-icon">${g.icon}</span><b>${esc(g.title)}</b><span class="fg-count">${g.items.length}</span></summary>
     <ul class="fact-items">${g.items.map(([t, d]) => `<li><b>${esc(t)}</b><span>${esc(d)}</span></li>`).join('')}</ul>
   </details></li>`).join('');
+// 한 분야를 펼치면 나머지는 자동으로 접힘 (예전 브라우저용 보조 코드 포함)
+document.querySelectorAll('.fact-group').forEach((d) => d.addEventListener('toggle', () => {
+  if (!d.open) return;
+  document.querySelectorAll('.fact-group').forEach((o) => { if (o !== d) o.open = false; });
+}));
 
 /* ───── 하단 바: 내 목적지 (구글 지도) ───── */
 function getPlace() {
