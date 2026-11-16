@@ -245,7 +245,7 @@ async function loadMarket() {
         <b class="mk-val">${r.value.toLocaleString('ko-KR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b>${chg(r.change)}</li>`).join('') + '</ul>';
   }
   if (m.fuel) {
-    html += `<div class="mk-head mk-sep"><b>주유소 가격 (하노이)</b><span>${day(m.fuel.effectiveAt)} 기준</span></div><ul class="mk-list">` +
+    html += `<div class="mk-head mk-sep"><b>유류가격 (하노이)</b><span>${day(m.fuel.effectiveAt)} 기준</span></div><ul class="mk-list">` +
       m.fuel.items.map((f) => `<li><span class="mk-name">${f.icon} ${esc(FUEL_NAME[f.code] || f.name)}</span>
         <b class="mk-val">${fmt(f.value)}<small>동/L</small></b>${chg(f.change, 0)}</li>`).join('') + '</ul>';
   }
