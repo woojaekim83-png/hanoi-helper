@@ -35,4 +35,9 @@ jobs:
           git add news.json market.json
           git diff --cached --quiet && echo "변경 없음" && exit 0
           git commit -m "뉴스 갱신 $(TZ=Asia/Seoul date '+%m/%d %H:%M')"
-          git push
+          # 같은 시간에 다른 수정이 올라와도 충돌하지 않게: 최신 내용을 받아 합친 뒤 올리기 (최대 3번 재시도)
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push && exit 0
+            sleep 5
+          done
+          exit 1
