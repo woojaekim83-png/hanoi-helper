@@ -145,7 +145,7 @@ window.BRANCHES = [
   { id: 'hcm', label: '호치민지점', region: '호찌민', lat: 10.781316, lon: 106.7006022,
     short: 'Mplaza Saigon · 39 Lê Duẩn', addr: 'Room 7-9, 2F, Mplaza Saigon, 39 Le Duan, Sai Gon, Ho Chi Minh City', mapCheck: 13 },
   { id: 'dongnai', label: '동나이지점', region: '동나이', lat: 10.7342379, lon: 106.9312721,
-    short: '년짝 공단 · Tôn Đức Thắng/Đường 3', addr: 'Tôn Đức Thắng/Đường 3, Khu công nghiệp Nhơn Trạch 1, Nhơn Trạch, Đồng Nai 810000 (구글 지도 주소)', mapCheck: 0 },
+    short: '년짝3 공단 · Tôn Đức Thắng', addr: 'Ton Duc Thang Road, Nhon Trach 3 Industrial Park, Nhon Trach Ward, Dong Nai City (공식 홈페이지 주소)', mapCheck: 0 },
   { id: 'bacninh', label: '박닌지점', region: '박닌', lat: 21.1784383, lon: 106.0723116,
     short: '빈컴 플라자 박닌 · Lý Thái Tổ', addr: '1F & 3F, Vincom Plaza Bac Ninh, Ly Thai To, Kinh Bac, Bac Ninh', mapCheck: 124 },
   { id: 'starlake', label: '스타레이크지점', region: '하노이', lat: 21.0521939, lon: 105.798065,
