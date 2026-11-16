@@ -367,7 +367,19 @@ a.day:active { background: var(--accent-soft); }
 .hol-list .hn small { display: block; font-size: 12px; color: var(--steel); }
 .hol-list .none { color: var(--steel); }
 .add-cal { flex: none; font-size: 12px; font-weight: 600; color: var(--accent); background: var(--accent-soft); padding: 4px 8px; border-radius: var(--r-sm); text-decoration: none; }
-.facts li { padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-size: 15px; display: flex; gap: 10px; }
+.facts > li { border-bottom: 1px solid #f0f0f0; }
+.fact-group summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 12px 0; font-size: 16px;
+}
+.fact-group summary::-webkit-details-marker { display: none; }
+.fact-group summary::after { content: '›'; margin-left: auto; font-size: 20px; color: var(--steel); transition: transform .15s ease; }
+.fact-group[open] summary::after { transform: rotate(90deg); }
+.fg-icon { font-size: 18px; }
+.fg-count { font-size: 12px; color: var(--steel); background: var(--surface); border-radius: var(--r-full); padding: 1px 8px; }
+.fact-items { list-style: none; margin: 0 0 12px; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.fact-items li { background: var(--surface); border-radius: var(--r-md); padding: 10px 12px; }
+.fact-items b { display: block; font-size: 14px; margin-bottom: 2px; }
+.fact-items span { font-size: 13px; color: var(--slate); line-height: 1.55; }
 
 /* 하단 고정 바 */
 .dock {

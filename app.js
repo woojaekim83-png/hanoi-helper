@@ -1,4 +1,4 @@
-// 하노이 생활 도우미 — 공통 · 탭 · 뉴스 · 환율 · 지폐
+﻿// 베트남 생활 도우미 — 공통 · 탭 · 뉴스 · 환율 · 지폐
 const $ = (s) => document.querySelector(s);
 const fmt = (n, d = 0) => n.toLocaleString('ko-KR', { maximumFractionDigits: d, minimumFractionDigits: 0 });
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));

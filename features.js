@@ -1,4 +1,4 @@
-// 하노이 생활 도우미 — 베트남어 · 생활(시계·달력) · 하단 바
+﻿// 베트남 생활 도우미 — 베트남어 · 생활(시계·달력) · 하단 바
 
 /* ───── 베트남어: 성조 화살표 ───── */
 // 성조 부호(유니코드 결합 문자)로 6성조를 판별
@@ -107,8 +107,15 @@ HOLIDAYS.days.forEach((h) => {
   }
 });
 const vnToday = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' }));
-const calYear = HOLIDAYS.year;
-let calMonth = vnToday.getFullYear() === calYear ? vnToday.getMonth() + 1 : 1;
+// 오늘 날짜에서 시작해 연도를 넘어 계속 넘길 수 있어요 (12월 → 다음 해 1월)
+let calYear = vnToday.getFullYear();
+let calMonth = vnToday.getMonth() + 1;
+function moveMonth(step) {
+  calMonth += step;
+  if (calMonth > 12) { calMonth = 1; calYear++; }
+  if (calMonth < 1) { calMonth = 12; calYear--; }
+  renderCalendar();
+}
 
 function gcalLink(h) {
   const s = h.d.replace(/-/g, '');
@@ -125,7 +132,7 @@ function renderCalendar() {
   $('#cal-title').textContent = `${calYear}년 ${calMonth}월`;
   $('#cal-months').innerHTML = Array.from({ length: 12 }, (_, i) => {
     const m = i + 1;
-    const hasOff = HOLIDAYS.days.some((h) => +h.d.slice(5, 7) === m && h.off);
+    const hasOff = HOLIDAYS.days.some((h) => h.d.startsWith(`${calYear}-${pad(m)}`) && h.off);
     return `<button type="button" data-m="${m}" aria-pressed="${m === calMonth}" class="${hasOff ? 'has-off' : ''}">${m}월</button>`;
   }).join('');
 
@@ -139,28 +146,26 @@ function renderCalendar() {
     const off = hs.some((h) => h.off), memo = hs.length && !off;
     const cls = [off ? 'off' : '', memo ? 'memo' : '', k === todayKey ? 'today' : '', wd === 0 ? 'sun' : wd === 6 ? 'sat' : ''].join(' ');
     // 날짜를 누르면 그 날짜로 구글 캘린더 일정 만들기 화면이 열림 (공휴일이면 이름도 미리 채움)
-    const href = gcalLink(hs[0] ? { ...hs[0], d: k, to: null } : { d: k, name: '', off: null });
-    html += `<a class="day ${cls}" href="${href}" target="_blank" rel="noopener" title="${esc(hs.map((h) => h.name).join(', ') || '구글 캘린더에 일정 추가')}">${d}${hs.length ? `<em>${esc(hs[0].name.split(' ')[0])}</em>` : ''}</a>`;
+    // 하루짜리 기념일(예: 설날)을 연휴 기간보다 먼저 보여줌
+    const main = hs.slice().sort((a, b) => (a.to ? 1 : 0) - (b.to ? 1 : 0))[0];
+    const href = gcalLink(main ? { ...main, d: k, to: null } : { d: k, name: '', off: null });
+    html += `<a class="day ${cls}" href="${href}" target="_blank" rel="noopener" title="${esc(hs.map((h) => h.name).join(', ') || '구글 캘린더에 일정 추가')}">${d}${main ? `<em>${esc(main.short || main.name)}</em>` : ''}</a>`;
   }
   $('#cal-grid').innerHTML = html;
-
-  const list = HOLIDAYS.days.filter((h) => +h.d.slice(5, 7) === calMonth);
-  const md = (s) => `${+s.slice(5, 7)}/${+s.slice(8)}`;
-  $('#hol-list').innerHTML = list.length
-    ? list.map((h) => `<li class="${h.off ? 'off' : 'memo'}">
-        <span class="hd">${md(h.d)}${h.to ? '~' + md(h.to) : ''}</span>
-        <span class="hn"><b>${esc(h.name)}</b>${h.memo ? `<small>${esc(h.memo)}</small>` : ''}</span>
-      </li>`).join('')
-    : '<li class="none">이달에는 공휴일이 없어요</li>';
 }
 $('#cal-months').addEventListener('click', (e) => {
   const b = e.target.closest('button'); if (!b) return;
   calMonth = +b.dataset.m; renderCalendar();
 });
-$('#cal-prev').addEventListener('click', () => { calMonth = calMonth === 1 ? 12 : calMonth - 1; renderCalendar(); });
-$('#cal-next').addEventListener('click', () => { calMonth = calMonth === 12 ? 1 : calMonth + 1; renderCalendar(); });
+$('#cal-prev').addEventListener('click', () => moveMonth(-1));
+$('#cal-next').addEventListener('click', () => moveMonth(1));
 
-$('#facts').innerHTML = FACTS.map((f) => `<li><span>${f.icon}</span><span>${esc(f.text)}</span></li>`).join('');
+// 알아두면 좋은 것: 분야별로 접었다 펼치기 (첫 분야만 펼친 상태)
+$('#facts').innerHTML = FACTS.map((g, i) => `
+  <li><details class="fact-group"${i === 0 ? ' open' : ''}>
+    <summary><span class="fg-icon">${g.icon}</span><b>${esc(g.title)}</b><span class="fg-count">${g.items.length}</span></summary>
+    <ul class="fact-items">${g.items.map(([t, d]) => `<li><b>${esc(t)}</b><span>${esc(d)}</span></li>`).join('')}</ul>
+  </details></li>`).join('');
 
 /* ───── 하단 바: 내 목적지 (구글 지도) ───── */
 function getPlace() {
