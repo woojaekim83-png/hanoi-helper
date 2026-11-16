@@ -28,7 +28,9 @@ const REGIONS = [
   { id: 'kr', label: '한국', flag: 'KR' },
 ];
 const REGION_NAME = { vn: '베트남', krvn: '한-베', kr: '한국' };
-const CATEGORIES = ['전체', '생활', '경제', '금융', '사회', '교민', '시사'];
+// 중요도 순서 — '전체'에서는 이 순서대로 분류별 주요 뉴스를 먼저 보여줍니다
+const CATEGORIES = ['전체', '경제', '금융', '사회', '시사', '생활', '교민'];
+const PER_GROUP = 4; // '전체' 화면에서 분류마다 보여줄 기사 수
 const newsState = { region: 'all', category: '전체', limit: 30 };
 let newsData = { updatedAt: '', items: [] };
 
@@ -65,21 +67,35 @@ function renderNews() {
     (newsState.region === 'all' || n.region === newsState.region) &&
     (newsState.category === '전체' || n.category === newsState.category)
   );
-  $('#news-meta').textContent = `${items.length}건 · 업데이트 ${newsData.updatedAt || '-'} · 3시간마다 자동 갱신 · 누르면 원문`;
+  $('#news-meta').textContent = `${items.length}건 · ${newsData.updatedAt || '-'} 업데이트 · 1시간 반마다 갱신`;
+  const card = (n) => {
+    const url = n.url || 'https://news.google.com/search?hl=ko&q=' + encodeURIComponent(n.title);
+    return `<a class="news" href="${esc(url)}" target="_blank" rel="noopener">
+      <h3>${esc(n.title)}</h3>
+      <div class="src"><span class="tag cat">${esc(n.category)}</span><span class="tag reg">${REGION_NAME[n.region] || ''}</span>${esc(n.source)} · ${esc(n.time ? ago(n.time) : n.date || '')}</div>
+    </a>`;
+  };
+  if (!items.length) { $('#news-list').innerHTML = '<div class="card empty">해당 조건의 뉴스가 없어요</div>'; return; }
+
+  if (newsState.category === '전체') {
+    // 분류별로 묶어서 중요도 순서대로 (경제 → 금융 → 사회 → 시사 → 생활 → 교민)
+    $('#news-list').innerHTML = CATEGORIES.slice(1).map((c) => {
+      const g = items.filter((n) => n.category === c);
+      if (!g.length) return '';
+      return `<section class="news-group">
+        <div class="group-head"><h2>${c}</h2><button type="button" class="group-more" data-c="${c}">${g.length}건 모두 보기 ›</button></div>
+        ${g.slice(0, PER_GROUP).map(card).join('')}
+      </section>`;
+    }).join('');
+    return;
+  }
   const shown = items.slice(0, newsState.limit);
-  $('#news-list').innerHTML = shown.length
-    ? shown.map((n) => {
-        const url = n.url || 'https://news.google.com/search?hl=ko&q=' + encodeURIComponent(n.title);
-        return `<a class="news" href="${esc(url)}" target="_blank" rel="noopener">
-          <div class="tags"><span class="tag cat">${esc(n.category)}</span><span class="tag reg">${REGION_NAME[n.region] || ''}</span></div>
-          <h3>${esc(n.title)}</h3>
-          <div class="src">${esc(n.source)} · ${esc(n.time ? ago(n.time) : n.date || '')}</div>
-        </a>`;
-      }).join('') + (items.length > shown.length
-        ? `<button class="more" id="news-more" type="button">더 보기 (${items.length - shown.length}건 남음)</button>` : '')
-    : '<div class="card empty">해당 조건의 뉴스가 없어요</div>';
+  $('#news-list').innerHTML = shown.map(card).join('') + (items.length > shown.length
+    ? `<button class="more" id="news-more" type="button">더 보기 (${items.length - shown.length}건 남음)</button>` : '');
 }
 $('#news-list').addEventListener('click', (e) => {
+  const g = e.target.closest('.group-more');
+  if (g) { newsState.category = g.dataset.c; newsState.limit = 30; renderNewsFilters(); renderNews(); window.scrollTo(0, 0); return; }
   if (e.target.id !== 'news-more') return;
   newsState.limit += 30; renderNews();
 });
@@ -151,7 +167,7 @@ async function loadRates() {
       `<div>1원 =<b>${fmt(rates.VND / rates.KRW, 1)}동</b></div>` +
       `<div>1달러 =<b>${fmt(rates.KRW)}원</b></div>` +
       `<div>1달러 =<b>${fmt(rates.VND)}동</b></div>`;
-    $('#rate-meta').textContent = `기준환율 · ${when} 시장 기준 · 실제 환전 시 수수료 별도`;
+    $('#rate-meta').textContent = `기준환율 · ${when.slice(5)} 시장 기준 · 실제 환전 시 수수료 별도`;
   } catch {
     $('#rate-meta').textContent = '실시간 환율을 불러오지 못해 예시 환율로 계산 중이에요 (실제 환전 시 수수료 별도)';
   }
@@ -160,30 +176,36 @@ async function loadRates() {
 
 /* ───── 지폐: 실물 사진 + 금액 ───── */
 // 사진이 없거나 못 불러올 때 대신 보여줄 색 그림
-function billArt(n) {
-  return `<div class="bill-art" style="background:linear-gradient(135deg, ${n.c1}, ${n.c2})">
-    <span class="bank">NGÂN HÀNG NHÀ NƯỚC VIỆT NAM</span><span class="face">${n.short}</span></div>`;
+function billArt(n, label) {
+  return `<div class="side-img bill-art" style="background:linear-gradient(135deg, ${n.c1}, ${n.c2})">
+    <span class="art-text">${label}</span><span class="face">${n.short}</span></div>`;
+}
+// 한 면(앞/뒤) 그리기: 사진이 있으면 사진, 없으면 색 그림
+function side(n, s, label) {
+  let pic;
+  if (s && s.src) {
+    const size = s.crop ? '100% 200%' : 'cover';
+    const pos = s.crop === 'top' ? 'center top' : s.crop === 'bottom' ? 'center bottom' : 'center';
+    pic = `<div class="side-img" role="img" aria-label="${fmt(n.v)}동 ${label}"
+      style="background-image:url('${esc(s.src)}');background-size:${size};background-position:${pos}"></div>`;
+  } else {
+    pic = billArt(n, label === '뒷면' ? n.back : '호찌민 초상');
+  }
+  return `<figure class="side">${pic}<figcaption>${label}${s && s.src ? '' : ' (그림)'}</figcaption></figure>`;
 }
 function renderNotes() {
-  $('#notes').innerHTML = BANKNOTES.map((n, i) => {
+  $('#notes').innerHTML = BANKNOTES.map((n) => {
     const krw = Math.round(convert(n.v, 'VND', 'KRW'));
-    const pic = n.photo
-      ? `<img src="${esc(n.photo)}" alt="${fmt(n.v)}동 지폐 실물 사진" loading="lazy" data-i="${i}">`
-      : billArt(n);
     return `<li class="note-row" style="--c:${n.c2}">
-      <div class="note-pic">${pic}<span class="note-badge">${n.short}</span></div>
-      <div class="note-info">
+      <div class="note-head">
         <div class="note-v">${fmt(n.v)}<small>동</small></div>
         <div class="note-k">≈ ${fmt(krw)}원</div>
-        <div class="note-desc"><i class="swatch"></i>${n.color} · ${n.back}${n.note ? ` · ${n.note}` : ''}</div>
-        ${n.warn ? `<div class="note-warn">⚠️ ${n.warn}</div>` : ''}
       </div>
+      <div class="note-sides">${side(n, n.front, '앞면')}${side(n, n.rear, '뒷면')}</div>
+      <div class="note-desc"><i class="swatch"></i>${n.color} · 뒷면 ${n.back}${n.note ? ` · ${n.note}` : ''}</div>
+      ${n.warn ? `<div class="note-warn">⚠️ ${n.warn}</div>` : ''}
     </li>`;
   }).join('');
-  // 사진을 못 불러오면 그림으로 교체
-  document.querySelectorAll('.note-pic img').forEach((img) => {
-    img.addEventListener('error', () => { img.outerHTML = billArt(BANKNOTES[img.dataset.i]); }, { once: true });
-  });
 }
 
 /* ───── 헤더: 오늘 날짜 + 하노이 날씨 ───── */

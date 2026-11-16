@@ -1,10 +1,12 @@
-# 뉴스 자동 수집: 3시간마다 scripts/fetch_news.py를 실행해 news.json을 갱신합니다.
+# 뉴스 자동 수집: 1시간 반마다 scripts/fetch_news.py를 실행해 news.json을 갱신합니다.
 # GitHub 저장소의 Actions 탭에서 "Run workflow"로 바로 실행할 수도 있어요.
+# (GitHub 사정에 따라 실제 실행이 몇 분~수십 분 늦어질 수 있어요)
 name: 뉴스 수집
 
 on:
   schedule:
-    - cron: '0 */3 * * *'   # 3시간마다 (UTC 기준)
+    - cron: '0 0-23/3 * * *'    # 00:00, 03:00, 06:00 ... (UTC)
+    - cron: '30 1-23/3 * * *'   # 01:30, 04:30, 07:30 ... → 합치면 1시간 반 간격
   workflow_dispatch:
 
 permissions:

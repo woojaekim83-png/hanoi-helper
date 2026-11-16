@@ -1,6 +1,6 @@
-"""하노이 주재원·가족에게 필요한 뉴스를 모아 news.json으로 저장합니다.
+﻿"""하노이 주재원·가족에게 필요한 뉴스를 모아 news.json으로 저장합니다.
 
-GitHub Actions가 몇 시간마다 이 스크립트를 실행합니다(.github/workflows/news.yml).
+GitHub Actions가 1시간 반마다 이 스크립트를 실행합니다(.github/workflows/news.yml).
 출처: 구글 뉴스 RSS (제목·언론사·날짜·원문 링크만 저장, 본문은 저장하지 않음)
 검색어를 추가하거나 바꾸려면 아래 FEEDS 목록만 고치면 됩니다.
 """
