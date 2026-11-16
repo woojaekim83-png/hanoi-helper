@@ -28,11 +28,13 @@ jobs:
         run: python scripts/fetch_news.py
       - name: 오늘의 시세 모으기 (우리은행 환율, Petrolimex 유가)
         run: python scripts/fetch_market.py
+      - name: 날씨·미세먼지 모으기 (지점·도시 전체)
+        run: python scripts/fetch_weather.py || echo "날씨 수집 실패 — 기존 값 유지"
       - name: 바뀐 내용 올리기
         run: |
           git config user.name "news-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add news.json market.json
+          git add news.json market.json weather.json
           git diff --cached --quiet && echo "변경 없음" && exit 0
           git commit -m "뉴스 갱신 $(TZ=Asia/Seoul date '+%m/%d %H:%M')"
           # 같은 시간에 다른 수정이 올라와도 충돌하지 않게: 최신 내용을 받아 합친 뒤 올리기 (최대 3번 재시도)
