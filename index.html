@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" href="icon-192.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="베트남도우미">
-  <link rel="stylesheet" href="style.css?v=27">
+  <link rel="stylesheet" href="style.css?v=28">
 </head>
 <body>
   <div class="app">
@@ -174,18 +174,18 @@
   <dialog class="sheet" id="place-sheet" aria-labelledby="sheet-title">
     <form method="dialog" id="place-form">
       <!-- autofocus를 제목에 둬서 창이 열릴 때 입력칸에 자동 커서·키보드가 뜨지 않게 함 -->
-      <h2 id="sheet-title" tabindex="-1" autofocus>내 목적지</h2>
+      <h2 id="sheet-title" tabindex="-1" autofocus>내 지역 설정</h2>
       <p class="meta">지점을 고르면 앱 이름과 날씨가 그 지역으로 바뀌어요. 이 휴대폰에만 저장돼요.</p>
       <div class="branch-row">
         <select class="input" id="branch-select" aria-label="우리은행 지점 선택"></select>
-        <button type="button" class="btn ghost" id="manual-toggle" aria-pressed="false">수동</button>
+        <button type="button" class="btn ghost" id="manual-toggle" aria-pressed="false">수동 입력</button>
       </div>
       <p class="branch-addr" id="branch-addr"></p>
       <div id="manual-box" hidden>
         <label>주소 직접 입력
           <input class="input" id="manual-query" placeholder="예: Vinhomes Ocean Park, Gia Lâm, Hà Nội">
         </label>
-        <p class="hint">💡 수동으로 정하면 그 주소가 있는 도시의 날씨를 보여주고, 앱 이름은 '베트남 생활 도우미'로 유지돼요.</p>
+        <p class="hint">💡 수동 입력으로 정하면 그 주소가 있는 도시의 날씨를 보여주고, 앱 이름은 '베트남 생활 도우미'로 유지돼요.</p>
       </div>
       <p class="meta" id="place-status" role="status"></p>
       <div class="sheet-actions">
@@ -198,13 +198,13 @@
   </dialog>
 
   <!-- ?v= 숫자는 수정할 때마다 올려서 휴대폰에 예전 파일이 남지 않게 합니다 -->
-  <script src="data.js?v=27"></script>
-  <script src="viet1.js?v=27"></script>
-  <script src="viet2.js?v=27"></script>
-  <script src="viet3.js?v=27"></script>
-  <script src="viet4.js?v=27"></script>
-  <script src="cities.js?v=27"></script>
-  <script src="app.js?v=27"></script>
-  <script src="features.js?v=27"></script>
+  <script src="data.js?v=28"></script>
+  <script src="viet1.js?v=28"></script>
+  <script src="viet2.js?v=28"></script>
+  <script src="viet3.js?v=28"></script>
+  <script src="viet4.js?v=28"></script>
+  <script src="cities.js?v=28"></script>
+  <script src="app.js?v=28"></script>
+  <script src="features.js?v=28"></script>
 </body>
 </html>

@@ -212,8 +212,8 @@ const mapDir = (q) => 'https://www.google.com/maps/dir/?api=1&destination=' + en
 
 function renderDock() {
   const p = getPlace();
-  $('#dock-title').textContent = p.title;
-  $('#dock-sub').textContent = p.sub;
+  $('#dock-title').textContent = '내 지역 설정';
+  $('#dock-sub').textContent = p.mode === 'manual' ? p.query : p.title; // 지금 선택된 지점이나 주소
   $('#dock-dir').href = mapDir(p.query);
   $('#sheet-open').href = mapView(p.query);
 }
