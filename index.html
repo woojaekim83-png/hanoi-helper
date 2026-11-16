@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>하노이 생활 도우미</title>
+  <meta name="description" content="환율·지폐, 오늘의 뉴스, 생활 베트남어, 하노이 생활 정보를 한곳에서">
+  <meta name="theme-color" content="#c8102e">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="hero">
+      <h1><span class="flag">🇻🇳</span> 하노이 생활 도우미</h1>
+      <p>환율·지폐 · 오늘의 뉴스 · 베트남어 · 생활 정보</p>
+      <div class="today" id="today"></div>
+    </header>
+
+    <nav class="tabs" role="tablist">
+      <button class="tab" role="tab" data-tab="rate"><span aria-hidden="true">💱</span> 환율</button>
+      <button class="tab" role="tab" data-tab="news"><span aria-hidden="true">📰</span> 뉴스</button>
+      <button class="tab" role="tab" data-tab="viet"><span aria-hidden="true">🗣️</span> 베트남어</button>
+      <button class="tab" role="tab" data-tab="life"><span aria-hidden="true">📌</span> 생활</button>
+    </nav>
+
+    <main>
+      <!-- 환율 -->
+      <section class="panel" id="panel-rate" hidden>
+        <div class="card">
+          <h2>환율 계산기</h2>
+          <div class="converter">
+            <input id="amount" class="input" type="text" inputmode="decimal" value="100,000" aria-label="금액">
+            <button class="swap" id="swap" type="button" aria-label="통화 바꾸기" title="원 ↔ 동 바꾸기">⇄</button>
+            <select id="from" class="input select" aria-label="통화">
+              <option value="VND" selected>동 VND</option>
+              <option value="KRW">원 KRW</option>
+              <option value="USD">달러 USD</option>
+            </select>
+          </div>
+          <ul id="results" class="results"></ul>
+          <p class="summary" id="summary"></p>
+          <p class="meta" id="rate-meta">환율 불러오는 중…</p>
+          <div class="presets" id="presets"></div>
+        </div>
+
+        <div class="card">
+          <h2>지폐 한눈에 보기</h2>
+          <p class="meta lead">계산할 때 <b>사진과 금액을 맞춰 보세요.</b> 0이 많아 한 자리 잘못 내기 쉬워요. 원화로는 대략 <b>0 하나 빼고 ÷2</b>예요.</p>
+          <ul id="notes" class="notes"></ul>
+        </div>
+      </section>
+
+      <!-- 뉴스 -->
+      <section class="panel" id="panel-news" hidden>
+        <div class="card">
+          <div class="segmented" id="region"></div>
+          <div class="chips" id="category"></div>
+          <p class="meta" id="news-meta"></p>
+        </div>
+        <div id="news-list" class="news-list"></div>
+      </section>
+
+      <!-- 베트남어 -->
+      <section class="panel" id="panel-viet" hidden>
+        <div class="card">
+          <div class="chips viet-cats" id="viet-cats"></div>
+          <div class="tone-legend" id="tone-legend"></div>
+          <p class="meta">한글 발음은 하노이(북부) 기준이에요. 문장을 누르면 소리로 들려줘요 🔊</p>
+        </div>
+        <ul class="viet-list" id="viet-list"></ul>
+      </section>
+
+      <!-- 생활 -->
+      <section class="panel" id="panel-life" hidden>
+        <div class="card clock">
+          <div>
+            <div class="label">하노이 현재 시각</div>
+            <div class="big" id="clock-vn">--:--</div>
+          </div>
+          <div>
+            <div class="label">한국 시각</div>
+            <div class="big muted" id="clock-kr">--:--</div>
+          </div>
+          <p class="meta full">베트남은 한국보다 <b>2시간 느립니다</b> (UTC+7)</p>
+        </div>
+
+        <div class="card">
+          <div class="cal-head">
+            <h2 id="cal-title">베트남 달력</h2>
+            <div class="cal-nav">
+              <button type="button" id="cal-prev" aria-label="이전 달">‹</button>
+              <button type="button" id="cal-next" aria-label="다음 달">›</button>
+            </div>
+          </div>
+          <div class="months" id="cal-months"></div>
+          <div class="cal-grid" id="cal-grid"></div>
+          <div class="cal-legend"><span><i class="dot off"></i>쉬는 공휴일</span><span><i class="dot memo"></i>기념일 (출근)</span><span><i class="dot today-dot"></i>오늘</span></div>
+          <ul class="hol-list" id="hol-list"></ul>
+          <p class="meta">설·국경일 연휴의 정확한 날짜는 매년 정부 발표로 확정되니 회사 공지도 함께 확인하세요.</p>
+        </div>
+
+        <div class="card">
+          <h2>알아두면 좋은 것</h2>
+          <ul class="facts" id="facts"></ul>
+        </div>
+
+        <div class="card">
+          <h2>긴급 연락처</h2>
+          <div class="sos">
+            <a class="sos-item tint-rose" href="tel:113"><b>113</b><span>경찰</span></a>
+            <a class="sos-item tint-peach" href="tel:114"><b>114</b><span>소방</span></a>
+            <a class="sos-item tint-mint" href="tel:115"><b>115</b><span>구급차</span></a>
+          </div>
+          <a class="link" href="https://overseas.mofa.go.kr/vn-ko/index.do" target="_blank" rel="noopener">주베트남 대한민국 대사관 홈페이지 →</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="dock">
+      <button class="dock-main" id="dock-main" type="button" aria-haspopup="dialog">
+        <span class="dock-icon" aria-hidden="true">🗺️</span>
+        <span class="dock-text">
+          <b id="dock-title"></b>
+          <small id="dock-sub"></small>
+        </span>
+        <span class="dock-edit" aria-hidden="true">✎</span>
+      </button>
+      <a class="dock-btn" id="dock-dir" href="#" target="_blank" rel="noopener"><span aria-hidden="true">🧭</span>길찾기</a>
+      <a class="dock-btn" id="dock-cal" href="https://calendar.google.com/calendar/r" target="_blank" rel="noopener"><span aria-hidden="true">📅</span>캘린더</a>
+    </footer>
+  </div>
+
+  <!-- 목적지 설정 시트 -->
+  <dialog class="sheet" id="place-sheet" aria-labelledby="sheet-title">
+    <form method="dialog" id="place-form">
+      <h2 id="sheet-title">내 목적지</h2>
+      <p class="meta">하단 바에 보일 장소예요. 이 휴대폰에만 저장됩니다.</p>
+      <a class="sheet-link" id="sheet-open" href="#" target="_blank" rel="noopener">🗺️ 구글 지도에서 이 장소 보기</a>
+      <label>이름<input class="input" name="title" required maxlength="30" placeholder="예: 우리 집"></label>
+      <label>설명<input class="input" name="sub" maxlength="40" placeholder="예: 롯데센터 근처"></label>
+      <label>주소 또는 구글 지도 공유 링크
+        <input class="input" name="query" required placeholder="주소, 장소 이름, 또는 maps.app.goo.gl/… 링크">
+      </label>
+      <p class="hint">💡 구글 지도 앱에서 <b>저장한 장소 → 공유 → 링크 복사</b> 후 붙여넣으면 내 계정에 저장된 장소가 그대로 열려요.</p>
+      <div class="sheet-actions">
+        <button type="button" class="btn ghost" id="place-reset">기본값으로</button>
+        <button type="button" class="btn ghost" id="place-cancel">취소</button>
+        <button type="submit" class="btn primary" value="save">저장</button>
+      </div>
+      <div class="sheet-more">
+        <a href="https://www.google.com/maps/" target="_blank" rel="noopener">내 구글 지도 열기</a>
+        <a href="https://calendar.google.com/calendar/r" target="_blank" rel="noopener">내 구글 캘린더 열기</a>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="data.js"></script>
+  <script src="viet.js"></script>
+  <script src="app.js"></script>
+  <script src="features.js"></script>
+</body>
+</html>

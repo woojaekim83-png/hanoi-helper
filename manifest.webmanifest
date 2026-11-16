@@ -1,0 +1,14 @@
+{
+  "name": "하노이 생활 도우미",
+  "short_name": "하노이도우미",
+  "description": "환율·지폐, 오늘의 뉴스, 하노이 생활 정보",
+  "start_url": "./#news",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#eef1f5",
+  "theme_color": "#c8102e",
+  "lang": "ko",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
