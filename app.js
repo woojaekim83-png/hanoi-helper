@@ -215,12 +215,13 @@ const WEATHER = [
 ];
 async function loadToday() {
   const date = new Date().toLocaleDateString('ko-KR', { timeZone: 'Asia/Ho_Chi_Minh', month: 'long', day: 'numeric', weekday: 'short' });
-  $('#today').textContent = `📅 ${date}`;
+  $('#today-date').textContent = `📅 ${date}`;
   try {
     const r = await fetch('https://api.open-meteo.com/v1/forecast?latitude=21.03&longitude=105.85&current=temperature_2m,weather_code&timezone=Asia%2FHo_Chi_Minh');
     const c = (await r.json()).current;
     const [, icon, text] = WEATHER.find(([max]) => c.weather_code <= max) || WEATHER[0];
-    $('#today').textContent = `📅 ${date} · ${icon} 하노이 ${Math.round(c.temperature_2m)}° ${text}`;
+    $('#today-weather').textContent = `${icon} 하노이 ${Math.round(c.temperature_2m)}° ${text} ›`;
+    $('#today-weather').hidden = false;
   } catch { /* 날씨를 못 불러오면 날짜만 표시 */ }
 }
 

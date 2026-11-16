@@ -13,14 +13,16 @@
   <link rel="apple-touch-icon" href="icon-192.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="하노이도우미">
-  <link rel="stylesheet" href="style.css?v=11">
+  <link rel="stylesheet" href="style.css?v=12">
 </head>
 <body>
   <div class="app">
     <header class="hero">
       <h1><span class="flag">🇻🇳</span> 하노이 생활 도우미</h1>
-      <p>환율·지폐 · 오늘의 뉴스 · 베트남어 · 생활 정보</p>
-      <div class="today" id="today"></div>
+      <div class="today">
+        <a class="today-btn" id="today-date" href="https://calendar.google.com/calendar/r" target="_blank" rel="noopener" title="내 구글 캘린더 열기"></a>
+        <a class="today-btn" id="today-weather" href="weather.html" target="_blank" rel="noopener" title="하노이 주간 날씨 보기" hidden></a>
+      </div>
     </header>
 
     <div class="install" id="install" hidden>
@@ -172,9 +174,9 @@
   </dialog>
 
   <!-- ?v= 숫자는 수정할 때마다 올려서 휴대폰에 예전 파일이 남지 않게 합니다 -->
-  <script src="data.js?v=11"></script>
-  <script src="viet.js?v=11"></script>
-  <script src="app.js?v=11"></script>
-  <script src="features.js?v=11"></script>
+  <script src="data.js?v=12"></script>
+  <script src="viet.js?v=12"></script>
+  <script src="app.js?v=12"></script>
+  <script src="features.js?v=12"></script>
 </body>
 </html>

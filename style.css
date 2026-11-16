@@ -66,12 +66,13 @@ button:active, .news:active, .sos-item:active, .dock a:active { transform: scale
   font-size: 140px; line-height: 1; color: #ffcd00; opacity: .14; transform: rotate(12deg);
 }
 .hero p { margin: 4px 0 0; font-size: 14px; opacity: .9; }
-.today {
-  display: inline-flex; align-items: center; gap: 6px; margin-top: 12px;
-  padding: 5px 12px; border-radius: var(--r-full);
-  background: rgba(255,255,255,.16); font-size: 13px; font-weight: 500;
+.today { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; position: relative; z-index: 1; }
+.today-btn {
+  display: inline-flex; align-items: center; padding: 5px 12px; border-radius: var(--r-full);
+  background: rgba(255,255,255,.18); color: #fff; font-size: 13px; font-weight: 500; text-decoration: none;
+  border: 1px solid rgba(255,255,255,.25);
 }
-.today:empty { display: none; }
+.today-btn:active { background: rgba(255,255,255,.3); }
 .flag { font-size: 18px; margin-right: 4px; }
 
 /* 상단 탭 */
