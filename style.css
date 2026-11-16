@@ -68,8 +68,8 @@ button:active, .news:active, .sos-item:active, .dock a:active { transform: scale
 .hero p { margin: 4px 0 0; font-size: 14px; opacity: .9; }
 .today { display: flex; flex-wrap: nowrap; gap: 5px; margin-top: 10px; position: relative; z-index: 1; }
 .today-btn {
-  display: inline-flex; align-items: center; padding: 5px 10px; border-radius: var(--r-full);
-  background: rgba(255,255,255,.18); color: #fff; font-size: 12.5px; font-weight: 500; text-decoration: none;
+  display: inline-flex; align-items: center; padding: 5px 9px; border-radius: var(--r-full);
+  background: rgba(255,255,255,.18); color: #fff; font-size: 12px; font-weight: 500; text-decoration: none;
   border: 1px solid rgba(255,255,255,.25); white-space: nowrap; min-width: 0; overflow: hidden; text-overflow: ellipsis;
 }
 .today-btn[hidden] { display: none; }
@@ -209,6 +209,37 @@ main { padding: 20px 20px 0; }
 .card .presets { margin-top: 8px; display: flex; flex-wrap: nowrap; gap: 4px; }
 .card .presets .chip { flex: 1; min-width: 0; padding: 5px 0; font-size: 12px; text-align: center; white-space: nowrap; }
 .lead { margin: -4px 0 4px; line-height: 1.6; }
+
+/* 베트남 지도 */
+.vn-wrap { display: grid; grid-template-columns: 1fr 112px; gap: 10px; align-items: center; }
+.vn-map svg { display: block; width: 100%; height: auto; max-height: 420px; }
+.vn-map .land { fill: #ffe9a8; stroke: #e0a800; stroke-width: 1.2; stroke-linejoin: round; }
+.vn-map .pin circle { fill: #fff; stroke: var(--hero-red); stroke-width: 1.4; filter: drop-shadow(0 1px 1.5px rgba(0,0,0,.25)); }
+.vn-map .pin text { font-size: 11px; }
+.vn-map .pin:hover circle, .vn-map .pin:active circle { fill: var(--accent-soft); }
+.city-list { display: flex; flex-direction: column; gap: 4px; }
+.city-list a {
+  display: flex; align-items: center; gap: 6px; padding: 6px 8px; border-radius: var(--r-md);
+  background: var(--surface); color: var(--ink); text-decoration: none; font-size: 13px; font-weight: 500;
+}
+.city-list a:active { background: var(--accent-soft); }
+
+/* 오늘의 시세 */
+.section-title { margin: 6px 4px 10px; font-size: 20px; font-weight: 700; }
+.market { padding: 16px 18px; }
+.mk-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+.mk-head b { font-size: 15px; color: var(--slate); }
+.mk-head span { font-size: 12px; color: var(--steel); }
+.mk-sep { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--hairline); }
+.mk-list { list-style: none; margin: 0; padding: 0; }
+.mk-list li { display: grid; grid-template-columns: 1fr auto 68px; align-items: baseline; gap: 8px; padding: 6px 0; }
+.mk-name { font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mk-val { font-size: 17px; font-variant-numeric: tabular-nums; text-align: right; }
+.mk-val small { font-size: 12px; color: var(--steel); font-weight: 400; margin-left: 2px; }
+.chg { font-size: 14px; text-align: right; font-variant-numeric: tabular-nums; color: var(--steel); }
+.chg.up { color: #e03131; }
+.chg.down { color: #1c64d9; }
+.mk-src { margin: 12px 0 0; padding-top: 10px; border-top: 1px solid var(--hairline); font-size: 12px; color: var(--steel); }
 
 /* 베트남 기준금리 */
 .policy { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
@@ -432,8 +463,11 @@ a.day:active { background: var(--accent-soft); }
 .btn { height: 42px; padding: 0 16px; border-radius: var(--r-md); font-size: 14px; font-weight: 600; cursor: pointer; border: 1px solid transparent; }
 .btn.primary { background: var(--accent); color: #fff; }
 .btn.ghost { background: var(--canvas); border-color: var(--hairline-strong); }
-.sheet-more { display: flex; gap: 16px; justify-content: center; padding-top: 4px; }
-.sheet-more a { font-size: 13px; color: var(--steel); }
+.sheet-map {
+  display: flex; align-items: center; justify-content: center; height: 52px; margin-top: 4px;
+  background: var(--accent); color: #fff; border-radius: var(--r-lg); font-size: 16px; font-weight: 700; text-decoration: none;
+  box-shadow: rgba(10,108,255,.25) 0 4px 12px 0;
+}
 
 @media (max-width: 380px) {
   main { padding: 16px 16px 0; }

@@ -172,6 +172,39 @@ document.querySelectorAll('.fact-group').forEach((d) => d.addEventListener('togg
   document.querySelectorAll('.fact-group').forEach((o) => { if (o !== d) o.open = false; });
 }));
 
+/* ───── 생활: 베트남 지도 일러스트 ───── */
+// 경도·위도를 그림 좌표로 바꿔 간단한 S자 국토 모양을 그림 (정확한 지도가 아닌 일러스트)
+const MAP_K = 20, MAP_LON0 = 101.5, MAP_LAT0 = 23.6;
+const mx = (lon) => ((lon - MAP_LON0) * MAP_K).toFixed(1);
+const my = (lat) => ((MAP_LAT0 - lat) * MAP_K).toFixed(1);
+const OUTLINE = [
+  [102.1, 22.4], [103.0, 22.6], [104.0, 22.8], [105.3, 23.3], [106.5, 22.9], [107.4, 21.6], [106.8, 20.9],
+  [106.0, 19.9], [105.7, 19.0], [106.4, 18.0], [107.1, 17.0], [108.2, 16.1], [108.8, 15.3], [109.2, 13.8],
+  [109.4, 12.5], [109.2, 11.6], [108.0, 10.7], [106.8, 10.3], [106.7, 9.6], [105.9, 8.8], [104.8, 8.6],
+  [104.8, 9.5], [104.9, 10.4], [105.1, 10.9], [106.0, 11.4], [107.5, 12.3], [107.6, 13.6], [107.6, 14.6],
+  [107.1, 15.2], [106.6, 16.3], [105.8, 17.3], [105.1, 18.4], [104.4, 18.9], [103.9, 19.3], [104.3, 19.9],
+  [103.3, 20.8], [102.6, 21.3],
+];
+const ICON_NUDGE = { hoian: [7, 9], danang: [2, -4], hue: [-6, -4] }; // 가까운 도시 아이콘 겹침 방지
+function renderMap() {
+  const path = OUTLINE.map(([lon, lat], i) => `${i ? 'L' : 'M'}${mx(lon)},${my(lat)}`).join(' ') + 'Z';
+  const pins = CITIES.map((c) => {
+    const [dx, dy] = ICON_NUDGE[c.id] || [0, 0];
+    const x = +mx(c.lon) + dx, y = +my(c.lat) + dy;
+    return `<a href="city.html?c=${c.id}" target="_blank" rel="noopener" class="pin">
+      <title>${c.name}</title>
+      <circle cx="${x}" cy="${y}" r="9.5" />
+      <text x="${x}" y="${y + 4.5}" text-anchor="middle">${c.icon}</text></a>`;
+  }).join('');
+  $('#vn-map').innerHTML = `<svg viewBox="0 -4 180 310" role="img" aria-label="베트남 지도와 주요 관광지">
+      <path d="${path}" class="land"/>
+      <circle cx="${mx(103.97)}" cy="${my(10.23)}" r="5" class="land"/>
+      ${pins}
+    </svg>`;
+  $('#city-list').innerHTML = CITIES.map((c) =>
+    `<a href="city.html?c=${c.id}" target="_blank" rel="noopener"><span>${c.icon}</span>${c.name}</a>`).join('');
+}
+
 /* ───── 하단 바: 내 목적지 (구글 지도) ───── */
 function getPlace() {
   try { return { ...DOCK, ...JSON.parse(store.get('place') || '{}') }; } catch { return { ...DOCK }; }
@@ -247,7 +280,7 @@ sheet.addEventListener('click', (e) => { if (e.target === sheet) sheet.close(); 
 })();
 
 /* ───── 시작 ───── */
-renderViet(); renderCalendar(); renderDock();
+renderViet(); renderCalendar(); renderDock(); renderMap();
 tick(); setInterval(tick, 15000);
 showTab('rate'); // 앱을 켜면 항상 경제(환율) 탭부터
 window.addEventListener('pageshow', (e) => { if (e.persisted) showTab('rate'); }); // 뒤로가기 캐시로 다시 열릴 때도

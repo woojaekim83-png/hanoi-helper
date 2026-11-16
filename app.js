@@ -174,6 +174,33 @@ async function loadRates() {
   renderConverter(); renderNotes();
 }
 
+/* ───── 오늘의 시세 (market.json: 우리은행 환율 + Petrolimex 유가, 자동 갱신) ───── */
+function chg(v, d = 2) {
+  if (v == null) return '<span class="chg">-</span>';
+  if (Math.abs(v) < 1e-9) return '<span class="chg flat">-</span>';
+  return `<span class="chg ${v > 0 ? 'up' : 'down'}">${v > 0 ? '▲' : '▼'}${fmt(Math.abs(v), d)}</span>`;
+}
+const FUEL_NAME = { '0201007': '고급 RON95', '0201005': 'E10 RON95', '0201004': 'E5 RON92', '0601002': '경유' };
+async function loadMarket() {
+  let m;
+  try { m = await (await fetch('market.json?t=' + Date.now(), { cache: 'no-store' })).json(); } catch { m = null; }
+  if (!m || (!m.rates && !m.fuel)) { $('#market').innerHTML = '<p class="meta">시세를 불러오지 못했어요</p>'; return; }
+  const day = (s) => (s ? s.replace(/^\d{4}[.-]/, '').replace('-', '.').slice(0, 5) : m.updatedAt?.slice(0, 5) || '');
+  let html = '';
+  if (m.rates) {
+    html += `<div class="mk-head"><b>환율</b><span>${day(m.rates.noticedAt)} 기준</span></div><ul class="mk-list">` +
+      m.rates.items.map((r) => `<li><span class="mk-name">${r.flag} ${esc(r.name)}</span>
+        <b class="mk-val">${r.value.toLocaleString('ko-KR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b>${chg(r.change)}</li>`).join('') + '</ul>';
+  }
+  if (m.fuel) {
+    html += `<div class="mk-head mk-sep"><b>주유소 가격 (하노이)</b><span>${day(m.fuel.effectiveAt)} 기준</span></div><ul class="mk-list">` +
+      m.fuel.items.map((f) => `<li><span class="mk-name">${f.icon} ${esc(FUEL_NAME[f.code] || f.name)}</span>
+        <b class="mk-val">${fmt(f.value)}<small>동/L</small></b>${chg(f.change, 0)}</li>`).join('') + '</ul>';
+  }
+  html += `<p class="mk-src">출처: 우리은행 매매기준율(원) · Petrolimex 소매가 · ${esc(m.updatedAt || '')} 갱신</p>`;
+  $('#market').innerHTML = html;
+}
+
 /* ───── 베트남 기준금리 ───── */
 function renderPolicy() {
   const p = window.POLICY_RATE; if (!p) return;
@@ -235,7 +262,7 @@ async function loadToday() {
     const r = await fetch('https://api.open-meteo.com/v1/forecast?latitude=21.03&longitude=105.85&current=temperature_2m,weather_code&timezone=Asia%2FHo_Chi_Minh');
     const c = (await r.json()).current;
     const [, icon, text] = WEATHER.find(([max]) => c.weather_code <= max) || WEATHER[0];
-    $('#today-weather').textContent = `${icon} ${Math.round(c.temperature_2m)}° ${text}`;
+    $('#today-weather').textContent = `${icon} 하노이 ${Math.round(c.temperature_2m)}° ${text}`;
     $('#today-weather').title = `하노이 현재 ${Math.round(c.temperature_2m)}° ${text} · 주간 날씨 보기`;
     $('#today-weather').hidden = false;
   } catch { /* 날씨를 못 불러오면 날짜만 표시 */ }
@@ -267,7 +294,7 @@ async function loadAir() {
 
 /* ───── 시작 ───── */
 renderNewsFilters(); loadNews();
-renderPresets(); renderConverter(); renderPolicy(); renderNotes(); loadRates(); loadToday();
+renderPresets(); renderConverter(); renderPolicy(); renderNotes(); loadRates(); loadToday(); loadMarket();
 
 // 웹앱(PWA): 오프라인에서도 열리도록 서비스 워커 등록
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {

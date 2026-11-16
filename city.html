@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="referrer" content="no-referrer">
+  <title>베트남 도시 안내</title>
+  <meta name="theme-color" content="#c8102e">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <style>
+    :root {
+      --red: #c8102e; --red-deep: #a50d1f; --accent: #0a6cff; --accent-soft: #e6f0ff; --canvas: #fff; --page: #eef1f5;
+      --surface: #f6f5f4; --ink: #1f1f1f; --slate: #5d5b54; --steel: #787774; --hairline: #e6e6e6;
+      --font: Inter, -apple-system, system-ui, 'Segoe UI', 'Malgun Gothic', Helvetica, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--page); color: var(--ink); font: 400 15px/1.55 var(--font); word-break: keep-all; }
+    .wrap { max-width: 560px; margin: 0 auto; padding-bottom: 32px; }
+    header { background: linear-gradient(135deg, var(--red), var(--red-deep)); color: #fff; padding: 18px 20px 22px; }
+    .top { display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
+    .top a { color: #fff; text-decoration: none; opacity: .9; }
+    .city { display: flex; align-items: center; gap: 12px; margin-top: 14px; }
+    .city .ic { font-size: 44px; line-height: 1; }
+    .city h1 { margin: 0; font-size: 26px; font-weight: 700; }
+    .city small { display: block; font-size: 13px; opacity: .85; }
+    .intro { margin: 12px 0 0; font-size: 14px; opacity: .95; }
+    main { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+    .card { background: var(--canvas); border-radius: 14px; padding: 16px 18px; box-shadow: rgba(15,15,15,.04) 0 1px 2px; }
+    .card h2 { margin: 0 0 10px; font-size: 16px; }
+    .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .stat { background: var(--surface); border-radius: 10px; padding: 10px 12px; }
+    .stat span { display: block; font-size: 12px; color: var(--steel); }
+    .stat b { font-size: 18px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chips a, .chips span {
+      padding: 6px 12px; border-radius: 9999px; background: var(--accent-soft); color: var(--accent);
+      font-size: 14px; font-weight: 500; text-decoration: none;
+    }
+    .chips.food span { background: #fdebe0; color: #b8562f; }
+    .others { display: flex; flex-wrap: wrap; gap: 6px; }
+    .others a { padding: 6px 10px; border-radius: 8px; background: var(--surface); color: var(--ink); text-decoration: none; font-size: 13px; }
+    .meta { font-size: 12px; color: var(--steel); margin: 8px 0 0; }
+    .map-btn { display: block; text-align: center; padding: 12px; border-radius: 12px; background: var(--accent); color: #fff; font-weight: 700; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="top"><span>🇻🇳 베트남 도시 안내</span><a href="./#life">← 도우미로</a></div>
+      <div class="city"><span class="ic" id="ic"></span><div><h1 id="name"></h1><small id="vi"></small></div></div>
+      <p class="intro" id="intro"></p>
+    </header>
+    <main>
+      <div class="card">
+        <h2>지금 이곳은</h2>
+        <div class="stats">
+          <div class="stat"><span>현재 날씨</span><b id="wx">불러오는 중…</b></div>
+          <div class="stat"><span>현재 시각</span><b id="time"></b></div>
+          <div class="stat"><span>거주 인구</span><b id="pop"></b></div>
+          <div class="stat"><span>오늘 최고/최저</span><b id="minmax">-</b></div>
+        </div>
+        <p class="meta">인구는 대략치예요 (2023~2024년 통계, 행정구역 개편으로 달라질 수 있음)</p>
+      </div>
+      <div class="card">
+        <h2>📸 관광 명소</h2>
+        <div class="chips" id="spots"></div>
+        <p class="meta">명소를 누르면 구글 지도에서 위치를 보여줘요</p>
+      </div>
+      <div class="card">
+        <h2>🍜 대표 음식</h2>
+        <div class="chips food" id="foods"></div>
+      </div>
+      <a class="map-btn" id="map" target="_blank" rel="noopener">🗺️ 구글 지도에서 이 도시 보기</a>
+      <div class="card">
+        <h2>다른 도시</h2>
+        <div class="others" id="others"></div>
+      </div>
+    </main>
+  </div>
+  <script src="cities.js"></script>
+  <script>
+    const $ = (s) => document.querySelector(s);
+    const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const id = new URLSearchParams(location.search).get('c');
+    const c = CITIES.find((x) => x.id === id) || CITIES[0];
+    const q = (s) => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(s);
+
+    document.title = `${c.name} · 베트남 도시 안내`;
+    $('#ic').textContent = c.icon;
+    $('#name').textContent = c.name;
+    $('#vi').textContent = c.vi;
+    $('#intro').textContent = c.intro;
+    $('#pop').textContent = c.pop;
+    $('#spots').innerHTML = c.spots.map((s) => `<a href="${q(s + ' ' + c.vi)}" target="_blank" rel="noopener">${esc(s)}</a>`).join('');
+    $('#foods').innerHTML = c.foods.map((f) => `<span>${esc(f)}</span>`).join('');
+    $('#map').href = q(c.vi + ', Việt Nam');
+    $('#others').innerHTML = CITIES.filter((x) => x.id !== c.id).map((x) => `<a href="?c=${x.id}">${x.icon} ${x.name}</a>`).join('');
+    $('#time').textContent = new Date().toLocaleTimeString('ko-KR', { timeZone: 'Asia/Ho_Chi_Minh', hour: '2-digit', minute: '2-digit' });
+
+    const W = [[0, '☀️', '맑음'], [2, '🌤️', '구름 조금'], [3, '☁️', '흐림'], [48, '🌫️', '안개'], [57, '🌦️', '이슬비'],
+      [67, '🌧️', '비'], [77, '🌨️', '눈'], [82, '🌧️', '소나기'], [99, '⛈️', '뇌우']];
+    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&forecast_days=1&timezone=Asia%2FHo_Chi_Minh`)
+      .then((r) => r.json()).then((j) => {
+        const [, ic, tx] = W.find(([m]) => j.current.weather_code <= m) || W[0];
+        $('#wx').textContent = `${ic} ${Math.round(j.current.temperature_2m)}° ${tx}`;
+        $('#minmax').textContent = `${Math.round(j.daily.temperature_2m_max[0])}° / ${Math.round(j.daily.temperature_2m_min[0])}°`;
+      }).catch(() => { $('#wx').textContent = '정보 없음'; });
+  </script>
+</body>
+</html>

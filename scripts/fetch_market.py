@@ -42,7 +42,7 @@ def woori_rates(day):
     req = urllib.request.Request(WOORI, data=body, headers={**UA, 'X-Requested-With': 'XMLHttpRequest',
                                                             'Content-Type': 'application/x-www-form-urlencoded'})
     html = urllib.request.urlopen(req, timeout=25).read().decode('utf-8', 'ignore')
-    noticed = re.search(r'고시기준일시\s*:\s*([\d.]+\s[\d:]+)', html)
+    noticed = re.search(r'고시기준일시[^0-9]{0,40}?(\d{4}\.\d{2}\.\d{2})\s*(\d{2}:\d{2})', html)
     out = {}
     for row in re.findall(r'<tr[^>]*>(.*?)</tr>', html, re.S):
         # 우리은행 표는 첫 칸 태그가 어긋나 있어(<td>…</th>) 통화코드는 goDetail 링크에서 읽음
@@ -51,7 +51,7 @@ def woori_rates(day):
         nums = re.findall(r'<td[^>]*>\s*([\d,]+\.\d+)\s*</td>', row)
         if code and len(nums) >= 5:
             out[code.group(1)] = float(nums[4].replace(',', ''))
-    return out, (noticed.group(1) if noticed else '')
+    return out, (f'{noticed.group(1)} {noticed.group(2)}' if noticed else '')
 
 
 def fetch_rates():
