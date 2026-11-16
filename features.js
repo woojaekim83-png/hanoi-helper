@@ -34,12 +34,23 @@ function renderViet() {
     `<button class="chip" type="button" data-id="${c.id}" aria-pressed="${c.id === vietCat}">${c.icon} ${c.name}</button>`
   ).join('');
   const cat = VIET.find((c) => c.id === vietCat) || VIET[0];
-  $('#viet-list').innerHTML = cat.items.map((p) => `
-    <li><button class="phrase" type="button" data-vi="${esc(p.vi)}">
-      <span class="ph-mean">${esc(p.mean)}</span>
-      <span class="ph-ko">${rubyLine(p.vi, p.ko)}</span>
-      <span class="ph-vi">${esc(p.vi)} <span class="say" aria-hidden="true">🔊</span></span>
-    </button></li>`).join('');
+  $('#viet-list').innerHTML = cat.items.map((row) => {
+    // 형식: [베트남어, 한글 발음, 뜻, '단어:뜻|단어:뜻']  (옛 형식 {vi, ko, mean}도 지원)
+    const [vi, ko, mean, words = ''] = Array.isArray(row) ? row : [row.vi, row.ko, row.mean, row.w];
+    const wl = words.split('|').filter(Boolean).map((x) => {
+      const [w, m] = x.split(':');
+      return `<li><b>${esc(w)}</b><span>${esc(m || '')}</span></li>`;
+    }).join('');
+    return `
+    <li><button class="phrase" type="button" data-vi="${esc(vi)}">
+      <span class="ph-main">
+        <span class="ph-mean">${esc(mean)}</span>
+        <span class="ph-ko">${rubyLine(vi, ko)}</span>
+        <span class="ph-vi">${esc(vi)} <span class="say" aria-hidden="true">🔊</span></span>
+      </span>
+      ${wl ? `<ul class="ph-words">${wl}</ul>` : ''}
+    </button></li>`;
+  }).join('');
 }
 $('#tone-legend').innerHTML = Object.values(TONES).map((t) =>
   `<span class="${t.cls}"><b>${t.arrow}</b>${t.name}</span>`
@@ -103,9 +114,12 @@ function gcalLink(h) {
   const s = h.d.replace(/-/g, '');
   const end = new Date((h.to || h.d) + 'T00:00'); end.setDate(end.getDate() + 1);
   const e = `${end.getFullYear()}${pad(end.getMonth() + 1)}${pad(end.getDate())}`;
-  return 'https://calendar.google.com/calendar/render?action=TEMPLATE'
-    + '&text=' + encodeURIComponent('🇻🇳 ' + h.name) + `&dates=${s}/${e}`
-    + '&details=' + encodeURIComponent((h.off ? '베트남 공휴일 (휴무)' : '베트남 기념일') + (h.memo ? ' · ' + h.memo : ''));
+  let url = 'https://calendar.google.com/calendar/render?action=TEMPLATE' + `&dates=${s}/${e}`;
+  if (h.name) {
+    url += '&text=' + encodeURIComponent('🇻🇳 ' + h.name)
+      + '&details=' + encodeURIComponent((h.off ? '베트남 공휴일 (휴무)' : '베트남 기념일') + (h.memo ? ' · ' + h.memo : ''));
+  }
+  return url;
 }
 function renderCalendar() {
   $('#cal-title').textContent = `${calYear}년 ${calMonth}월`;
@@ -124,7 +138,9 @@ function renderCalendar() {
     const k = ymd(calYear, calMonth, d), hs = HOL_MAP[k] || [], wd = (first + d - 1) % 7;
     const off = hs.some((h) => h.off), memo = hs.length && !off;
     const cls = [off ? 'off' : '', memo ? 'memo' : '', k === todayKey ? 'today' : '', wd === 0 ? 'sun' : wd === 6 ? 'sat' : ''].join(' ');
-    html += `<span class="day ${cls}" title="${esc(hs.map((h) => h.name).join(', '))}">${d}${hs.length ? `<em>${esc(hs[0].name.split(' ')[0])}</em>` : ''}</span>`;
+    // 날짜를 누르면 그 날짜로 구글 캘린더 일정 만들기 화면이 열림 (공휴일이면 이름도 미리 채움)
+    const href = gcalLink(hs[0] ? { ...hs[0], d: k, to: null } : { d: k, name: '', off: null });
+    html += `<a class="day ${cls}" href="${href}" target="_blank" rel="noopener" title="${esc(hs.map((h) => h.name).join(', ') || '구글 캘린더에 일정 추가')}">${d}${hs.length ? `<em>${esc(hs[0].name.split(' ')[0])}</em>` : ''}</a>`;
   }
   $('#cal-grid').innerHTML = html;
 
@@ -134,7 +150,6 @@ function renderCalendar() {
     ? list.map((h) => `<li class="${h.off ? 'off' : 'memo'}">
         <span class="hd">${md(h.d)}${h.to ? '~' + md(h.to) : ''}</span>
         <span class="hn"><b>${esc(h.name)}</b>${h.memo ? `<small>${esc(h.memo)}</small>` : ''}</span>
-        <a class="add-cal" href="${gcalLink(h)}" target="_blank" rel="noopener" title="내 구글 캘린더에 추가">+ 캘린더</a>
       </li>`).join('')
     : '<li class="none">이달에는 공휴일이 없어요</li>';
 }
@@ -224,5 +239,6 @@ sheet.addEventListener('click', (e) => { if (e.target === sheet) sheet.close(); 
 /* ───── 시작 ───── */
 renderViet(); renderCalendar(); renderDock();
 tick(); setInterval(tick, 15000);
-showTab(location.hash.slice(1) || 'rate'); // 처음 열면 항상 환율 탭
+showTab('rate'); // 앱을 켜면 항상 경제(환율) 탭부터
+window.addEventListener('pageshow', (e) => { if (e.persisted) showTab('rate'); }); // 뒤로가기 캐시로 다시 열릴 때도
 window.addEventListener('hashchange', () => showTab(location.hash.slice(1)));

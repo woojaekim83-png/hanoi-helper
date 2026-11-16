@@ -207,6 +207,20 @@ main { padding: 20px 20px 0; }
 .card .presets .chip { flex: 1; min-width: 0; padding: 5px 0; font-size: 12px; text-align: center; white-space: nowrap; }
 .lead { margin: -4px 0 4px; line-height: 1.6; }
 
+/* 베트남 기준금리 */
+.policy { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.pol-main {
+  grid-column: 1 / -1; display: flex; align-items: baseline; gap: 10px;
+  background: var(--accent-soft); border-radius: var(--r-md); padding: 10px 14px;
+}
+.pol-main span { font-size: 13px; color: var(--slate); flex: 1; }
+.pol-main b { font-size: 26px; color: var(--accent); font-variant-numeric: tabular-nums; letter-spacing: -.5px; }
+.pol-main small { font-size: 12px; color: #2b8a3e; font-weight: 600; }
+.pol-sub { background: var(--surface); border-radius: var(--r-md); padding: 8px 10px; }
+.pol-sub span { display: block; font-size: 11px; color: var(--steel); }
+.pol-sub b { font-size: 13px; color: var(--ink); white-space: nowrap; }
+#policy-meta a { color: var(--accent); }
+
 /* 지폐 카드 */
 .notes { list-style: none; margin: 10px 0 0; padding: 0; }
 .note-row {
@@ -300,15 +314,23 @@ main { padding: 20px 20px 0; }
 .phrase {
   width: 100%; text-align: left; border: 0; cursor: pointer;
   background: var(--canvas); border-radius: var(--r-xl); padding: 14px 18px; box-shadow: var(--shadow-1);
-  display: flex; flex-direction: column; gap: 6px;
+  display: flex; flex-direction: row; align-items: stretch; gap: 10px;
 }
+.ph-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.ph-words {
+  flex: none; width: 38%; max-width: 170px; list-style: none; margin: 0; padding: 0 0 0 10px;
+  border-left: 1px dashed var(--hairline-strong); display: flex; flex-direction: column; justify-content: center; gap: 4px;
+}
+.ph-words li { font-size: 12px; line-height: 1.3; color: var(--slate); }
+.ph-words b { display: block; font-size: 13px; color: var(--accent); font-weight: 600; }
 .phrase:active { transform: scale(.98); }
 .phrase.speaking { outline: 2px solid var(--accent); }
 .ph-mean { font-size: 14px; color: var(--slate); }
 .ph-ko { display: flex; flex-wrap: wrap; gap: 2px 10px; }
 .syl { display: inline-flex; flex-direction: column; align-items: center; line-height: 1.1; }
 .syl .arrow { font-size: 14px; font-weight: 700; letter-spacing: -3px; margin-bottom: 2px; }
-.syl .kr { font-size: 22px; font-weight: 700; color: var(--ink); }
+.syl .kr { font-size: 20px; font-weight: 700; color: var(--ink); }
+.ph-ko { gap: 2px 7px; }
 .ph-vi { font-size: 14px; color: var(--steel); font-weight: 500; }
 .ph-vi .say { opacity: .6; }
 
@@ -325,6 +347,8 @@ main { padding: 20px 20px 0; }
 .cal-grid .wd { font-size: 12px; color: var(--steel); padding: 4px 0; }
 .cal-grid .day { min-height: 44px; padding: 5px 1px 3px; border-radius: var(--r-md); font-size: 14px; font-variant-numeric: tabular-nums; display: flex; flex-direction: column; align-items: center; }
 .cal-grid .day em { font-style: normal; font-size: 9px; line-height: 1.2; margin-top: 2px; overflow: hidden; max-width: 100%; white-space: nowrap; }
+a.day { text-decoration: none; color: inherit; cursor: pointer; }
+a.day:active { background: var(--accent-soft); }
 .cal-grid .sun { color: #e03131; } .cal-grid .sat { color: #1c64d9; }
 .cal-grid .day.off { background: #fde8e8; color: #c92a2a; font-weight: 700; }
 .cal-grid .day.memo { background: var(--surface); }

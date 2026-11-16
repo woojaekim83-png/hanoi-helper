@@ -12,6 +12,17 @@ window.NEWS = {
   ],
 };
 
+// 베트남 기준금리 (베트남 중앙은행 SBV) — 바뀌면 이 숫자와 날짜만 고치면 됩니다.
+// SBV는 한국은행처럼 정해진 발표 일정이 없고, 필요할 때 수시로 결정·발표합니다.
+window.POLICY_RATE = {
+  refinancing: 4.5,          // 재융자금리 (기준금리 역할)
+  discount: 3.0,             // 재할인금리
+  changedAt: '2023.06.19',   // 마지막 금리 변경 시행일
+  prevRefinancing: 5.0,      // 변경 전 재융자금리
+  checkedAt: '2026.11.16',   // 이 정보를 마지막으로 확인한 날
+  source: 'https://sbv.gov.vn',
+};
+
 // 환율: 인터넷 연결이 안 될 때 쓰는 기본값 (1 USD 기준, 대략치)
 window.FALLBACK_RATES = { USD: 1, KRW: 1400, VND: 26300 };
 

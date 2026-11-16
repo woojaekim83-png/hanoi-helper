@@ -174,6 +174,19 @@ async function loadRates() {
   renderConverter(); renderNotes();
 }
 
+/* ───── 베트남 기준금리 ───── */
+function renderPolicy() {
+  const p = window.POLICY_RATE; if (!p) return;
+  const diff = p.refinancing - p.prevRefinancing;
+  $('#policy').innerHTML = `
+    <div class="pol-main"><span>재융자금리 (기준금리)</span><b>${p.refinancing.toFixed(2)}%</b>
+      <small>${diff < 0 ? '▼' : '▲'} ${Math.abs(diff).toFixed(2)}%p</small></div>
+    <div class="pol-sub"><span>재할인금리</span><b>${p.discount.toFixed(2)}%</b></div>
+    <div class="pol-sub"><span>최근 변경일</span><b>${p.changedAt}</b></div>
+    <div class="pol-sub"><span>다음 발표일</span><b>정해진 일정 없음</b></div>`;
+  $('#policy-meta').innerHTML = `베트남 중앙은행(SBV)은 정기 발표일 없이 수시로 결정해요 · ${p.checkedAt} 확인 · <a href="${p.source}" target="_blank" rel="noopener">SBV 홈페이지</a>`;
+}
+
 /* ───── 지폐: 실물 사진 + 금액 ───── */
 // 사진이 없거나 못 불러올 때 대신 보여줄 색 그림
 function billArt(n, label) {
@@ -227,7 +240,7 @@ async function loadToday() {
 
 /* ───── 시작 ───── */
 renderNewsFilters(); loadNews();
-renderPresets(); renderConverter(); renderNotes(); loadRates(); loadToday();
+renderPresets(); renderConverter(); renderPolicy(); renderNotes(); loadRates(); loadToday();
 
 // 웹앱(PWA): 오프라인에서도 열리도록 서비스 워커 등록
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
