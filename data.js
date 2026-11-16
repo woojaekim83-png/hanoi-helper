@@ -16,24 +16,18 @@ window.NEWS = {
 window.FALLBACK_RATES = { USD: 1, KRW: 1400, VND: 26300 };
 
 // 베트남 지폐 — 앞면(front)·뒷면(rear) 사진을 나란히 보여줍니다.
-// 사진 출처: 베트남어 위키백과 게시 이미지. 한 면만 공개돼 있는 권종은 빈 면을 색 그림으로 보여줍니다.
-// 직접 찍은 사진으로 채우려면 images 폴더에 넣고 예) rear: 'images/200000-back.jpg' 처럼 적으면 됩니다.
+// 폴리머 6종: images 폴더의 견본(SPECIMEN) 사진 / 5,000동: 베트남어 위키백과 게시 이미지
+// 사진을 바꾸려면 images 폴더의 같은 이름 파일을 덮어쓰면 됩니다.
 // crop: 'top' / 'bottom' — 앞뒷면이 위아래로 붙어 있는 사진에서 절반만 잘라 보여줄 때
 const WIKI = 'https://upload.wikimedia.org/wikipedia/vi/';
-const P500 = WIKI + '9/9f/500000_polymer.jpg';
+const img = (v) => ({ front: { src: `images/${v}-front.jpg` }, rear: { src: `images/${v}-back.jpg` } });
 window.BANKNOTES = [
-  { v: 500000, short: '500K', c1: '#6cc3cc', c2: '#3a8f9a', color: '청록색', back: '호찌민 생가 (낌리엔)',
-    front: { src: P500, crop: 'top' }, rear: { src: P500, crop: 'bottom' }, warn: '20,000동(파랑)과 헷갈리기 쉬워요' },
-  { v: 200000, short: '200K', c1: '#e8946a', c2: '#b8562f', color: '주황·적갈색', back: '하롱베이 향로섬',
-    front: { src: WIKI + '0/04/Gi%E1%BA%A5y_b%E1%BA%A1c_200.000.jpg' }, rear: null },
-  { v: 100000, short: '100K', c1: '#86c17e', c2: '#4a8a4c', color: '초록색', back: '문묘 (반미에우)',
-    front: null, rear: { src: WIKI + 'a/a9/100nghins.jpg' } },
-  { v: 50000,  short: '50K',  c1: '#e08bb4', c2: '#a8467a', color: '분홍·자주색', back: '후에 응인르엉딘 정자',
-    front: { src: WIKI + '2/28/%C4%90%E1%BB%93ng_b%E1%BA%A1c_50.000.jpg' }, rear: null },
-  { v: 20000,  short: '20K',  c1: '#78a8e6', c2: '#3a68b4', color: '파란색', back: '호이안 내원교 (일본교)',
-    front: { src: WIKI + 'f/f2/%C4%90%E1%BB%93ng_b%E1%BA%A1c_20.000.jpg' }, rear: null, warn: '500,000동(청록)과 헷갈리기 쉬워요' },
-  { v: 10000,  short: '10K',  c1: '#e3c066', c2: '#a8812c', color: '황토·갈색', back: '바익호 해상 석유시추선',
-    front: { src: WIKI + '3/32/%C4%90%E1%BB%93ng_b%E1%BA%A1c_10.000_%C4%91%E1%BB%93ng.jpg' }, rear: null },
+  { v: 500000, short: '500K', c1: '#6cc3cc', c2: '#3a8f9a', color: '청록색', back: '호찌민 생가 (낌리엔)', ...img(500000), warn: '20,000동(파랑)과 헷갈리기 쉬워요' },
+  { v: 200000, short: '200K', c1: '#e8946a', c2: '#b8562f', color: '주황·적갈색', back: '하롱베이 향로섬', ...img(200000) },
+  { v: 100000, short: '100K', c1: '#86c17e', c2: '#4a8a4c', color: '초록색', back: '문묘 (반미에우)', ...img(100000) },
+  { v: 50000,  short: '50K',  c1: '#e08bb4', c2: '#a8467a', color: '분홍·자주색', back: '후에 응인르엉딘 정자', ...img(50000) },
+  { v: 20000,  short: '20K',  c1: '#78a8e6', c2: '#3a68b4', color: '파란색', back: '호이안 내원교 (일본교)', ...img(20000), warn: '500,000동(청록)과 헷갈리기 쉬워요' },
+  { v: 10000,  short: '10K',  c1: '#e3c066', c2: '#a8812c', color: '황토·갈색', back: '바익호 해상 석유시추선', ...img(10000) },
   { v: 5000,   short: '5K',   c1: '#8fb0de', c2: '#4f6fa8', color: '파란색', back: '찌안 수력발전소', note: '종이 지폐',
     front: { src: WIKI + '7/7c/%C4%90%E1%BB%93ng_b%E1%BA%A1c_5000_%C4%91%E1%BB%93ng.jpg' },
     rear: { src: WIKI + 'd/de/Gi%E1%BA%A5y_b%E1%BA%A1c_5000_%C4%91%E1%BB%93ng.jpg' } },

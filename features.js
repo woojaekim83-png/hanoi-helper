@@ -7,8 +7,8 @@ const TONES = {
   sac:   { arrow: '↗', name: '올리기', cls: 't-sac' },
   huyen: { arrow: '↘', name: '낮게 내리기', cls: 't-huyen' },
   hoi:   { arrow: '↘↗', name: '내렸다 올리기', cls: 't-hoi' },
-  nga:   { arrow: '~↗', name: '끊었다 확 올리기', cls: 't-nga' },
-  nang:  { arrow: '↓', name: '짧고 무겁게 뚝', cls: 't-nang' },
+  nga:   { arrow: '~↗', name: '끊었다 올리기', cls: 't-nga' },
+  nang:  { arrow: '↓', name: '짧게 뚝', cls: 't-nang' },
 };
 function toneOf(syllable) {
   const s = syllable.normalize('NFD');
@@ -48,18 +48,32 @@ $('#viet-cats').addEventListener('click', (e) => {
   const b = e.target.closest('button'); if (!b) return;
   vietCat = b.dataset.id; store.set('vietCat', vietCat); renderViet();
 });
-// 브라우저 내장 음성(TTS)으로 읽어주기
-$('#viet-list').addEventListener('click', (e) => {
-  const b = e.target.closest('.phrase'); if (!b || !('speechSynthesis' in window)) return;
+// 발음 듣기: 음성 파일(구글 번역 음성)을 '미디어 볼륨'으로 재생 → 휴대폰 음량 버튼과 연동
+// 음성 파일을 못 받으면 휴대폰 내장 음성(TTS)으로 대신 읽어요.
+const player = new Audio();
+player.preload = 'auto';
+function speakTTS(text, done) {
+  if (!('speechSynthesis' in window)) return done();
   speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(b.dataset.vi);
-  u.lang = 'vi-VN'; u.rate = 0.8;
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'vi-VN'; u.rate = 0.85; u.volume = 1;
   const voice = speechSynthesis.getVoices().find((v) => v.lang.toLowerCase().startsWith('vi'));
   if (voice) u.voice = voice;
+  u.onend = done; u.onerror = done;
+  speechSynthesis.speak(u);
+}
+$('#viet-list').addEventListener('click', (e) => {
+  const b = e.target.closest('.phrase'); if (!b) return;
   document.querySelectorAll('.phrase.speaking').forEach((x) => x.classList.remove('speaking'));
   b.classList.add('speaking');
-  u.onend = () => b.classList.remove('speaking');
-  speechSynthesis.speak(u);
+  const done = () => b.classList.remove('speaking');
+  const text = b.dataset.vi;
+  player.pause();
+  player.src = 'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=vi&q=' + encodeURIComponent(text);
+  player.volume = 1;
+  player.onended = done;
+  player.onerror = () => speakTTS(text, done);
+  player.play().catch(() => speakTTS(text, done));
 });
 
 /* ───── 생활: 시계 ───── */
