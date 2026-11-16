@@ -33,10 +33,10 @@ window.FALLBACK_RATES = { USD: 1, KRW: 1400, VND: 26300 };
 const WIKI = 'https://upload.wikimedia.org/wikipedia/vi/';
 const img = (v) => ({ front: { src: `images/${v}-front.jpg` }, rear: { src: `images/${v}-back.jpg` } });
 window.BANKNOTES = [
-  { v: 500000, short: '500K', c1: '#6cc3cc', c2: '#3a8f9a', color: '청록색', back: '호찌민 생가 (낌리엔)', ...img(500000), warn: '20,000동(파랑)과 헷갈리기 쉬워요' },
+  { v: 500000, short: '500K', c1: '#6cc3cc', c2: '#3a8f9a', color: '청록색', back: '호치민 생가 (낌리엔)', ...img(500000), warn: '20,000동(파랑)과 헷갈리기 쉬워요' },
   { v: 200000, short: '200K', c1: '#e8946a', c2: '#b8562f', color: '주황·적갈색', back: '하롱베이 향로섬', ...img(200000) },
   { v: 100000, short: '100K', c1: '#86c17e', c2: '#4a8a4c', color: '초록색', back: '문묘 (반미에우)', ...img(100000) },
-  { v: 50000,  short: '50K',  c1: '#e08bb4', c2: '#a8467a', color: '분홍·자주색', back: '훼 응인르엉딘 정자', ...img(50000) },
+  { v: 50000,  short: '50K',  c1: '#e08bb4', c2: '#a8467a', color: '분홍·자주색', back: '후에 응인르엉딘 정자', ...img(50000) },
   { v: 20000,  short: '20K',  c1: '#78a8e6', c2: '#3a68b4', color: '파란색', back: '호이안 내원교 (일본교)', ...img(20000), warn: '500,000동(청록)과 헷갈리기 쉬워요' },
   { v: 10000,  short: '10K',  c1: '#e3c066', c2: '#a8812c', color: '황토·갈색', back: '바익호 해상 석유시추선', ...img(10000) },
   { v: 5000,   short: '5K',   c1: '#8fb0de', c2: '#4f6fa8', color: '파란색', back: '찌안 수력발전소', note: '종이 지폐',
@@ -142,7 +142,7 @@ window.FACTS = [
 window.BRANCHES = [
   { id: 'hanoi', label: '본점 (하노이 지점)', region: '하노이', lat: 21.0172334, lon: 105.783756,
     short: '경남 랜드마크72 · Phạm Hùng', addr: 'Room 101 & O3401, Keangnam Landmark 72, Pham Hung, Yen Hoa, Hanoi', mapCheck: 53 },
-  { id: 'hcm', label: '호치민지점', region: '호찌민', lat: 10.781316, lon: 106.7006022,
+  { id: 'hcm', label: '호치민지점', region: '호치민', lat: 10.781316, lon: 106.7006022,
     short: 'Mplaza Saigon · 39 Lê Duẩn', addr: 'Room 7-9, 2F, Mplaza Saigon, 39 Le Duan, Sai Gon, Ho Chi Minh City', mapCheck: 13 },
   { id: 'dongnai', label: '동나이지점', region: '동나이', lat: 10.7342379, lon: 106.9312721,
     short: '년짝3 공단 · Tôn Đức Thắng', addr: 'Ton Duc Thang Road, Nhon Trach 3 Industrial Park, Nhon Trach Ward, Dong Nai City (공식 홈페이지 주소)', mapCheck: 0 },

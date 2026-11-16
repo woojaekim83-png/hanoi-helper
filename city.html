@@ -105,8 +105,8 @@
     $('#spots').innerHTML = c.spots.map((s) => `<a href="${q(s + ' ' + c.vi)}" target="_blank" rel="noopener">${esc(s)}</a>`).join('');
     $('#foods').innerHTML = c.foods.map((f) => `<span>${esc(f)}</span>`).join('');
     $('#map').href = q(c.vi + ', Việt Nam');
-    // 국제학교: 하노이·호찌민만 정리돼 있고, 다른 도시는 가까운 대도시 안내
-    const near = c.lat > 18 ? '하노이' : c.lat < 13 ? '호찌민' : '하노이·호찌민';
+    // 국제학교: 하노이·호치민만 정리돼 있고, 다른 도시는 가까운 대도시 안내
+    const near = c.lat > 18 ? '하노이' : c.lat < 13 ? '호치민' : '하노이·호치민';
     $('#schools').innerHTML = c.schools
       ? c.schools.map(([n, t, d]) => `<li><a href="${q(n)}" target="_blank" rel="noopener">
           <span class="tag ${t === '미국계' ? 'us' : 'uk'}">${t}</span><b>${esc(n)}</b><small>${esc(d)}</small></a></li>`).join('')

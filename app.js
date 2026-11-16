@@ -281,7 +281,7 @@ function side(n, s, label) {
     pic = `<div class="side-img" role="img" aria-label="${fmt(n.v)}동 ${label}"
       style="background-image:url('${esc(s.src)}');background-size:${size};background-position:${pos}"></div>`;
   } else {
-    pic = billArt(n, label === '뒷면' ? n.back : '호찌민 초상');
+    pic = billArt(n, label === '뒷면' ? n.back : '호치민 초상');
   }
   return `<figure class="side">${pic}<figcaption>${label}${s && s.src ? '' : ' (그림)'}</figcaption></figure>`;
 }
