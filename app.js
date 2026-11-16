@@ -45,6 +45,9 @@ async function loadNews() {
   }
   renderNews();
 }
+function safeHttps(u) {
+  try { const x = new URL(String(u || '')); return x.protocol === 'https:' ? x.href : ''; } catch { return ''; }
+}
 function ago(iso) {
   if (!iso) return '';
   const m = Math.round((Date.now() - new Date(iso)) / 60000);
@@ -69,7 +72,8 @@ function renderNews() {
   );
   $('#news-meta').textContent = `${items.length}건 · ${newsData.updatedAt || '-'} 업데이트 · 1시간 반마다 갱신`;
   const card = (n) => {
-    const url = n.url || 'https://news.google.com/search?hl=ko&q=' + encodeURIComponent(n.title);
+    // 보안: https 주소만 그대로 열고, 그 외(javascript:, http:, 이상한 값)는 구글 뉴스 검색으로 대체
+    const url = safeHttps(n.url) || 'https://news.google.com/search?hl=ko&q=' + encodeURIComponent(n.title);
     return `<a class="news" href="${esc(url)}" target="_blank" rel="noopener">
       <h3>${esc(n.title)}</h3>
       <div class="src"><span class="tag cat">${esc(n.category)}</span><span class="tag reg">${REGION_NAME[n.region] || ''}</span>${esc(n.source)} · ${esc(n.time ? ago(n.time) : n.date || '')}</div>
