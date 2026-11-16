@@ -147,7 +147,11 @@ async function loadRates() {
     const when = new Date(j.time_last_update_unix * 1000)
       .toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul', year: 'numeric', month: '2-digit', day: '2-digit' })
       .replace(/\.\s?/g, '.').replace(/\.$/, '');
-    $('#rate-meta').innerHTML = `기준환율 <b>1원 ≈ ${fmt(rates.VND / rates.KRW, 1)}동</b> · 1달러 ≈ ${fmt(rates.KRW)}원 (${when} 시장 기준 · 실제 환전 시 수수료 별도)`;
+    $('#rate-base').innerHTML =
+      `<div>1원 =<b>${fmt(rates.VND / rates.KRW, 1)}동</b></div>` +
+      `<div>1달러 =<b>${fmt(rates.KRW)}원</b></div>` +
+      `<div>1달러 =<b>${fmt(rates.VND)}동</b></div>`;
+    $('#rate-meta').textContent = `기준환율 · ${when} 시장 기준 · 실제 환전 시 수수료 별도`;
   } catch {
     $('#rate-meta').textContent = '실시간 환율을 불러오지 못해 예시 환율로 계산 중이에요 (실제 환전 시 수수료 별도)';
   }

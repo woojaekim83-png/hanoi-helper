@@ -148,11 +148,21 @@ main { padding: 20px 20px 0; }
 }
 
 /* 환율 */
-.converter { display: grid; grid-template-columns: 1fr 44px 128px; gap: 8px; }
+.converter { display: grid; grid-template-columns: 1fr 120px; gap: 8px; }
+.swap-row { display: flex; justify-content: center; margin: 10px 0 -6px; position: relative; z-index: 1; }
 .swap {
-  border: 1px solid var(--hairline-strong); background: var(--canvas); border-radius: var(--r-md);
-  cursor: pointer; font-size: 18px; color: var(--accent);
+  width: 44px; height: 44px; border: 1px solid var(--hairline-strong); background: var(--canvas);
+  border-radius: var(--r-full); cursor: pointer; font-size: 22px; font-weight: 700; color: var(--accent);
+  box-shadow: var(--shadow-2);
 }
+.rate-base { display: flex; gap: 8px; margin-top: 12px; }
+.rate-base:empty { display: none; }
+.rate-base div {
+  flex: 1; background: var(--accent-soft); border-radius: var(--r-md); padding: 8px 10px;
+  font-size: 12px; color: var(--slate); line-height: 1.35;
+}
+.rate-base b { display: block; font-size: 16px; color: var(--accent); font-variant-numeric: tabular-nums; white-space: nowrap; letter-spacing: -.3px; }
+.rate-base div { min-width: 0; padding: 8px; }
 .presets { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
 .presets .chip { padding: 5px 12px; font-size: 13px; }
 .input {
@@ -172,9 +182,9 @@ main { padding: 20px 20px 0; }
 .quick div { background: var(--tint-sky); border-radius: var(--r-md); padding: 10px 12px; font-size: 14px; }
 .quick b { display: block; font-size: 16px; font-variant-numeric: tabular-nums; }
 .summary { margin: 12px 0 0; font-size: 15px; color: var(--slate); }
-.summary b { color: var(--ink); }
-.card .presets { margin-top: 14px; }
-.card .presets .chip { padding: 7px 14px; font-size: 14px; }
+.summary b { color: var(--accent); font-size: 18px; }
+.card .presets { margin-top: 8px; display: flex; flex-wrap: nowrap; gap: 4px; }
+.card .presets .chip { flex: 1; min-width: 0; padding: 5px 0; font-size: 12px; text-align: center; white-space: nowrap; }
 .lead { margin: -4px 0 4px; line-height: 1.6; }
 
 /* 지폐 카드 */
@@ -357,6 +367,6 @@ main { padding: 20px 20px 0; }
   .tab { font-size: 14px; padding-left: 2px; padding-right: 2px; }
   .segmented button { font-size: 14px; }
   .segmented small { display: none; }
-  .converter { grid-template-columns: 1fr 44px 112px; }
+  .converter { grid-template-columns: 1fr 108px; }
   .card { padding: 18px; }
 }
