@@ -1,0 +1,37 @@
+{
+ "fuel": {
+  "source": "Petrolimex 1지역 소매가",
+  "effectiveAt": "2026-11-12 15:00",
+  "items": [
+   {
+    "code": "0201007",
+    "icon": "⛽",
+    "name": "휘발유 RON95-V",
+    "value": 21840,
+    "change": 0
+   },
+   {
+    "code": "0201005",
+    "icon": "⛽",
+    "name": "휘발유 E10 RON95",
+    "value": 19840,
+    "change": 0
+   },
+   {
+    "code": "0201004",
+    "icon": "⛽",
+    "name": "휘발유 E5 RON92",
+    "value": 19390,
+    "change": 0
+   },
+   {
+    "code": "0601002",
+    "icon": "🛢️",
+    "name": "경유 DO 0.05S",
+    "value": 26820,
+    "change": 0
+   }
+  ]
+ },
+ "updatedAt": "11.16 14:34"
+}
