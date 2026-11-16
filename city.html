@@ -40,6 +40,12 @@
     .others { display: flex; flex-wrap: wrap; gap: 6px; }
     .others a { padding: 6px 10px; border-radius: 8px; background: var(--surface); color: var(--ink); text-decoration: none; font-size: 13px; }
     .meta { font-size: 12px; color: var(--steel); margin: 8px 0 0; }
+    .schools { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+    .schools a { display: block; padding: 10px 12px; border-radius: 10px; background: var(--surface); color: var(--ink); text-decoration: none; }
+    .schools b { font-size: 14px; }
+    .schools small { display: block; font-size: 12px; color: var(--slate); margin-top: 2px; }
+    .schools .tag { display: inline-block; font-size: 11px; font-weight: 700; padding: 1px 6px; border-radius: 4px; margin-right: 6px; }
+    .tag.us { background: #e6f0ff; color: #1c64d9; } .tag.uk { background: #fde8ec; color: #c92a2a; }
     .map-btn { display: block; text-align: center; padding: 12px; border-radius: 12px; background: var(--accent); color: #fff; font-weight: 700; text-decoration: none; }
   </style>
 </head>
@@ -70,6 +76,11 @@
         <h2>🍜 대표 음식</h2>
         <div class="chips food" id="foods"></div>
       </div>
+      <div class="card">
+        <h2>🏫 미국·영국계 국제학교</h2>
+        <ul class="schools" id="schools"></ul>
+        <p class="meta">학비·입학 조건은 학교마다 달라요. 정확한 내용은 각 학교 홈페이지에서 확인하세요.</p>
+      </div>
       <a class="map-btn" id="map" target="_blank" rel="noopener">🗺️ 구글 지도에서 이 도시 보기</a>
       <div class="card">
         <h2>다른 도시</h2>
@@ -94,6 +105,12 @@
     $('#spots').innerHTML = c.spots.map((s) => `<a href="${q(s + ' ' + c.vi)}" target="_blank" rel="noopener">${esc(s)}</a>`).join('');
     $('#foods').innerHTML = c.foods.map((f) => `<span>${esc(f)}</span>`).join('');
     $('#map').href = q(c.vi + ', Việt Nam');
+    // 국제학교: 하노이·호찌민만 정리돼 있고, 다른 도시는 가까운 대도시 안내
+    const near = c.lat > 18 ? '하노이' : c.lat < 13 ? '호찌민' : '하노이·호찌민';
+    $('#schools').innerHTML = c.schools
+      ? c.schools.map(([n, t, d]) => `<li><a href="${q(n)}" target="_blank" rel="noopener">
+          <span class="tag ${t === '미국계' ? 'us' : 'uk'}">${t}</span><b>${esc(n)}</b><small>${esc(d)}</small></a></li>`).join('')
+      : `<li class="meta">이 지역에는 널리 알려진 미국·영국계 국제학교가 많지 않아요. 가까운 대도시(${near})를 참고하세요.</li>`;
     $('#others').innerHTML = CITIES.filter((x) => x.id !== c.id).map((x) => `<a href="?c=${x.id}">${x.icon} ${x.name}</a>`).join('');
     $('#time').textContent = new Date().toLocaleTimeString('ko-KR', { timeZone: 'Asia/Ho_Chi_Minh', hour: '2-digit', minute: '2-digit' });
 

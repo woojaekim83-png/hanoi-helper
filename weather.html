@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ko">
 <head>
   <meta charset="utf-8">
@@ -47,14 +47,14 @@
   <div class="wrap">
     <header>
       <div class="top">
-        <h1>🇻🇳 하노이 주간 날씨</h1>
+        <h1 id="wx-title">🇻🇳 하노이 주간 날씨</h1>
         <a href="./#rate">← 도우미로</a>
       </div>
       <div class="now" id="now"></div>
       <p class="tip" id="tip" hidden></p>
     </header>
     <main id="days"><div class="err">날씨 불러오는 중…</div></main>
-    <p class="meta">자료: Open-Meteo 기상 예보 · 하노이 시내 기준 · 매시간 갱신</p>
+    <p class="meta" id="wx-meta">자료: Open-Meteo 기상 예보 · 매시간 갱신</p>
   </div>
 
   <script>
@@ -66,9 +66,16 @@
     ];
     const look = (c) => W.find(([max]) => c <= max) || W[0];
     const WEEK = ['일', '월', '화', '수', '목', '금', '토'];
+    // 앱에서 넘겨준 지역 (없으면 하노이) — 숫자만 받아 안전하게 사용
+    const QS = new URLSearchParams(location.search);
+    const num = (v, d, lo, hi) => { const n = parseFloat(v); return isFinite(n) && n >= lo && n <= hi ? n : d; };
+    const LAT = num(QS.get('lat'), 21.03, 8, 24), LON = num(QS.get('lon'), 105.85, 102, 110);
+    const PLACE = (QS.get('name') || '하노이').slice(0, 20);
+    document.title = PLACE + ' 주간 날씨';
+    document.getElementById('wx-title').textContent = '🇻🇳 ' + PLACE + ' 주간 날씨';
 
     async function load() {
-      const url = 'https://api.open-meteo.com/v1/forecast?latitude=21.03&longitude=105.85&timezone=Asia%2FHo_Chi_Minh&forecast_days=7'
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&timezone=Asia%2FHo_Chi_Minh&forecast_days=7`
         + '&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m'
         + '&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,uv_index_max';
       try {
@@ -97,7 +104,7 @@
         const tips = [];
         // 미세먼지 (PM2.5, 5단계)
         try {
-          const a = await (await fetch('https://air-quality-api.open-meteo.com/v1/air-quality?latitude=21.03&longitude=105.85&current=pm2_5&timezone=Asia%2FHo_Chi_Minh')).json();
+          const a = await (await fetch(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${LAT}&longitude=${LON}&current=pm2_5&timezone=Asia%2FHo_Chi_Minh`)).json();
           const pm = a.current.pm2_5;
           const lv = [[8, '아주좋음', '😄'], [15, '좋음', '🙂'], [35, '보통', '😐'], [75, '나쁨', '😷'], [Infinity, '아주나쁨', '🤢']].find(([m]) => pm <= m);
           document.querySelector('#now .d').insertAdjacentHTML('beforeend', `<br>${lv[2]} 미세먼지 <b>${lv[1]}</b> (PM2.5 ${Math.round(pm)}㎍/㎥)`);

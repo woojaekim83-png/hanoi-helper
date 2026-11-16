@@ -8,6 +8,35 @@ const store = {
   del(k) { try { localStorage.removeItem(k); } catch {} },
 };
 
+/* ───── 내 목적지 (우리은행 지점 또는 수동 주소) ───── */
+// 저장 형식: { mode: 'branch', id } 또는 { mode: 'manual', query, lat, lon, city }
+const BRANCH_QUERY = {
+  hanoi: 'Woori Bank Vietnam Hanoi Branch Keangnam', hcm: 'Woori Bank Vietnam Ho Chi Minh branch Mplaza',
+  dongnai: 'Woori Bank Vietnam Dong Nai branch', bacninh: 'Woori Bank Vietnam Bac Ninh branch',
+  starlake: 'Woori Bank Vietnam Starlake branch', binhduong: 'Woori Bank Binh Duong branch Becamex',
+  danang: 'Woori Bank Vietnam Da Nang branch', vinhphuc: 'Woori Bank Vinh Phuc branch',
+  lotte: 'Woori Bank Vietnam Lotte Mall branch', bienhoa: 'Woori Bank Bien Hoa branch Sonadezi',
+  hanam: 'Woori Bank Vietnam Ha Nam branch',
+};
+function getPlace() {
+  let s = {};
+  try { s = JSON.parse(store.get('place') || '{}') || {}; } catch {}
+  if (s.mode === 'manual' && s.query) {
+    return { mode: 'manual', title: '내가 정한 장소', sub: s.query, query: s.query,
+      lat: s.lat ?? 21.03, lon: s.lon ?? 105.85, region: s.city || '하노이', appName: '베트남' };
+  }
+  const b = BRANCHES.find((x) => x.id === s.id) || BRANCHES[0];
+  const saved = s.mode === 'branch' && s.id; // 아직 저장 전이면 앱 이름은 '베트남 생활 도우미'
+  return { mode: 'branch', id: b.id, title: b.id === 'hanoi' ? '우리은행 베트남 본점' : `우리은행 ${b.label}`, sub: b.short,
+    query: BRANCH_QUERY[b.id] || b.addr, lat: b.lat, lon: b.lon, region: b.region, appName: saved ? b.region : '베트남' };
+}
+// 앱 이름: 지점을 고르면 'OO 생활 도우미', 수동이면 '베트남 생활 도우미'
+function applyAppName() {
+  const name = `${getPlace().appName} 생활 도우미`;
+  document.title = name;
+  $('#app-name').textContent = name;
+}
+
 /* ───── 탭 전환 ───── */
 const TABS = ['rate', 'news', 'viet', 'life'];
 function showTab(name) {
@@ -262,15 +291,19 @@ async function loadToday() {
   const vn = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' }));
   $('#today-date').textContent = `📅 ${vn.getMonth() + 1}.${vn.getDate()}(${'일월화수목금토'[vn.getDay()]})`;
   $('#today-date').title = `${date} · 내 구글 캘린더 열기`;
+  // 날씨·미세먼지는 내 목적지(지점 또는 수동 주소)가 있는 지역 기준
+  const p = getPlace();
+  const wk = `weather.html?lat=${p.lat}&lon=${p.lon}&name=${encodeURIComponent(p.region)}`;
+  $('#today-weather').href = wk; $('#today-air').href = wk;
   try {
-    const r = await fetch('https://api.open-meteo.com/v1/forecast?latitude=21.03&longitude=105.85&current=temperature_2m,weather_code&timezone=Asia%2FHo_Chi_Minh');
+    const r = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${p.lat}&longitude=${p.lon}&current=temperature_2m,weather_code&timezone=Asia%2FHo_Chi_Minh`);
     const c = (await r.json()).current;
     const [, icon, text] = WEATHER.find(([max]) => c.weather_code <= max) || WEATHER[0];
-    $('#today-weather').textContent = `${icon} 하노이 ${Math.round(c.temperature_2m)}° ${text}`;
-    $('#today-weather').title = `하노이 현재 ${Math.round(c.temperature_2m)}° ${text} · 주간 날씨 보기`;
+    $('#today-weather').textContent = `${icon} ${p.region} ${Math.round(c.temperature_2m)}° ${text}`;
+    $('#today-weather').title = `${p.region} 현재 ${Math.round(c.temperature_2m)}° ${text} · 주간 날씨 보기`;
     $('#today-weather').hidden = false;
   } catch { /* 날씨를 못 불러오면 날짜만 표시 */ }
-  loadAir();
+  loadAir(p);
 }
 
 /* ───── 미세먼지 (초미세먼지 PM2.5, ㎍/㎥) ───── */
@@ -283,9 +316,9 @@ const AIR_LEVELS = [
   [Infinity, '아주나쁨', '🤢', '#c92a2a'],
 ];
 const airLevel = (pm) => AIR_LEVELS.find(([max]) => pm <= max);
-async function loadAir() {
+async function loadAir(p = getPlace()) {
   try {
-    const r = await fetch('https://air-quality-api.open-meteo.com/v1/air-quality?latitude=21.03&longitude=105.85&current=pm2_5,pm10&timezone=Asia%2FHo_Chi_Minh');
+    const r = await fetch(`https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${p.lat}&longitude=${p.lon}&current=pm2_5,pm10&timezone=Asia%2FHo_Chi_Minh`);
     const pm = (await r.json()).current.pm2_5;
     if (pm == null) return;
     const [, label, icon, color] = airLevel(pm);
@@ -298,6 +331,7 @@ async function loadAir() {
 
 /* ───── 시작 ───── */
 renderNewsFilters(); loadNews();
+applyAppName();
 renderPresets(); renderConverter(); renderPolicy(); renderNotes(); loadRates(); loadToday(); loadMarket();
 
 // 웹앱(PWA): 오프라인에서도 열리도록 서비스 워커 등록

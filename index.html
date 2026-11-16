@@ -13,12 +13,12 @@
   <link rel="apple-touch-icon" href="icon-192.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="베트남도우미">
-  <link rel="stylesheet" href="style.css?v=23">
+  <link rel="stylesheet" href="style.css?v=25">
 </head>
 <body>
   <div class="app">
     <header class="hero">
-      <h1><span class="flag">🇻🇳</span> 베트남 생활 도우미</h1>
+      <h1><span class="flag">🇻🇳</span> <span id="app-name">베트남 생활 도우미</span></h1>
       <div class="today">
         <a class="today-btn" id="today-date" href="https://calendar.google.com/calendar/r" target="_blank" rel="noopener" title="내 구글 캘린더 열기"></a>
         <a class="today-btn" id="today-weather" href="weather.html" target="_blank" rel="noopener" title="하노이 주간 날씨 보기" hidden></a>
@@ -175,13 +175,19 @@
     <form method="dialog" id="place-form">
       <!-- autofocus를 제목에 둬서 창이 열릴 때 입력칸에 자동 커서·키보드가 뜨지 않게 함 -->
       <h2 id="sheet-title" tabindex="-1" autofocus>내 목적지</h2>
-      <p class="meta">처음엔 우리은행 베트남 본점으로 정해져 있어요. 원하는 곳으로 바꾸면 이 휴대폰에 저장돼요.</p>
-      <label>이름<input class="input" name="title" required maxlength="30" placeholder="예: 우리 집"></label>
-      <label>설명<input class="input" name="sub" maxlength="40" placeholder="예: 롯데센터 근처"></label>
-      <label>주소 또는 구글 지도 공유 링크
-        <input class="input" name="query" required placeholder="주소, 장소 이름, 또는 maps.app.goo.gl/… 링크">
-      </label>
-      <p class="hint">💡 구글 지도 앱에서 <b>저장한 장소 → 공유 → 링크 복사</b> 후 붙여넣으면 내 계정에 저장된 장소가 그대로 열려요.</p>
+      <p class="meta">지점을 고르면 앱 이름과 날씨가 그 지역으로 바뀌어요. 이 휴대폰에만 저장돼요.</p>
+      <div class="branch-row">
+        <select class="input" id="branch-select" aria-label="우리은행 지점 선택"></select>
+        <button type="button" class="btn ghost" id="manual-toggle" aria-pressed="false">수동</button>
+      </div>
+      <p class="branch-addr" id="branch-addr"></p>
+      <div id="manual-box" hidden>
+        <label>주소 직접 입력
+          <input class="input" id="manual-query" placeholder="예: Vinhomes Ocean Park, Gia Lâm, Hà Nội">
+        </label>
+        <p class="hint">💡 수동으로 정하면 그 주소가 있는 도시의 날씨를 보여주고, 앱 이름은 '베트남 생활 도우미'로 유지돼요.</p>
+      </div>
+      <p class="meta" id="place-status" role="status"></p>
       <div class="sheet-actions">
         <button type="button" class="btn ghost" id="place-reset">기본값으로</button>
         <button type="button" class="btn ghost" id="place-cancel">취소</button>
@@ -192,13 +198,13 @@
   </dialog>
 
   <!-- ?v= 숫자는 수정할 때마다 올려서 휴대폰에 예전 파일이 남지 않게 합니다 -->
-  <script src="data.js?v=23"></script>
-  <script src="viet1.js?v=23"></script>
-  <script src="viet2.js?v=23"></script>
-  <script src="viet3.js?v=23"></script>
-  <script src="viet4.js?v=23"></script>
-  <script src="cities.js?v=23"></script>
-  <script src="app.js?v=23"></script>
-  <script src="features.js?v=23"></script>
+  <script src="data.js?v=25"></script>
+  <script src="viet1.js?v=25"></script>
+  <script src="viet2.js?v=25"></script>
+  <script src="viet3.js?v=25"></script>
+  <script src="viet4.js?v=25"></script>
+  <script src="cities.js?v=25"></script>
+  <script src="app.js?v=25"></script>
+  <script src="features.js?v=25"></script>
 </body>
 </html>

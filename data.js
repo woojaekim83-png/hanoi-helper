@@ -135,9 +135,31 @@ window.FACTS = [
   ]},
 ];
 
-// 하단 바 기본 목적지 (앱에서 '목적지 변경'으로 바꿀 수 있어요)
-window.DOCK = {
-  title: '우리은행 베트남 본점',
-  sub: '경남 랜드마크72 · Phạm Hùng',
-  query: 'Keangnam Landmark 72, Phạm Hùng, Hà Nội',
-};
+// 하단 바 목적지: 우리은행 베트남 지점 목록 (첫 번째가 기본값)
+// addr: 우리은행 베트남 공식 홈페이지 주소 / lat·lon: 구글 지도의 해당 지점 위치
+// region: 저장하면 앱 제목이 'OO 생활 도우미'로 바뀌고, 이 지역 날씨를 보여줘요
+// mapCheck: 공식 주소 위치와 구글 지도 지점 위치의 거리 (2026.11.16 확인)
+window.BRANCHES = [
+  { id: 'hanoi', label: '본점 (하노이 지점)', region: '하노이', lat: 21.0172334, lon: 105.783756,
+    short: '경남 랜드마크72 · Phạm Hùng', addr: 'Room 101 & O3401, Keangnam Landmark 72, Pham Hung, Yen Hoa, Hanoi', mapCheck: 53 },
+  { id: 'hcm', label: '호치민지점', region: '호찌민', lat: 10.781316, lon: 106.7006022,
+    short: 'Mplaza Saigon · 39 Lê Duẩn', addr: 'Room 7-9, 2F, Mplaza Saigon, 39 Le Duan, Sai Gon, Ho Chi Minh City', mapCheck: 13 },
+  { id: 'dongnai', label: '동나이지점', region: '동나이', lat: 10.7342379, lon: 106.9312721,
+    short: '년짝3 공단 · Tôn Đức Thắng', addr: 'Ton Duc Thang Road, Nhon Trach 3 Industrial Park, Nhon Trach, Dong Nai', mapCheck: 1567 },
+  { id: 'bacninh', label: '박닌지점', region: '박닌', lat: 21.1784383, lon: 106.0723116,
+    short: '빈컴 플라자 박닌 · Lý Thái Tổ', addr: '1F & 3F, Vincom Plaza Bac Ninh, Ly Thai To, Kinh Bac, Bac Ninh', mapCheck: 124 },
+  { id: 'starlake', label: '스타레이크지점', region: '하노이', lat: 21.0521939, lon: 105.798065,
+    short: '스타레이크 · Xuân Đỉnh', addr: 'K7TT1-SH06, Tay Ho Tay new urban area, Xuan Dinh, Hanoi', mapCheck: 500 },
+  { id: 'binhduong', label: '빈증지점', region: '빈증', lat: 10.9763621, lon: 106.6704869,
+    short: '베카멕스 빌딩 10층', addr: '10F, Becamex Building, 230 Binh Duong Boulevard, Phu Loi, Ho Chi Minh City', mapCheck: 0 },
+  { id: 'danang', label: '다낭지점', region: '다낭', lat: 16.0608222, lon: 108.215951,
+    short: '피롱 테크놀로지 빌딩 · 52 Nguyễn Văn Linh', addr: '2F, Phi Long Technology Building, 52 Nguyen Van Linh, Hai Chau, Da Nang', mapCheck: 0 },
+  { id: 'vinhphuc', label: '빈푹지점', region: '빈푹', lat: 21.3130825, lon: 105.6133375,
+    short: '396 Mê Linh · 빈옌', addr: '1F & 2F, Bao Quan Hotel, 396 Me Linh, Vinh Phuc, Phu Tho', mapCheck: 47 },
+  { id: 'lotte', label: '롯데몰지점', region: '하노이', lat: 21.0773036, lon: 105.8130745,
+    short: '롯데몰 웨스트레이크 1층', addr: 'Lot 113, 1F, Lotte Mall Hanoi, 272 Vo Chi Cong, Tay Ho, Hanoi', mapCheck: 156 },
+  { id: 'bienhoa', label: '비엔화지점', region: '비엔화', lat: 10.9072877, lon: 106.848674,
+    short: '소나데지 빌딩 5층', addr: '5F, Sonadezi Building, No.1 Road 1, Bien Hoa 1 IP, Tran Bien, Dong Nai', mapCheck: 8 },
+  { id: 'hanam', label: '하남지점', region: '하남', lat: 20.5318527, lon: 105.9141187,
+    short: '띠엔록 빌딩 · 푸리', addr: '1F & 2F, Tien Loc Building, Commercial Area 4, Phu Ly, Ninh Binh', mapCheck: 1680 },
+];

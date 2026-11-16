@@ -206,33 +206,80 @@ function renderMap() {
 }
 
 /* ───── 하단 바: 내 목적지 (구글 지도) ───── */
-function getPlace() {
-  try { return { ...DOCK, ...JSON.parse(store.get('place') || '{}') }; } catch { return { ...DOCK }; }
-}
-const isLink = (q) => /^https?:\/\//i.test(q.trim());
-const mapView = (q) => isLink(q) ? q.trim() : 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q);
-const mapDir = (q) => isLink(q) ? q.trim() : 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(q);
+// getPlace()·applyAppName()은 app.js에 있어요
+const mapView = (q) => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(q);
+const mapDir = (q) => 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(q);
 
 function renderDock() {
   const p = getPlace();
   $('#dock-title').textContent = p.title;
-  $('#dock-sub').textContent = p.sub || p.query;
+  $('#dock-sub').textContent = p.sub;
   $('#dock-dir').href = mapDir(p.query);
   $('#sheet-open').href = mapView(p.query);
 }
 const sheet = $('#place-sheet'), form = $('#place-form');
+const sel = $('#branch-select'), manualBtn = $('#manual-toggle'), manualBox = $('#manual-box');
+sel.innerHTML = BRANCHES.map((b) => `<option value="${b.id}">${esc(b.label)}</option>`).join('');
+
+function showBranchAddr() {
+  const b = BRANCHES.find((x) => x.id === sel.value);
+  if (!b) return;
+  $('#branch-addr').innerHTML = `📍 ${esc(b.addr)}`;
+  $('#sheet-open').href = mapView(BRANCH_QUERY[b.id] || b.addr);
+}
+function setManual(on) {
+  manualBtn.setAttribute('aria-pressed', on);
+  manualBox.hidden = !on;
+  sel.disabled = on;
+  $('#branch-addr').hidden = on;
+}
+sel.addEventListener('change', showBranchAddr);
+manualBtn.addEventListener('click', () => {
+  const on = manualBtn.getAttribute('aria-pressed') !== 'true';
+  setManual(on);
+  if (on) $('#manual-query').focus(); // 수동을 직접 눌렀을 때만 키보드 표시
+});
+
 $('#dock-main').addEventListener('click', () => {
   const p = getPlace();
-  form.title.value = p.title; form.sub.value = p.sub || ''; form.query.value = p.query;
+  $('#place-status').textContent = '';
+  if (p.mode === 'manual') { $('#manual-query').value = p.query; setManual(true); }
+  else { sel.value = p.id; $('#manual-query').value = ''; setManual(false); showBranchAddr(); }
   sheet.showModal();
   $('#sheet-title').focus({ preventScroll: true }); // 입력칸 자동 선택 방지 (키보드 안 뜸)
 });
-form.addEventListener('submit', () => {
-  store.set('place', JSON.stringify({ title: form.title.value.trim(), sub: form.sub.value.trim(), query: form.query.value.trim() }));
-  renderDock();
+
+// 수동 주소 → 좌표·도시 이름 찾기 (OpenStreetMap 무료 지오코딩)
+async function geocode(q) {
+  const url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&countrycodes=vn&addressdetails=1&accept-language=ko&q=' + encodeURIComponent(q);
+  const r = await (await fetch(url)).json();
+  if (!r[0]) return null;
+  const a = r[0].address || {};
+  return { lat: +(+r[0].lat).toFixed(4), lon: +(+r[0].lon).toFixed(4), city: a.city || a.town || a.state || a.province || a.county || '' };
+}
+function afterSave() {
+  renderDock(); applyAppName(); loadToday();
+}
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (manualBtn.getAttribute('aria-pressed') === 'true') {
+    const q = $('#manual-query').value.trim();
+    if (!q) { $('#place-status').textContent = '주소를 입력해 주세요.'; return; }
+    $('#place-status').textContent = '주소 위치를 찾는 중…';
+    let g = null;
+    try { g = await geocode(q); } catch {}
+    store.set('place', JSON.stringify({ mode: 'manual', query: q, ...(g || {}) }));
+    if (!g) {
+      $('#place-status').textContent = '위치를 찾지 못해 날씨는 하노이 기준으로 보여드려요. 지도 길찾기는 입력한 주소로 열려요.';
+      afterSave(); setTimeout(() => sheet.close(), 1800); return;
+    }
+  } else {
+    store.set('place', JSON.stringify({ mode: 'branch', id: sel.value }));
+  }
+  afterSave(); sheet.close();
 });
 $('#place-cancel').addEventListener('click', () => sheet.close());
-$('#place-reset').addEventListener('click', () => { store.del('place'); renderDock(); sheet.close(); });
+$('#place-reset').addEventListener('click', () => { store.del('place'); afterSave(); sheet.close(); });
 sheet.addEventListener('click', (e) => { if (e.target === sheet) sheet.close(); }); // 바깥 누르면 닫기
 
 /* ───── 홈 화면 설치 안내 ───── */
