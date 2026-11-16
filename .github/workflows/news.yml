@@ -26,11 +26,13 @@ jobs:
           python-version: '3.12'
       - name: 뉴스 모으기
         run: python scripts/fetch_news.py
+      - name: 오늘의 시세 모으기 (우리은행 환율, Petrolimex 유가)
+        run: python scripts/fetch_market.py
       - name: 바뀐 내용 올리기
         run: |
           git config user.name "news-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add news.json
+          git add news.json market.json
           git diff --cached --quiet && echo "변경 없음" && exit 0
           git commit -m "뉴스 갱신 $(TZ=Asia/Seoul date '+%m/%d %H:%M')"
           git push
