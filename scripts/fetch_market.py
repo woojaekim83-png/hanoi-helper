@@ -45,13 +45,12 @@ def woori_rates(day):
     noticed = re.search(r'고시기준일시\s*:\s*([\d.]+\s[\d:]+)', html)
     out = {}
     for row in re.findall(r'<tr[^>]*>(.*?)</tr>', html, re.S):
-        cells = [re.sub(r'<[^>]+>|&nbsp;|\s+', ' ', c).strip() for c in re.findall(r'<td[^>]*>(.*?)</td>', row, re.S)]
-        if len(cells) >= 10 and re.fullmatch(r'[A-Z]{3}', cells[0]):
-            try:
-                # 0 통화, 1 통화명, 2 송금보낼때, 3 받을때, 4 현찰살때, 5 스프레드, 6 현찰팔때, 7 스프레드, 8 매매기준율
-                out[cells[0]] = float(cells[8].replace(',', ''))
-            except ValueError:
-                pass
+        # 우리은행 표는 첫 칸 태그가 어긋나 있어(<td>…</th>) 통화코드는 goDetail 링크에서 읽음
+        code = re.search(r"goDetail\('\d+'\s*,\s*'([A-Z]{3})'", row)
+        # 숫자 칸 순서: 송금보낼때, 받을때, 현찰살때, 현찰팔때, 매매기준율, 기준환율, 대미환산율 (% 칸 제외)
+        nums = re.findall(r'<td[^>]*>\s*([\d,]+\.\d+)\s*</td>', row)
+        if code and len(nums) >= 5:
+            out[code.group(1)] = float(nums[4].replace(',', ''))
     return out, (noticed.group(1) if noticed else '')
 
 
