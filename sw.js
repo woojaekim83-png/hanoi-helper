@@ -1,6 +1,6 @@
 // 서비스 워커: 한 번 열어본 화면을 저장해 두었다가 인터넷이 끊겨도 보여줍니다.
 // 전략: 네트워크 우선 → 실패하면 저장본 사용 (수정 사항이 바로 반영됨)
-const CACHE = 'hanoi-helper-v5';
+const CACHE = 'hanoi-helper-v6';
 const FILES = ['./', 'index.html', 'style.css', 'app.js', 'features.js', 'data.js', 'viet.js', 'manifest.webmanifest', 'icon.svg', 'icon-192.png', 'icon-512.png'];
 
 self.addEventListener('install', (e) => {

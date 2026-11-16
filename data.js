@@ -35,10 +35,7 @@ window.BANKNOTES = [
   { v: 50000,  short: '50K',  c1: '#e08bb4', c2: '#a8467a', color: '분홍·자주색', back: '후에 응인르엉딘 정자', icon: 'gate', photo: WIKI + '2/28/%C4%90%E1%BB%93ng_b%E1%BA%A1c_50.000.jpg' },
   { v: 20000,  short: '20K',  c1: '#78a8e6', c2: '#3a68b4', color: '파란색', back: '호이안 내원교 (일본교)', icon: 'bridge', photo: WIKI + 'f/f2/%C4%90%E1%BB%93ng_b%E1%BA%A1c_20.000.jpg', warn: '500,000동(청록)과 헷갈리기 쉬워요' },
   { v: 10000,  short: '10K',  c1: '#e3c066', c2: '#a8812c', color: '황토·갈색', back: '바익호 해상 석유시추선', icon: 'rig', photo: WIKI + '3/32/%C4%90%E1%BB%93ng_b%E1%BA%A1c_10.000_%C4%91%E1%BB%93ng.jpg' },
-  { v: 5000,   short: '5K',   c1: '#a9b4d8', c2: '#6b77a8', color: '연보라·청색', back: '찌안 수력발전소', icon: 'dam', note: '종이 지폐', photo: '' },
-  { v: 2000,   short: '2K',   c1: '#c9ac8a', c2: '#8f7152', color: '회갈색', back: '남딘 방직공장', icon: 'factory', note: '종이 지폐', photo: '' },
-  { v: 1000,   short: '1K',   c1: '#b7b98a', c2: '#7d7f52', color: '올리브·보라', back: '떠이응우옌 코끼리', icon: 'elephant', note: '종이 지폐', photo: '' },
-];
+  { v: 5000,   short: '5K',   c1: '#8fb0de', c2: '#4f6fa8', color: '파란색', back: '찌안 수력발전소', icon: 'dam', note: '종이 지폐', photo: WIKI + '7/7c/%C4%90%E1%BB%93ng_b%E1%BA%A1c_5000_%C4%91%E1%BB%93ng.jpg' },];
 
 // 2026년 베트남 공휴일 (off: 쉬는 날 / 나머지는 쉬지 않는 기념일)
 // ※ 설·국경일 연휴의 정확한 날짜는 매년 정부 발표로 확정되니 회사 공지를 함께 확인하세요.
