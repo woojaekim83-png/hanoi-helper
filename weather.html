@@ -81,7 +81,7 @@
       catch { return null; } finally { clearTimeout(t); }
     }
     async function load() {
-      // ① 우리 사이트의 weather.json (GitHub가 1시간 반마다 모아 둠) → 바로 표시
+      // ① 우리 사이트의 weather.json (GitHub가 30분마다 모아 둠) → 바로 표시
       const key = `${LAT.toFixed(2)},${LON.toFixed(2)}`;
       let shown = false;
       const site = await getJson('weather.json?t=' + Math.floor(Date.now() / 600000));

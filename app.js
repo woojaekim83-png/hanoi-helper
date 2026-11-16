@@ -118,7 +118,7 @@ function renderNews() {
     (newsState.region === 'all' || n.region === newsState.region) &&
     (newsState.category === '전체' || n.category === newsState.category)
   );
-  $('#news-meta').textContent = `${items.length}건 · ${newsData.updatedAt || '-'} 업데이트 · 1시간 반마다 갱신`;
+  $('#news-meta').textContent = `${items.length}건 · ${newsData.updatedAt || '-'} 업데이트 · 30분마다 갱신`;
   const card = (n) => {
     // 보안: https 주소만 그대로 열고, 그 외(javascript:, http:, 이상한 값)는 구글 뉴스 검색으로 대체
     const url = safeHttps(n.url) || 'https://news.google.com/search?hl=ko&q=' + encodeURIComponent(n.title);
@@ -327,7 +327,7 @@ async function loadToday() {
   }
 }
 
-// GitHub가 1시간 반마다 모아 두는 전 지역 날씨 파일 (같은 사이트라 휴대폰에서도 바로 열림)
+// GitHub가 30분마다 모아 두는 전 지역 날씨 파일 (같은 사이트라 휴대폰에서도 바로 열림)
 let siteWxLoaded = null;
 function loadSiteWx() {
   if (siteWxLoaded) return siteWxLoaded;
