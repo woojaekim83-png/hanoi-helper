@@ -326,13 +326,8 @@ main { padding: 20px 20px 0; }
   text-decoration: none; vertical-align: 1px; border: 1px solid #c6dafc;
 }
 .gt:active { background: #c6dafc; }
-.gt-search { padding: 12px 14px; }
-.gt-row { display: grid; grid-template-columns: auto 1fr auto; gap: 6px; }
-.gt-row .input { height: 42px; font-size: 16px; padding: 0 10px; }
-.gt-dir, .gt-go { height: 42px; border-radius: var(--r-md); font-size: 13px; font-weight: 700; cursor: pointer; padding: 0 10px; white-space: nowrap; }
-.gt-dir { border: 1px solid var(--hairline-strong); background: var(--canvas); color: var(--ink); }
-.gt-go { border: 0; background: #1a73e8; color: #fff; }
-.gt-search .meta { margin-top: 6px; font-size: 11px; }
+.phrase { position: relative; }
+.phrase > .gt { position: absolute; top: 10px; right: 10px; margin: 0; width: 22px; height: 22px; font-size: 12px; }
 
 /* 설치 안내 띠 */
 .install {

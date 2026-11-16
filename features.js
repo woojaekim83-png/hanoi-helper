@@ -19,13 +19,53 @@ function toneOf(syllable) {
   if (s.includes('̣')) return 'nang';
   return 'ngang';
 }
-// 한글 발음 각 음절 위에 화살표 올리기
-function rubyLine(vi, ko) {
+// 한글 발음 각 음절 위에 화살표 올리기 (south=true면 남부 발음으로 바꿔서 표시)
+function rubyLine(vi, ko, south = false) {
   const v = vi.split(/\s+/), k = ko.split(/\s+/);
   return k.map((syl, i) => {
-    const t = TONES[toneOf(v[i] || '')];
-    return `<span class="syl ${t.cls}"><span class="arrow" title="${t.name}">${t.arrow}</span><span class="kr">${esc(syl)}</span></span>`;
+    let tone = toneOf(v[i] || '');
+    if (south && tone === 'nga') tone = 'hoi'; // 남부는 ngã(끊었다 올리기)를 hỏi처럼 발음
+    const t = TONES[tone];
+    const kr = south ? toSouth(v[i] || '', syl) : syl;
+    return `<span class="syl ${t.cls}"><span class="arrow" title="${t.name}">${t.arrow}</span><span class="kr">${esc(kr)}</span></span>`;
   }).join('');
+}
+
+/* ───── 남부 발음 변환 (호치민 등 냐짱 이남) ─────
+   북부 발음으로 적힌 한글을 베트남어 철자를 보고 남부식으로 바꿔요.
+   · d / gi 로 시작: 북부 'ㅈ' → 남부 'y(이)' 소리   예) giờ 저→여, dị 지→이, giúp 줍→윱
+   · r 로 시작:      북부 'ㅈ' → 남부 'ㄹ' 소리       예) rau 자우→라우, rồi 조이→로이
+   · s 로 시작:      'ㅆ' → 'ㅅ'                     예) sân 썬→선
+   · -anh 으로 끝남: '아인' → '안'                    예) nhanh 냐인→냔, Anh 아인→안
+   · 성조: ngã(~↗)를 hỏi(↘↗)처럼 발음 */
+const HG = 0xAC00;
+const splitHangul = (ch) => { const c = ch.charCodeAt(0) - HG; return c < 0 || c > 11171 ? null : [Math.floor(c / 588), Math.floor((c % 588) / 28), c % 28]; };
+const joinHangul = (l, v, t) => String.fromCharCode(HG + l * 588 + v * 28 + t);
+const Y_GLIDE = { 0: 2, 4: 6, 13: 17, 8: 12, 1: 3, 5: 7 }; // ㅏ→ㅑ ㅓ→ㅕ ㅜ→ㅠ ㅗ→ㅛ ㅐ→ㅒ ㅔ→ㅖ
+function toSouth(viSyl, ko) {
+  const base = viSyl.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-zđ]/g, '');
+  const chars = [...ko];
+  const f = splitHangul(chars[0] || '');
+  if (f) {
+    let [l, v, t] = f;
+    if (/^(gi|d)/.test(base) && l === 12) { l = 11; v = Y_GLIDE[v] ?? v; }
+    else if (/^r/.test(base) && l === 12) l = 5;
+    else if (/^s/.test(base) && l === 10) l = 9;
+    chars[0] = joinHangul(l, v, t);
+  }
+  if (/anh$/.test(base) && chars.length >= 2 && chars[chars.length - 1] === '인') {
+    const p = splitHangul(chars[chars.length - 2]);
+    if (p && p[2] === 0 && (p[1] === 0 || p[1] === 2)) { chars.splice(-2, 2, joinHangul(p[0], p[1], 4)); }
+  }
+  return chars.join('');
+}
+// 내 지역이 냐짱(위도 12.3°) 이남이면 남부 발음
+const isSouth = () => { try { return getPlace().lat <= 12.3; } catch { return false; } };
+function dialectLabel() {
+  const p = getPlace();
+  if (p.lat <= 12.3) return `${p.region}(남부)`;
+  if (p.lat >= 18) return `${p.region}(북부)`;
+  return '하노이(북부)'; // 중부(다낭 등)는 북부 발음 기준
 }
 
 /* ───── 구글 번역 연결 (무료 · 인증키 없음) ───── */
@@ -41,20 +81,23 @@ function renderViet() {
     `<button class="chip" type="button" data-id="${c.id}" aria-pressed="${c.id === vietCat}">${c.icon} ${c.name}</button>`
   ).join('');
   const cat = VIET.find((c) => c.id === vietCat) || VIET[0];
+  const south = isSouth();
+  $('#viet-note').textContent = `한글 발음은 ${dialectLabel()} 기준이에요. 문장을 누르면 소리로 들려줘요 🔊`;
   $('#viet-list').innerHTML = cat.items.map((row) => {
     // 형식: [베트남어, 한글 발음, 뜻, '단어:뜻|단어:뜻']  (옛 형식 {vi, ko, mean}도 지원)
     const [vi, ko, mean, words = ''] = Array.isArray(row) ? row : [row.vi, row.ko, row.mean, row.w];
-    // 단어마다 오른쪽에 작은 구글 번역 아이콘 → 누르면 구글 번역(앱이 있으면 앱)으로 바로 열림
     const wl = words.split('|').filter(Boolean).map((x) => {
       const [w, m] = x.split(':');
-      return `<li><b>${esc(w)}${gtBtn(w, 'vi', 'ko')}</b><span>${esc(m || '')}</span></li>`;
+      return `<li><b>${esc(w)}</b><span>${esc(m || '')}</span></li>`;
     }).join('');
+    // 문장마다 구글 번역 아이콘 1개 (카드 오른쪽 위)
     return `
     <li><div class="phrase" role="button" tabindex="0" data-vi="${esc(vi)}">
+      ${gtBtn(vi, 'vi', 'ko')}
       <span class="ph-main">
         <span class="ph-mean">${esc(mean)}</span>
-        <span class="ph-ko">${rubyLine(vi, ko)}</span>
-        <span class="ph-vi">${esc(vi)} <span class="say" aria-hidden="true">🔊</span>${gtBtn(vi, 'vi', 'ko')}</span>
+        <span class="ph-ko">${rubyLine(vi, ko, south)}</span>
+        <span class="ph-vi">${esc(vi)} <span class="say" aria-hidden="true">🔊</span></span>
       </span>
       ${wl ? `<ul class="ph-words">${wl}</ul>` : ''}
     </div></li>`;
@@ -81,18 +124,6 @@ function speakTTS(text, done) {
   u.onend = done; u.onerror = done;
   speechSynthesis.speak(u);
 }
-// 번역 검색창: 기본 한국어 → 베트남어, 버튼으로 방향 바꾸기
-let gtKoVi = store.get('gtDir') !== 'vi-ko';
-const gtDirLabel = () => { $('#gt-dir').textContent = gtKoVi ? '한 → 베' : '베 → 한'; $('#gt-text').placeholder = gtKoVi ? '궁금한 한국어를 입력하세요' : '베트남어를 입력하세요'; };
-gtDirLabel();
-$('#gt-dir').addEventListener('click', () => { gtKoVi = !gtKoVi; store.set('gtDir', gtKoVi ? 'ko-vi' : 'vi-ko'); gtDirLabel(); });
-$('#gt-form').addEventListener('submit', (e) => {
-  e.preventDefault();
-  const q = $('#gt-text').value.trim();
-  if (!q) { $('#gt-text').focus(); return; }
-  window.open(gtKoVi ? gtUrl(q, 'ko', 'vi') : gtUrl(q, 'vi', 'ko'), '_blank', 'noopener');
-});
-
 $('#viet-list').addEventListener('keydown', (e) => {
   if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('phrase')) { e.preventDefault(); e.target.click(); }
 });
@@ -282,7 +313,7 @@ async function geocode(q) {
   return { lat: +(+r[0].lat).toFixed(4), lon: +(+r[0].lon).toFixed(4), city: a.city || a.town || a.state || a.province || a.county || '' };
 }
 function afterSave() {
-  renderDock(); applyAppName(); loadToday();
+  renderDock(); applyAppName(); loadToday(); renderViet(); // 지역에 따라 북부/남부 발음도 바로 바뀜
 }
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
