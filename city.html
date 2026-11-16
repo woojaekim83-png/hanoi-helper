@@ -124,12 +124,26 @@
         $('#wx').textContent = `${ic} ${Math.round(cache.temp)}° ${tx}`;
       }
     } catch {}
-    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&forecast_days=1&timezone=Asia%2FHo_Chi_Minh`)
-      .then((r) => r.json()).then((j) => {
-        const [, ic, tx] = W.find(([m]) => j.current.weather_code <= m) || W[0];
-        $('#wx').textContent = `${ic} ${Math.round(j.current.temperature_2m)}° ${tx}`;
-        $('#minmax').textContent = `${Math.round(j.daily.temperature_2m_max[0])}° / ${Math.round(j.daily.temperature_2m_min[0])}°`;
-      }).catch(() => { $('#wx').textContent = '정보 없음'; });
+    // 날씨 표시: ① 우리 사이트의 weather.json(빠름) → ② 날씨 서버 최신 값(4초 안에 안 오면 포기)
+    const showWx = (cur, daily) => {
+      const [, ic, tx] = W.find(([m]) => cur.weather_code <= m) || W[0];
+      $('#wx').textContent = `${ic} ${Math.round(cur.temperature_2m)}° ${tx}`;
+      if (daily) $('#minmax').textContent = `${Math.round(daily.temperature_2m_max[0])}° / ${Math.round(daily.temperature_2m_min[0])}°`;
+    };
+    const getJson = async (url) => {
+      const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 4000);
+      try { const r = await fetch(url, { signal: ctl.signal }); return r.ok ? await r.json() : null; }
+      catch { return null; } finally { clearTimeout(t); }
+    };
+    (async () => {
+      let ok = false;
+      const site = await getJson('weather.json?t=' + Math.floor(Date.now() / 600000));
+      const sp = site && site.places && site.places[`${c.lat.toFixed(2)},${c.lon.toFixed(2)}`];
+      if (sp && sp.current) { showWx(sp.current, sp.daily); ok = true; }
+      const j = await getJson(`https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&forecast_days=1&timezone=Asia%2FHo_Chi_Minh`);
+      if (j && j.current) { showWx(j.current, j.daily); ok = true; }
+      if (!ok && !/°/.test($('#wx').textContent)) $('#wx').textContent = '정보 없음';
+    })();
   </script>
   <script src="back.js"></script>
 </body>

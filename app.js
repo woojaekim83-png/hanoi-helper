@@ -314,13 +314,36 @@ async function loadToday() {
   const p = getPlace();
   const wk = `weather.html?lat=${p.lat}&lon=${p.lon}&name=${encodeURIComponent(p.region)}`;
   $('#today-weather').href = wk; $('#today-air').href = wk;
-  // ① 미리 받아 둔 값이 있으면 바로 표시 → ② 없으면 '불러오는 중'을 먼저 보여주고 받아옴
+  // ① 휴대폰에 저장된 값 → ② 우리 사이트의 weather.json(빠르고 안정적) → ③ 날씨 서버에서 최신 값
   if (!renderWx(p)) {
     $('#today-weather').textContent = `⏳ ${p.region} 날씨…`; $('#today-weather').hidden = false;
     $('#today-air').hidden = true;
   }
-  const k = wxKey(p.lat, p.lon), c = WX[k];
-  if (!c || Date.now() - c.at > WX_FRESH) { await fetchWx([[p.lat, p.lon]]); renderWx(p); }
+  await loadSiteWx();
+  if (renderWx(p) && Date.now() - WX[wxKey(p.lat, p.lon)].at < WX_FRESH) return;
+  await fetchWx([[p.lat, p.lon]]);
+  if (!renderWx(p)) { // 모두 실패하면 멈춰 있지 않게 안내 (누르면 주간 날씨 페이지)
+    $('#today-weather').textContent = `🌡️ ${p.region} 날씨 보기`;
+  }
+}
+
+// GitHub가 1시간 반마다 모아 두는 전 지역 날씨 파일 (같은 사이트라 휴대폰에서도 바로 열림)
+let siteWxLoaded = null;
+function loadSiteWx() {
+  if (siteWxLoaded) return siteWxLoaded;
+  siteWxLoaded = (async () => {
+    try {
+      const j = await (await fetch('weather.json?t=' + Math.floor(Date.now() / 600000), { cache: 'no-cache' })).json();
+      for (const [k, v] of Object.entries(j.places || {})) {
+        if (!v.current) continue;
+        const old = WX[k];
+        if (old && old.at >= j.at) continue; // 휴대폰에 더 최신 값이 있으면 유지
+        WX[k] = { temp: v.current.temperature_2m, code: v.current.weather_code, pm: v.pm, at: j.at };
+      }
+      saveWx();
+    } catch { /* 파일을 못 읽으면 날씨 서버로 */ }
+  })();
+  return siteWxLoaded;
 }
 
 /* ───── 날씨·미세먼지 빠르게: 여러 곳을 한 번에 받아 저장해 두기 ───── */
@@ -375,7 +398,8 @@ function renderWx(p) {
   return true;
 }
 // 앱을 열면 우리은행 전 지점 + 지도 도시들의 날씨를 한 번에 미리 받아 둠 → 지역을 바꾸면 즉시 표시
-function prefetchWx() {
+async function prefetchWx() {
+  await loadSiteWx();
   const pts = [...BRANCHES, ...(window.CITIES || [])].map((x) => [x.lat, x.lon]);
   const stale = pts.filter(([la, lo]) => { const c = WX[wxKey(la, lo)]; return !c || Date.now() - c.at > WX_FRESH; });
   if (stale.length) fetchWx(stale).then(() => renderWx(getPlace()));
