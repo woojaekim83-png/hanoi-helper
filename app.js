@@ -16,7 +16,8 @@ const BRANCH_QUERY = {
   starlake: 'Woori Bank Vietnam Starlake branch', binhduong: 'Woori Bank Binh Duong branch Becamex',
   danang: 'Woori Bank Vietnam Da Nang branch', vinhphuc: 'Woori Bank Vinh Phuc branch',
   lotte: 'Woori Bank Vietnam Lotte Mall branch', bienhoa: 'Woori Bank Bien Hoa branch Sonadezi',
-  hanam: 'Woori Bank Vietnam Ha Nam branch',
+  hanam: 'Woori Bank Vietnam Ha Nam branch', thainguyen: 'Woori Bank Vietnam Thai Nguyen branch',
+  haiphong: 'Woori Bank Hai Phong Branch',
 };
 function getPlace() {
   let s = {};

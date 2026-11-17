@@ -143,6 +143,7 @@ window.SCENES = {
     bacninh: 'bac-ninh_02_quan-ho', starlake: 'hoan-kiem_01_turtle-tower', binhduong: 'binh-duong_01_hoi-khanh',
     danang: 'da-nang_01_dragon-bridge', vinhphuc: 'vinh-phuc_02_dai-lai', lotte: 'hoan-kiem_01_turtle-tower',
     bienhoa: 'bien-hoa_01-tran-bien', hanam: 'ha-nam_01_tam-chuc',
+    thainguyen: 'thai-nguyen_01_tan-cuong-corrected', haiphong: 'hai-phong_02_cat-ba',
   },
   city: {
     hanoi: 'hoan-kiem_01_turtle-tower', hcmc: 'ho-chi-minh_02_central-post-office', danang: 'da-nang_01_dragon-bridge',
@@ -177,4 +178,8 @@ window.BRANCHES = [
     short: '소나데지 빌딩 5층', addr: '5F, Sonadezi Building, No.1 Road 1, Bien Hoa 1 IP, Tran Bien, Dong Nai', mapCheck: 8 },
   { id: 'hanam', label: '하남지점', region: '하남', lat: 20.5318527, lon: 105.9141187,
     short: 'TMDV4 상업지구 · 푸리', addr: 'Khu TMDV4, QL1A, Phủ Lý, Ninh Bình (구글 지도 주소)', mapCheck: 0 },
+  { id: 'thainguyen', label: '타이응웬지점', region: '타이응웬', lat: 21.4246433, lon: 105.8949051,
+    short: '삼성 타이응웬 1번 게이트 2층', addr: 'Tầng 2, Cổng số 1, Samsung, Khu công nghiệp Yên Bình, Vạn Xuân, Thái Nguyên (구글 지도 주소)', mapCheck: 0 },
+  { id: 'haiphong', label: '하이퐁지점', region: '하이퐁', lat: 20.8488956, lon: 106.7049861,
+    short: 'Lô 22A · Lê Hồng Phong', addr: 'No. 4, Lot 22A, Le Hong Phong Street, Gia Vien Ward, Hai Phong (공식 홈페이지 주소)', mapCheck: 8 },
 ];
