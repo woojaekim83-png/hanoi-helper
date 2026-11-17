@@ -66,6 +66,24 @@ button:active, .news:active, .sos-item:active, .dock a:active { transform: scale
   font-size: 140px; line-height: 1; color: #ffcd00; opacity: .14; transform: rotate(12deg);
 }
 .hero p { margin: 4px 0 0; font-size: 14px; opacity: .9; }
+/* 지역 일러스트 배경 (내 지역을 고르면) — 값을 바꿔 위치·크기를 조절할 수 있어요 */
+.hero.scene {
+  --scene-height: 150px;        /* 그림이 차지하는 높이 */
+  --scene-opacity: 1;           /* 그림 진하기 (0~1) */
+  background: linear-gradient(180deg, #e8f3f6 0%, #f3f8f1 60%, #eef4ea 100%);
+  color: #17324a;
+  padding-bottom: calc(var(--scene-height) - 30px);
+}
+.hero.scene::after { display: none; }                 /* 빨간 배경용 별 장식 숨김 */
+.hero-scene {
+  position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: var(--scene-height);
+  object-fit: cover; object-position: center bottom; opacity: var(--scene-opacity, 1); pointer-events: none;
+}
+.hero > *:not(.hero-scene) { position: relative; z-index: 1; }
+.hero.scene h1 { text-shadow: 0 1px 0 rgba(255,255,255,.8); }
+.hero.scene .today-btn { background: rgba(255,255,255,.85); color: #17324a; border-color: rgba(23,50,74,.12); }
+.hero.scene .today-btn.air { background: #fff; }
+
 .today { display: flex; flex-wrap: nowrap; gap: 5px; margin-top: 10px; position: relative; z-index: 1; }
 .today-btn {
   display: inline-flex; align-items: center; padding: 5px 9px; border-radius: var(--r-full);

@@ -24,6 +24,12 @@
     .city h1 { margin: 0; font-size: 26px; font-weight: 700; }
     .city small { display: block; font-size: 13px; opacity: .85; }
     .intro { margin: 12px 0 0; font-size: 14px; opacity: .95; }
+    /* 도시 일러스트 배경 — 값을 바꿔 크기·진하기 조절 */
+    header { position: relative; overflow: hidden; }
+    header > *:not(.scene-img) { position: relative; z-index: 1; }
+    header.scene { --scene-height: 170px; background: linear-gradient(180deg, #e8f3f6 0%, #f3f8f1 70%, #eef4ea 100%); color: #17324a; padding-bottom: calc(var(--scene-height) - 20px); }
+    header.scene .top a { color: #17324a; }
+    .scene-img { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: var(--scene-height, 170px); object-fit: cover; object-position: center bottom; pointer-events: none; }
     main { padding: 16px; display: flex; flex-direction: column; gap: 12px; }
     .card { background: var(--canvas); border-radius: 14px; padding: 16px 18px; box-shadow: rgba(15,15,15,.04) 0 1px 2px; }
     .card h2 { margin: 0 0 10px; font-size: 16px; }
@@ -52,6 +58,7 @@
 <body>
   <div class="wrap">
     <header>
+      <img class="scene-img" id="scene" alt="" hidden>
       <div class="top"><span>🇻🇳 베트남 도시 안내</span><a href="./" id="back" data-tab="life">← 도우미로</a></div>
       <div class="city"><span class="ic" id="ic"></span><div><h1 id="name"></h1><small id="vi"></small></div></div>
       <p class="intro" id="intro"></p>
@@ -88,6 +95,7 @@
       </div>
     </main>
   </div>
+  <script src="data.js"></script>
   <script src="cities.js"></script>
   <script>
     const $ = (s) => document.querySelector(s);
@@ -97,6 +105,9 @@
     const q = (s) => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(s);
 
     document.title = `${c.name} · 베트남 도시 안내`;
+    // 도시 일러스트가 있으면 머리 영역 배경으로
+    const sc = (window.SCENES && SCENES.city || {})[c.id];
+    if (sc) { const im = $('#scene'); im.src = `images/scenes/${sc}.png`; im.hidden = false; document.querySelector('header').classList.add('scene'); }
     $('#ic').textContent = c.icon;
     $('#name').textContent = c.name;
     $('#vi').textContent = c.vi;

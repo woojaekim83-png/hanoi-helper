@@ -32,9 +32,16 @@ function getPlace() {
 }
 // 앱 이름: 지점을 고르면 'OO 생활 도우미', 수동이면 '베트남 생활 도우미'
 function applyAppName() {
-  const name = `${getPlace().appName} 생활 도우미`;
+  const p = getPlace();
+  const name = `${p.appName} 생활 도우미`;
   document.title = name;
   $('#app-name').textContent = name;
+  // 지점을 저장했으면 맨 위 영역을 그 지역 일러스트로 (수동 입력·저장 전에는 기존 빨간 배경)
+  const scene = p.mode === 'branch' && p.appName !== '베트남' && (window.SCENES?.branch || {})[p.id];
+  const hero = $('.hero');
+  hero.classList.toggle('scene', !!scene);
+  $('#hero-scene').src = scene ? `images/scenes/${scene}.png` : '';
+  $('#hero-scene').hidden = !scene;
 }
 
 /* ───── 탭 전환 ───── */

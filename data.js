@@ -135,6 +135,21 @@ window.FACTS = [
   ]},
 ];
 
+// 지역 일러스트 (images/scenes 폴더) — 파일 이름만 바꾸면 다른 그림으로 교체돼요
+// branch: 내 지역(지점)을 고르면 맨 위 제목 영역 배경 / city: 생활 → 지도에서 도시를 누르면 도시 안내 배경
+window.SCENES = {
+  branch: {
+    hanoi: 'hanoi_01_van-mieu', hcm: 'ho-chi-minh_02_central-post-office', dongnai: 'dong-nai_02_tri-an',
+    bacninh: 'bac-ninh_02_quan-ho', starlake: 'hoan-kiem_01_turtle-tower', binhduong: 'binh-duong_01_hoi-khanh',
+    danang: 'da-nang_01_dragon-bridge', vinhphuc: 'vinh-phuc_02_dai-lai', lotte: 'hoan-kiem_01_turtle-tower',
+    bienhoa: 'bien-hoa_01-tran-bien', hanam: 'ha-nam_01_tam-chuc',
+  },
+  city: {
+    hanoi: 'hoan-kiem_01_turtle-tower', hcmc: 'ho-chi-minh_02_central-post-office', danang: 'da-nang_01_dragon-bridge',
+    halong: 'hai-phong_02_cat-ba', ninhbinh: 'ha-nam_01_tam-chuc',
+  },
+};
+
 // 하단 바 목적지: 우리은행 베트남 지점 목록 (첫 번째가 기본값)
 // addr: 우리은행 베트남 공식 홈페이지 주소 / lat·lon: 구글 지도의 해당 지점 위치
 // region: 저장하면 앱 제목이 'OO 생활 도우미'로 바뀌고, 이 지역 날씨를 보여줘요
