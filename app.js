@@ -69,10 +69,14 @@ document.querySelectorAll('.tab').forEach((b) => b.addEventListener('click', () 
   area.addEventListener('touchend', (e) => {
     if (skip) return;
     const t = e.changedTouches[0], dx = t.clientX - sx, dy = t.clientY - sy;
-    if (Math.abs(dx) < 70 || Math.abs(dx) < Math.abs(dy) * 1.8 || Date.now() - t0 > 700) return;
+    // 감도: 40px 이상 옆으로 밀거나, 짧아도(25px~) 빠르게 튕기면 넘어감 · 대각선은 옆으로 더 많이 움직였을 때만
+    const ms = Math.max(Date.now() - t0, 1), adx = Math.abs(dx), ady = Math.abs(dy);
+    const flick = adx >= 25 && adx / ms > 0.35;
+    if ((adx < 40 && !flick) || adx < ady * 1.2 || ms > 1000) return;
     const cur = TABS.indexOf(document.querySelector('.tab[aria-selected="true"]')?.dataset.tab);
-    const next = cur + (dx < 0 ? 1 : -1);
-    if (next >= 0 && next < TABS.length) showTab(TABS[next]);
+    // 끝에서 계속 밀면 반대쪽 끝으로 (경제 ↔ 생활 순환)
+    const next = (cur + (dx < 0 ? 1 : -1) + TABS.length) % TABS.length;
+    showTab(TABS[next]);
   }, { passive: true });
 })();
 
