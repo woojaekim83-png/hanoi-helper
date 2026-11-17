@@ -102,7 +102,38 @@ function renderViet() {
       ${wl ? `<ul class="ph-words">${wl}</ul>` : ''}
     </div></li>`;
   }).join('');
+  fitPhrases();
 }
+// 카드 크기는 그대로 두고, 넘치는 글자만 줄여서 한 줄에 맞춤
+function shrinkToFit(el, prop, min, over) {
+  let size = parseFloat(getComputedStyle(el)[prop === 'kr' ? 'fontSize' : prop]);
+  const targets = prop === 'kr' ? el.querySelectorAll('.kr') : [el];
+  if (prop === 'kr') size = parseFloat(getComputedStyle(targets[0]).fontSize);
+  let gap = parseFloat(getComputedStyle(el).columnGap) || 0;
+  while (over() && size > min) {
+    size -= 0.5;
+    targets.forEach((t) => { t.style.fontSize = size + 'px'; if (prop === 'kr') t.style.letterSpacing = '-0.5px'; });
+    if (prop === 'kr' && gap > 2) { gap -= 0.5; el.style.columnGap = gap + 'px'; }
+  }
+}
+function fitPhrases() {
+  if ($('#panel-viet').hidden) return; // 숨겨진 상태에선 크기를 잴 수 없음
+  $('#viet-list').querySelectorAll('.phrase').forEach((p) => {
+    const ko = p.querySelector('.ph-ko');
+    if (ko.children.length) shrinkToFit(ko, 'kr', 12, () => ko.scrollWidth > ko.clientWidth);
+    p.querySelectorAll('.ph-mean, .ph-vi').forEach((el) => shrinkToFit(el, 'fontSize', 10, () => el.scrollWidth > el.clientWidth));
+    const w = p.querySelector('.ph-words');
+    if (!w) return;
+    if (w.scrollHeight > w.clientHeight) w.classList.add('row');
+    const items = w.querySelectorAll('li');
+    let fs = 12;
+    while (w.scrollHeight > w.clientHeight && fs > 9.5) {
+      fs -= 0.5;
+      items.forEach((li) => { li.style.fontSize = fs + 'px'; li.querySelector('b').style.fontSize = (fs + 1) + 'px'; });
+    }
+  });
+}
+addEventListener('resize', () => { if (!$('#panel-viet').hidden) renderViet(); });
 $('#tone-legend').innerHTML = Object.values(TONES).map((t) =>
   `<span class="${t.cls}"><b>${t.arrow}</b>${t.name}</span>`
 ).join('');

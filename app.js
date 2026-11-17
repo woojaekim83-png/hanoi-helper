@@ -54,6 +54,7 @@ function showTab(name) {
   store.set('tab', name);
   if (location.hash !== '#' + name) history.replaceState(null, '', '#' + name);
   window.scrollTo(0, 0);
+  if (name === 'viet' && typeof fitPhrases === 'function') fitPhrases(); // 화면에 보일 때 글자 크기 맞춤
 }
 document.querySelectorAll('.tab').forEach((b) => b.addEventListener('click', () => showTab(b.dataset.tab)));
 

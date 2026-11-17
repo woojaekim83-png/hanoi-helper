@@ -417,6 +417,16 @@ main { padding: 20px 20px 0; }
 .syl .kr { font-size: 20px; font-weight: 700; color: var(--ink); }
 .ph-ko { gap: 2px 7px; }
 .ph-vi { font-size: 14px; color: var(--steel); font-weight: 500; }
+/* 모든 문장 카드를 '바오 니에우 못 껀' 카드 크기로 통일 */
+.phrase { height: 127px; overflow: hidden; }
+.ph-main { justify-content: center; }
+.ph-mean, .ph-vi { white-space: nowrap; overflow: hidden; }
+.ph-ko { flex-wrap: nowrap; white-space: nowrap; }
+.ph-words { justify-content: flex-start; overflow: hidden; }
+/* 단어가 많으면 '단어 뜻'을 한 줄(가로)로 */
+.ph-words.row li { display: flex; align-items: baseline; gap: 4px; white-space: nowrap; overflow: hidden; }
+.ph-words.row b { display: inline; flex: none; }
+.ph-words.row span { overflow: hidden; text-overflow: ellipsis; }
 .ph-vi .say { opacity: .6; }
 
 /* 달력 */
