@@ -345,7 +345,10 @@ main { padding: 20px 20px 0; }
 }
 .gt:active { background: #c6dafc; }
 .phrase { position: relative; }
-.phrase > .gt { position: absolute; top: 10px; right: 10px; margin: 0; width: 22px; height: 22px; font-size: 12px; }
+/* 문장 카드 오른쪽 위 구글 번역 버튼 — 발음 듣기(카드 전체)와 헷갈리지 않게 1.4배 크게 */
+.phrase > .gt { position: absolute; top: 8px; right: 8px; margin: 0; width: 31px; height: 31px; font-size: 17px; border-radius: 6px; z-index: 2; }
+.phrase > .gt::before { content: ''; position: absolute; inset: -6px; } /* 손가락으로 누르는 영역은 조금 더 넓게 */
+.phrase .ph-words { padding-top: 30px; } /* 버튼 아래로 단어 풀이가 내려오게 */
 
 /* 설치 안내 띠 */
 .install {
