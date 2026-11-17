@@ -262,6 +262,14 @@ async function loadMarket() {
 }
 
 /* ───── 베트남 기준금리 ───── */
+// policy.json: GitHub가 매일 베트남 시각 09:00에 SBV 홈페이지에서 읽어 둔 기준금리 (못 읽으면 data.js 값)
+async function loadPolicy() {
+  try {
+    const j = await (await fetch('policy.json?t=' + Math.floor(Date.now() / 600000), { cache: 'no-cache' })).json();
+    if (j && j.refinancing != null) window.POLICY_RATE = { ...window.POLICY_RATE, ...j };
+  } catch { /* 파일이 없으면 data.js 값 사용 */ }
+  renderPolicy();
+}
 function renderPolicy() {
   const p = window.POLICY_RATE; if (!p) return;
   const diff = p.refinancing - p.prevRefinancing;
@@ -271,7 +279,7 @@ function renderPolicy() {
     <div class="pol-sub"><span>재할인금리</span><b>${p.discount.toFixed(2)}%</b></div>
     <div class="pol-sub"><span>최근 변경일</span><b>${p.changedAt}</b></div>
     <div class="pol-sub"><span>다음 발표일</span><b>정해진 일정 없음</b></div>`;
-  $('#policy-meta').innerHTML = `베트남 중앙은행(SBV)은 정기 발표일 없이 수시로 결정해요 · ${p.checkedAt} 확인 · <a href="${p.source}" target="_blank" rel="noopener">SBV 홈페이지</a>`;
+  $('#policy-meta').innerHTML = `SBV는 정기 발표일 없이 수시로 결정해요${p.decision ? ` · 근거 ${esc(p.decision)}` : ''} · 매일 09시(베트남) 자동 확인 · 마지막 확인 ${esc(p.checkedAt)} · <a href="${esc(safeHttps(p.source) || 'https://sbv.gov.vn')}" target="_blank" rel="noopener">SBV 홈페이지</a>`;
 }
 
 /* ───── 지폐: 실물 사진 + 금액 ───── */
@@ -427,7 +435,7 @@ const airLevel = (pm) => AIR_LEVELS.find(([max]) => pm <= max);
 /* ───── 시작 ───── */
 renderNewsFilters(); loadNews();
 applyAppName();
-renderPresets(); renderConverter(); renderPolicy(); renderNotes(); loadRates(); loadToday(); loadMarket();
+renderPresets(); renderConverter(); renderPolicy(); loadPolicy(); renderNotes(); loadRates(); loadToday(); loadMarket();
 setTimeout(prefetchWx, 300); // 내 지역 날씨를 먼저 받고 나서 나머지 지역을 미리 받아 둠
 
 // 웹앱(PWA): 오프라인에서도 열리도록 서비스 워커 등록
