@@ -227,6 +227,36 @@ document.querySelectorAll('.fact-group').forEach((d) => d.addEventListener('togg
   document.querySelectorAll('.fact-group').forEach((o) => { if (o !== d) o.open = false; });
 }));
 
+/* ───── 생활: 필수앱 모음 ───── */
+// 웹에서는 '앱이 설치돼 있는지' 직접 알 수 없어서, 휴대폰 종류에 맞는 공식 스토어로 연결해요.
+//  · 안드로이드: intent 링크 → 설치돼 있으면 앱이 바로 열리고, 없으면 플레이스토어 설치 화면
+//  · 아이폰: 앱스토어 화면 → 설치돼 있으면 [열기], 없으면 [받기] 버튼
+const UA = navigator.userAgent;
+const OS = /iPhone|iPad|iPod/i.test(UA) || (/Macintosh/.test(UA) && navigator.maxTouchPoints > 1) ? 'ios'
+  : /Android/i.test(UA) ? 'android' : 'other';
+const playUrl = (pkg) => `https://play.google.com/store/apps/details?id=${pkg}&hl=ko`;
+function appLink(a) {
+  if (OS === 'ios') return `https://apps.apple.com/app/id${a.ios}`;
+  if (OS === 'android') {
+    return `intent://#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=${a.android};`
+      + `S.browser_fallback_url=${encodeURIComponent(playUrl(a.android))};end`;
+  }
+  return playUrl(a.android); // PC 등
+}
+function renderApps() {
+  $('#apps-grid').innerHTML = APPS.map((a) => `
+    <a class="app-tile" href="${esc(appLink(a))}" ${OS === 'android' ? '' : 'target="_blank" rel="noopener"'}>
+      <span class="app-icon" style="--app:${a.color}" aria-hidden="true">${a.icon}</span>
+      <b>${esc(a.name)}</b><small>${esc(a.sub)}</small>
+    </a>`).join('');
+  $('#apps-os').textContent = OS === 'ios' ? ' App Store' : OS === 'android' ? '▶ Google Play' : '';
+  $('#apps-note').textContent = OS === 'ios'
+    ? '누르면 앱스토어가 열려요. 설치돼 있으면 [열기], 없으면 [받기]만 누르면 돼요.'
+    : OS === 'android'
+      ? '설치된 앱은 바로 열리고, 없으면 플레이스토어 설치 화면으로 이동해요.'
+      : '휴대폰에서 누르면 설치돼 있는 앱은 열리고, 없으면 설치 화면으로 이동해요.';
+}
+
 /* ───── 생활: 베트남 지도 일러스트 ───── */
 // 경도·위도를 그림 좌표로 바꿔 간단한 S자 국토 모양을 그림 (정확한 지도가 아닌 일러스트)
 const MAP_K = 20, MAP_LON0 = 101.5, MAP_LAT0 = 23.6;
@@ -383,7 +413,7 @@ sheet.addEventListener('click', (e) => { if (e.target === sheet) sheet.close(); 
 })();
 
 /* ───── 시작 ───── */
-renderViet(); renderCalendar(); renderDock(); renderMap();
+renderViet(); renderCalendar(); renderDock(); renderMap(); renderApps();
 tick(); setInterval(tick, 15000);
 // 도시 안내·주간 날씨는 같은 창에서 열고, 휴대폰 뒤로가기로 돌아오면 보던 탭을 다시 보여줌
 document.addEventListener('click', (e) => {
