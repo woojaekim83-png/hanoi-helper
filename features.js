@@ -286,11 +286,6 @@ function renderApps() {
       <b>${esc(a.name)}</b><small>${esc(a.sub)}</small>
     </a>`).join('');
   $('#apps-os').textContent = OS === 'ios' ? ' App Store' : OS === 'android' ? '▶ Google Play' : '';
-  $('#apps-note').textContent = OS === 'ios'
-    ? '누르면 앱스토어가 열려요. 설치돼 있으면 [열기], 없으면 [받기]만 누르면 돼요.'
-    : OS === 'android'
-      ? '설치된 앱은 바로 열리고, 없으면 플레이스토어 설치 화면으로 이동해요. (배달K·우리 WON은 플레이스토어에서 [열기])'
-      : '휴대폰에서 누르면 설치돼 있는 앱은 열리고, 없으면 설치 화면으로 이동해요.';
 }
 
 /* ───── 생활: 베트남 지도 일러스트 ───── */
