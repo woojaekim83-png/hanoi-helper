@@ -33,10 +33,10 @@
    }
   ]
  },
- "updatedAt": "11.17 18:27",
+ "updatedAt": "11.17 19:30",
  "rates": {
   "source": "우리은행 매매기준율",
-  "noticedAt": "2026.11.17 18:21",
+  "noticedAt": "2026.11.17 18:49",
   "items": [
    {
     "code": "USD",
@@ -75,8 +75,8 @@
     "flag": "🇯🇵",
     "name": "엔(100)",
     "unit": 100,
-    "value": 841.2,
-    "change": 2.12
+    "value": 841.15,
+    "change": 2.07
    }
   ]
  }
