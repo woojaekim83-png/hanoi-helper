@@ -261,13 +261,17 @@ document.querySelectorAll('.fact-group').forEach((d) => d.addEventListener('togg
 /* ───── 생활: 필수앱 모음 ───── */
 // 웹에서는 '앱이 설치돼 있는지' 직접 알 수 없어서, 휴대폰 종류에 맞는 공식 스토어로 연결해요.
 //  · 안드로이드: intent 링크 → 설치돼 있으면 앱이 바로 열리고, 없으면 플레이스토어 설치 화면
-//  · 아이폰: 앱스토어 화면 → 설치돼 있으면 [열기], 없으면 [받기] 버튼
+//  · 아이폰: 앱 회사가 공식 등록한 링크(유니버설 링크)로 열어요 → 설치돼 있으면 앱이 바로 열림
+//           앱 전용 주소(googletranslate://)는 못 열면 잠시 뒤 앱스토어로 이동
+//           열기 링크를 모르는 앱(우리 WON)은 앱스토어 화면 → [열기]
 const UA = navigator.userAgent;
 const OS = /iPhone|iPad|iPod/i.test(UA) || (/Macintosh/.test(UA) && navigator.maxTouchPoints > 1) ? 'ios'
   : /Android/i.test(UA) ? 'android' : 'other';
 const playUrl = (pkg) => `https://play.google.com/store/apps/details?id=${pkg}&hl=ko`;
+const storeUrl = (id) => `https://apps.apple.com/app/id${id}`;
+const isScheme = (u) => u && !/^https?:/i.test(u);
 function appLink(a) {
-  if (OS === 'ios') return `https://apps.apple.com/app/id${a.ios}`;
+  if (OS === 'ios') return a.iosOpen || storeUrl(a.ios);
   if (OS === 'android') {
     // 크롬은 '앱 실행(런처)' 링크를 막아서 늘 플레이스토어로 가요.
     // 그래서 그 앱이 직접 받아 주는 링크(open)로 열고, 앱이 없을 때만 플레이스토어로 보내요.
@@ -279,14 +283,28 @@ function appLink(a) {
   return playUrl(a.android); // PC 등
 }
 function renderApps() {
+  // 앱을 여는 링크는 같은 창에서 열어야 앱으로 넘어가요. 스토어·웹 화면만 새 창으로.
+  const sameWindow = (a) => OS === 'android' || (OS === 'ios' && a.iosOpen);
   $('#apps-grid').innerHTML = APPS.map((a) => `
-    <a class="app-tile" href="${esc(appLink(a))}" ${OS === 'android' ? '' : 'target="_blank" rel="noopener"'}>
+    <a class="app-tile" href="${esc(appLink(a))}" data-ios="${a.ios}" ${sameWindow(a) ? '' : 'target="_blank" rel="noopener"'}>
       <span class="app-icon" style="--app:${a.color}" aria-hidden="true">${a.img
         ? `<img src="${a.img}" alt="" loading="lazy" onerror="this.replaceWith('${a.icon}')">` : a.icon}</span>
       <b>${esc(a.name)}</b><small>${esc(a.sub)}</small>
     </a>`).join('');
   $('#apps-os').textContent = OS === 'ios' ? ' App Store' : OS === 'android' ? '▶ Google Play' : '';
 }
+// 아이폰 + 앱 전용 주소: 앱이 열리면 화면이 넘어가고, 2.5초 뒤에도 그대로면(앱 없음) 앱스토어로
+$('#apps-grid').addEventListener('click', (e) => {
+  const t = e.target.closest('.app-tile');
+  if (!t || OS !== 'ios' || !isScheme(t.getAttribute('href'))) return;
+  e.preventDefault();
+  let left = false;
+  const mark = () => { left = true; };
+  addEventListener('pagehide', mark, { once: true });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) left = true; }, { once: true });
+  location.href = t.getAttribute('href');
+  setTimeout(() => { if (!left && !document.hidden) location.href = storeUrl(t.dataset.ios); }, 2500);
+});
 
 /* ───── 생활: 베트남 지도 일러스트 ───── */
 // 경도·위도를 그림 좌표로 바꿔 간단한 S자 국토 모양을 그림 (정확한 지도가 아닌 일러스트)

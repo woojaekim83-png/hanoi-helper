@@ -136,11 +136,11 @@ window.FACTS = [
 // 누르면: 안드로이드는 설치돼 있으면 바로 열고, 없으면 플레이스토어 설치 화면 / 아이폰은 앱스토어 화면(설치돼 있으면 '열기')
 window.APPS = [
 // open: 설치된 앱을 바로 여는 주소 (앱이 받아 주는 링크). 없으면 플레이스토어 화면으로 연결
-  { name: 'Grab', sub: '택시·오토바이·음식배달', icon: '🚗', color: '#00b14f', android: 'com.grabtaxi.passenger', img: 'images/apps/grab.png', ios: '647268330', open: 'grab://open?screenType=MAIN' },
-  { name: 'Zalo', sub: '베트남 국민 메신저', icon: '💬', color: '#0068ff', android: 'com.zing.zalo', img: 'images/apps/zalo.png', ios: '579523206', open: 'https://zalo.me/' },
-  { name: 'Google 번역', sub: '사진·음성 번역', icon: '🌐', color: '#4285f4', android: 'com.google.android.apps.translate', img: 'images/apps/translate.png', ios: '414706506', open: 'https://translate.google.com/' },
-  { name: 'Google 지도', sub: '길찾기·버스·지하철', icon: '🗺️', color: '#34a853', android: 'com.google.android.apps.maps', img: 'images/apps/maps.png', ios: '585027354', open: 'https://www.google.com/maps' },
-  { name: '배달K', sub: '한국어 음식배달', icon: '🍱', color: '#ff5a3c', android: 'com.teamjin.deliveryk', img: 'images/apps/deliveryk.png', ios: '1456285291', open: 'deliveryk://docs/' },
+  { name: 'Grab', sub: '택시·오토바이·음식배달', icon: '🚗', color: '#00b14f', android: 'com.grabtaxi.passenger', img: 'images/apps/grab.png', ios: '647268330', iosOpen: 'https://www.grab.com/vn/download/', open: 'grab://open?screenType=MAIN' },
+  { name: 'Zalo', sub: '베트남 국민 메신저', icon: '💬', color: '#0068ff', android: 'com.zing.zalo', img: 'images/apps/zalo.png', ios: '579523206', iosOpen: 'https://zalo.me/', open: 'https://zalo.me/' },
+  { name: 'Google 번역', sub: '사진·음성 번역', icon: '🌐', color: '#4285f4', android: 'com.google.android.apps.translate', img: 'images/apps/translate.png', ios: '414706506', iosOpen: 'googletranslate://', open: 'https://translate.google.com/' },
+  { name: 'Google 지도', sub: '길찾기·버스·지하철', icon: '🗺️', color: '#34a853', android: 'com.google.android.apps.maps', img: 'images/apps/maps.png', ios: '585027354', iosOpen: 'https://maps.google.com/', open: 'https://www.google.com/maps' },
+  { name: '배달K', sub: '한국어 음식배달', icon: '🍱', color: '#ff5a3c', android: 'com.teamjin.deliveryk', img: 'images/apps/deliveryk.png', ios: '1456285291', iosOpen: 'https://www.deliveryk.com/', open: 'deliveryk://docs/' },
   { name: '우리 WON', sub: '우리은행 베트남', icon: '🏦', color: '#0067ac', android: 'vn.com.woori.smart', img: 'images/apps/wooriwon.png', ios: '1501785125' },
 ];
 
