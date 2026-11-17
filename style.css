@@ -246,6 +246,9 @@ main { padding: 20px 20px 0; }
 }
 .app-tile b { font-size: 11px; font-weight: 600; line-height: 1.25; letter-spacing: -.3px; word-break: keep-all; }
 .app-tile small { display: none; }
+/* 실제 앱 아이콘 (App Store 공식 이미지) */
+.app-icon:has(img) { background: #fff; overflow: hidden; box-shadow: 0 1px 4px rgba(15,15,15,.18); }
+.app-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .apps-card .meta { margin-top: 6px; font-size: 11.5px; }
 
 /* 베트남 지도 */

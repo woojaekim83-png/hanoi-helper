@@ -281,7 +281,8 @@ function appLink(a) {
 function renderApps() {
   $('#apps-grid').innerHTML = APPS.map((a) => `
     <a class="app-tile" href="${esc(appLink(a))}" ${OS === 'android' ? '' : 'target="_blank" rel="noopener"'}>
-      <span class="app-icon" style="--app:${a.color}" aria-hidden="true">${a.icon}</span>
+      <span class="app-icon" style="--app:${a.color}" aria-hidden="true">${a.img
+        ? `<img src="${a.img}" alt="" loading="lazy" onerror="this.replaceWith('${a.icon}')">` : a.icon}</span>
       <b>${esc(a.name)}</b><small>${esc(a.sub)}</small>
     </a>`).join('');
   $('#apps-os').textContent = OS === 'ios' ? ' App Store' : OS === 'android' ? '▶ Google Play' : '';
