@@ -13,7 +13,7 @@
   <link rel="apple-touch-icon" href="icon-192.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="베트남도우미">
-  <link rel="stylesheet" href="style.css?v=57">
+  <link rel="stylesheet" href="style.css?v=58">
 </head>
 <body>
   <div class="app">
@@ -45,7 +45,10 @@
       <!-- 환율 -->
       <section class="panel" id="panel-rate" hidden>
         <div class="card">
-          <h2>환율 계산기</h2>
+          <div class="conv-head">
+            <h2>환율 계산기</h2>
+            <button class="conv-reset" id="conv-reset" type="button" aria-label="금액 0으로 초기화">↺ 리셋</button>
+          </div>
           <div class="converter">
             <input id="amount" class="input" type="text" inputmode="decimal" value="100,000" aria-label="금액">
             <select id="from" class="input select" aria-label="통화">
@@ -204,14 +207,14 @@
   </dialog>
 
   <!-- ?v= 숫자는 수정할 때마다 올려서 휴대폰에 예전 파일이 남지 않게 합니다 -->
-  <script src="data.js?v=57"></script>
-  <script src="viet1.js?v=57"></script>
-  <script src="viet2.js?v=57"></script>
-  <script src="viet3.js?v=57"></script>
-  <script src="viet4.js?v=57"></script>
-  <script src="viet5.js?v=57"></script>
-  <script src="cities.js?v=57"></script>
-  <script src="app.js?v=57"></script>
-  <script src="features.js?v=57"></script>
+  <script src="data.js?v=58"></script>
+  <script src="viet1.js?v=58"></script>
+  <script src="viet2.js?v=58"></script>
+  <script src="viet3.js?v=58"></script>
+  <script src="viet4.js?v=58"></script>
+  <script src="viet5.js?v=58"></script>
+  <script src="cities.js?v=58"></script>
+  <script src="app.js?v=58"></script>
+  <script src="features.js?v=58"></script>
 </body>
 </html>

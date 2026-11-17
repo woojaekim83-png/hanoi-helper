@@ -228,6 +228,15 @@ main { padding: 20px 20px 0; }
 .card .presets .chip { flex: 1; min-width: 0; padding: 5px 0; font-size: 12px; text-align: center; white-space: nowrap; }
 .lead { margin: -4px 0 4px; line-height: 1.6; }
 
+/* 환율 계산기 머리줄 + 리셋 버튼 */
+.conv-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.conv-head h2 { margin: 0; }
+.conv-reset {
+  border: 1px solid var(--hairline-strong); background: var(--canvas); color: var(--ink);
+  font: 500 13px/1 inherit; font-family: inherit; padding: 7px 12px; border-radius: var(--r-md); cursor: pointer;
+}
+.conv-reset:active { background: var(--surface); }
+
 /* 생활 필수앱 */
 .apps-head { display: flex; justify-content: space-between; align-items: baseline; }
 .apps-head h2 { margin-bottom: 12px; }

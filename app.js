@@ -188,9 +188,11 @@ const setAmount = (n, d = 0) => { $('#amount').value = n.toLocaleString('en-US',
 function renderPresets() {
   const from = $('#from').value;
   $('#presets').innerHTML = CUR[from].presets.map(([v, l]) =>
-    `<button class="chip" type="button" data-v="${v}">${l}${from === 'VND' ? '' : ' ' + UNIT[from]}</button>`
+    `<button class="chip" type="button" data-v="${v}">+${l}${from === 'VND' ? '' : ' ' + UNIT[from]}</button>`
   ).join('');
 }
+// 금액 버튼은 계산기처럼 '더하기'. 처음 화면·통화 변경·바꾸기·리셋 직후 첫 버튼은 그 금액으로 시작
+let freshAmount = true;
 function renderConverter() {
   const amt = parseAmount($('#amount').value);
   const from = $('#from').value;
@@ -202,23 +204,29 @@ function renderConverter() {
 }
 $('#presets').addEventListener('click', (e) => {
   const b = e.target.closest('button'); if (!b) return;
-  setAmount(Number(b.dataset.v)); renderConverter();
+  const base = freshAmount ? 0 : parseAmount($('#amount').value);
+  freshAmount = false;
+  setAmount(base + Number(b.dataset.v), CUR[$('#from').value].d); renderConverter();
+});
+$('#conv-reset').addEventListener('click', () => {
+  setAmount(0); freshAmount = false; renderConverter();
 });
 $('#swap').addEventListener('click', () => {
   const from = $('#from').value;
   const to = from === 'VND' ? 'KRW' : 'VND';
   const v = convert(parseAmount($('#amount').value), from, to);
   $('#from').value = to;
-  setAmount(Math.round(v));
+  setAmount(Math.round(v)); freshAmount = true;
   renderPresets(); renderConverter();
 });
 $('#amount').addEventListener('input', (e) => {
   const raw = e.target.value.replace(/[^\d.]/g, '');
   const [i, d] = raw.split('.');
   e.target.value = (i ? Number(i).toLocaleString('en-US') : '') + (d !== undefined ? '.' + d : '');
+  freshAmount = false; // 직접 친 금액에 버튼을 누르면 거기에 더해짐
   renderConverter();
 });
-$('#from').addEventListener('change', () => { renderPresets(); renderConverter(); });
+$('#from').addEventListener('change', () => { freshAmount = true; renderPresets(); renderConverter(); });
 
 async function loadRates() {
   try {
