@@ -139,10 +139,11 @@ window.FACTS = [
 // 생활 필수앱 — android: 플레이스토어 패키지 이름 / ios: 앱스토어 ID (2026.11.17 스토어에서 확인)
 // 누르면: 안드로이드는 설치돼 있으면 바로 열고, 없으면 플레이스토어 설치 화면 / 아이폰은 앱스토어 화면(설치돼 있으면 '열기')
 window.APPS = [
-  { name: 'Grab', sub: '택시·오토바이·음식배달', icon: '🚗', color: '#00b14f', android: 'com.grabtaxi.passenger', ios: '647268330' },
-  { name: 'Zalo', sub: '베트남 국민 메신저', icon: '💬', color: '#0068ff', android: 'com.zing.zalo', ios: '579523206' },
-  { name: 'Google 번역', sub: '사진·음성 번역', icon: '🌐', color: '#4285f4', android: 'com.google.android.apps.translate', ios: '414706506' },
-  { name: 'Google 지도', sub: '길찾기·버스·지하철', icon: '🗺️', color: '#34a853', android: 'com.google.android.apps.maps', ios: '585027354' },
+// open: 설치된 앱을 바로 여는 주소 (앱이 받아 주는 링크). 없으면 플레이스토어 화면으로 연결
+  { name: 'Grab', sub: '택시·오토바이·음식배달', icon: '🚗', color: '#00b14f', android: 'com.grabtaxi.passenger', ios: '647268330', open: 'grab://open' },
+  { name: 'Zalo', sub: '베트남 국민 메신저', icon: '💬', color: '#0068ff', android: 'com.zing.zalo', ios: '579523206', open: 'https://zalo.me/' },
+  { name: 'Google 번역', sub: '사진·음성 번역', icon: '🌐', color: '#4285f4', android: 'com.google.android.apps.translate', ios: '414706506', open: 'https://translate.google.com/' },
+  { name: 'Google 지도', sub: '길찾기·버스·지하철', icon: '🗺️', color: '#34a853', android: 'com.google.android.apps.maps', ios: '585027354', open: 'https://www.google.com/maps' },
   { name: '배달K', sub: '한국어 음식배달', icon: '🍱', color: '#ff5a3c', android: 'com.teamjin.deliveryk', ios: '1456285291' },
   { name: '우리 WON', sub: '우리은행 베트남', icon: '🏦', color: '#0067ac', android: 'vn.com.woori.smart', ios: '1501785125' },
 ];

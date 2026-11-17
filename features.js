@@ -269,7 +269,11 @@ const playUrl = (pkg) => `https://play.google.com/store/apps/details?id=${pkg}&h
 function appLink(a) {
   if (OS === 'ios') return `https://apps.apple.com/app/id${a.ios}`;
   if (OS === 'android') {
-    return `intent://#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=${a.android};`
+    // 크롬은 '앱 실행(런처)' 링크를 막아서 늘 플레이스토어로 가요.
+    // 그래서 그 앱이 직접 받아 주는 링크(open)로 열고, 앱이 없을 때만 플레이스토어로 보내요.
+    if (!a.open) return playUrl(a.android);
+    const m = a.open.match(/^([a-z][\w+.-]*):\/\/(.*)$/i);
+    return `intent://${m[2]}#Intent;scheme=${m[1]};package=${a.android};`
       + `S.browser_fallback_url=${encodeURIComponent(playUrl(a.android))};end`;
   }
   return playUrl(a.android); // PC 등
@@ -284,7 +288,7 @@ function renderApps() {
   $('#apps-note').textContent = OS === 'ios'
     ? '누르면 앱스토어가 열려요. 설치돼 있으면 [열기], 없으면 [받기]만 누르면 돼요.'
     : OS === 'android'
-      ? '설치된 앱은 바로 열리고, 없으면 플레이스토어 설치 화면으로 이동해요.'
+      ? '설치된 앱은 바로 열리고, 없으면 플레이스토어 설치 화면으로 이동해요. (배달K·우리 WON은 플레이스토어에서 [열기])'
       : '휴대폰에서 누르면 설치돼 있는 앱은 열리고, 없으면 설치 화면으로 이동해요.';
 }
 
