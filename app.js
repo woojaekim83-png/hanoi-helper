@@ -262,8 +262,10 @@ async function loadMarket() {
   let html = '';
   if (m.rates) {
     html += `<div class="mk-head"><b>환율</b><span>${day(m.rates.noticedAt)} 기준</span></div><ul class="mk-list">` +
-      m.rates.items.map((r) => `<li><span class="mk-name">${r.flag} ${esc(r.name)}</span>
-        <b class="mk-val">${r.value.toLocaleString('ko-KR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b>${chg(r.change)}</li>`).join('') + '</ul>';
+      // 통화를 누르면 그래프 페이지(rate.html)로 — 휴대폰 뒤로가기로 이 화면에 돌아옴
+      m.rates.items.map((r) => `<li><a class="mk-link" href="rate.html?c=${encodeURIComponent(r.code)}" data-return="market">
+        <span class="mk-name">${r.flag} ${esc(r.name)}</span>
+        <b class="mk-val">${r.value.toLocaleString('ko-KR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b>${chg(r.change)}<span class="mk-go" aria-hidden="true">›</span></a></li>`).join('') + '</ul>';
   }
   if (m.fuel) {
     html += `<div class="mk-head mk-sep"><b>유류가격 (하노이)</b><span>${day(m.fuel.effectiveAt)} 기준</span></div><ul class="mk-list">` +

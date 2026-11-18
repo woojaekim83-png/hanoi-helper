@@ -474,8 +474,9 @@ document.addEventListener('click', (e) => {
 function startTab() {
   let t = null;
   try { t = sessionStorage.getItem('returnTab'); sessionStorage.removeItem('returnTab'); } catch {}
-  showTab(t || 'rate'); // 평소에는 앱을 켜면 항상 경제(환율) 탭부터
+  showTab(t === 'market' ? 'rate' : t || 'rate'); // 평소에는 앱을 켜면 항상 경제(환율) 탭부터
   if (t === 'life') $('#vn-map')?.scrollIntoView({ block: 'center' }); // 지도에서 보던 자리로
+  if (t === 'market') $('.market-wrap')?.scrollIntoView({ block: 'start' }); // 환율 그래프에서 돌아오면 오늘의 시세로
 }
 startTab();
 window.addEventListener('pageshow', (e) => { if (e.persisted) startTab(); }); // 뒤로가기로 돌아왔을 때
