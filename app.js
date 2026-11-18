@@ -265,14 +265,20 @@ async function loadMarket() {
       // 통화를 누르면 그래프 페이지(rate.html)로 — 휴대폰 뒤로가기로 이 화면에 돌아옴
       m.rates.items.map((r) => `<li><a class="mk-link" href="rate.html?c=${encodeURIComponent(r.code)}" data-return="market">
         <span class="mk-name">${r.flag} ${esc(r.name)}</span>
-        <b class="mk-val">${r.value.toLocaleString('ko-KR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b>${chg(r.change)}<span class="mk-go" aria-hidden="true">›</span></a></li>`).join('') + '</ul>';
+        <b class="mk-val">${r.value.toLocaleString('ko-KR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</b>${chg(r.change)}<span class="mk-go" aria-hidden="true">›</span></a></li>`).join('') + '</ul>' +
+      // 눌러보고 싶게 — 그래프 안내 + 환율 출처
+      `<a class="mk-hint" href="rate.html?c=VND" data-return="market">
+        <span class="mk-hint-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 3 7-8"/><path d="M15 7h4v4"/></svg></span>
+        <span class="mk-hint-txt"><b>원하는 통화를 눌러 보세요</b><small>최근 1개월~10년 환율 흐름을 그래프로 볼 수 있어요</small></span>
+        <span class="mk-hint-go" aria-hidden="true">›</span></a>
+      <p class="mk-hint-src">환율: 우리은행 매매기준율(원) 기준</p>`;
   }
   if (m.fuel) {
     html += `<div class="mk-head mk-sep"><b>유류가격 (하노이)</b><span>${day(m.fuel.effectiveAt)} 기준</span></div><ul class="mk-list">` +
       m.fuel.items.map((f) => `<li><span class="mk-name">${f.icon} ${esc(FUEL_NAME[f.code] || f.name)}</span>
         <b class="mk-val">${fmt(f.value)}<small>동/L</small></b>${chg(f.change, 0)}</li>`).join('') + '</ul>';
   }
-  html += `<p class="mk-src">출처: 우리은행 매매기준율(원) · Petrolimex 소매가 · ${esc(m.updatedAt || '')} 갱신</p>`;
+  html += `<p class="mk-src">유가 출처: Petrolimex 소매가 · ${esc(m.updatedAt || '')} 갱신</p>`;
   $('#market').innerHTML = html;
 }
 
