@@ -269,8 +269,8 @@ async function loadMarket() {
       // 눌러보고 싶게 — 그래프 안내 + 환율 출처
       `<a class="mk-hint" href="rate.html?c=VND" data-return="market">
         <span class="mk-hint-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 3 7-8"/><path d="M15 7h4v4"/></svg></span>
-        <span class="mk-hint-txt"><b>원하는 통화를 눌러 보세요</b><small>최근 1개월~10년 환율 흐름을 그래프로 볼 수 있어요</small></span>
-        <span class="mk-hint-go" aria-hidden="true">›</span></a>
+        <span class="mk-hint-txt"><b>원하는 통화를 눌러 보세요</b><small>최근 10년 환율 흐름을 그래프로 봐요</small></span>
+        <span class="mk-hint-go" aria-hidden="true"><i>▲</i><i>▲</i></span></a>
       <p class="mk-hint-src">환율: 우리은행 매매기준율(원) 기준</p>`;
   }
   if (m.fuel) {
