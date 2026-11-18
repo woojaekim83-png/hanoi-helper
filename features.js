@@ -319,20 +319,63 @@ const OUTLINE = [
   [107.1, 15.2], [106.6, 16.3], [105.8, 17.3], [105.1, 18.4], [104.4, 18.9], [103.9, 19.3], [104.3, 19.9],
   [103.3, 20.8], [102.6, 21.3],
 ];
-const ICON_NUDGE = { hoian: [7, 9], danang: [2, -4], hue: [-6, -4] }; // 가까운 도시 아이콘 겹침 방지
+// 가까운 도시 핀 겹침 방지 (핀 끝 위치를 살짝 옮김)
+const ICON_NUDGE = { hoian: [11, 11], danang: [4, -4], hue: [-8, -1], ninhbinh: [4, 5], dalat: [-7, 4] };
+// 꼭짓점을 부드러운 곡선으로 (Catmull-Rom → 베지어) — 둥글둥글 귀여운 국토
+const smooth = (pts) => {
+  const n = pts.length, p = (i) => pts[(i + n) % n];
+  let d = `M${p(0)[0]},${p(0)[1]}`;
+  for (let i = 0; i < n; i++) {
+    const [a, b, c, e] = [p(i - 1), p(i), p(i + 1), p(i + 2)];
+    d += ` C${(b[0] + (c[0] - a[0]) / 6).toFixed(1)},${(b[1] + (c[1] - a[1]) / 6).toFixed(1)} ${(c[0] - (e[0] - b[0]) / 6).toFixed(1)},${(c[1] - (e[1] - b[1]) / 6).toFixed(1)} ${c[0]},${c[1]}`;
+  }
+  return d + 'Z';
+};
+// 핀: 아래 끝(tx,ty)이 도시 위치, 위쪽 동그라미에 도시 아이콘
+const pinPath = (tx, ty, hx, hy, r) =>
+  `M${tx},${ty} C${tx - 2},${ty - 4} ${hx - r},${hy + r * 0.55} ${hx - r},${hy} A${r},${r} 0 1 1 ${hx + r},${hy} C${hx + r},${hy + r * 0.55} ${tx + 2},${ty - 4} ${tx},${ty}Z`;
 function renderMap() {
-  const path = OUTLINE.map(([lon, lat], i) => `${i ? 'L' : 'M'}${mx(lon)},${my(lat)}`).join(' ') + 'Z';
-  const pins = CITIES.map((c) => {
+  const path = smooth(OUTLINE.map(([lon, lat]) => [+mx(lon), +my(lat)]));
+  const pins = CITIES.map((c, i) => {
     const [dx, dy] = ICON_NUDGE[c.id] || [0, 0];
-    const x = +mx(c.lon) + dx, y = +my(c.lat) + dy;
-    return `<a href="city.html?c=${c.id}" class="pin" data-return="life">
+    const x0 = +mx(c.lon), y0 = +my(c.lat), x = x0 + dx, y = y0 + dy, hy = y - 12;
+    return `<a href="city.html?c=${c.id}" class="pin" data-return="life" style="--i:${i}">
       <title>${c.name}</title>
-      <circle cx="${x}" cy="${y}" r="9.5" />
-      <text x="${x}" y="${y + 4.5}" text-anchor="middle">${c.icon}</text></a>`;
+      <ellipse cx="${x0}" cy="${y0 + 0.5}" rx="3.6" ry="1.4" class="pin-shadow"/>
+      <g class="pin-body">
+        <path d="${pinPath(x, y, x, hy, 8.6)}" fill="url(#pinGrad)" stroke="#8f0b20" stroke-width=".6"/>
+        <circle cx="${x}" cy="${hy}" r="6.6" fill="#fff"/>
+        <ellipse cx="${x - 3}" cy="${hy - 5.5}" rx="2.4" ry="1.2" fill="#fff" opacity=".55"/>
+        <text x="${x}" y="${hy + 3.3}" text-anchor="middle">${c.icon}</text>
+      </g></a>`;
   }).join('');
-  $('#vn-map').innerHTML = `<svg viewBox="0 -4 180 310" role="img" aria-label="베트남 지도와 주요 관광지">
-      <path d="${path}" class="land"/>
-      <circle cx="${mx(103.97)}" cy="${my(10.23)}" r="5" class="land"/>
+  // 북부·중부 고원에 작은 산, 바다에 배·물고기·구름
+  const hill = (x, y, s, snow) => `<g class="hill"><path d="M${x - 6 * s},${y} L${x},${y - 8 * s} L${x + 6 * s},${y}Z" fill="#4f9d5d"/>
+    <path d="M${x},${y - 8 * s} L${x + 6 * s},${y} L${x + 1 * s},${y}Z" fill="#3c824a"/>${snow ? `<path d="M${x - 2 * s},${y - 5.4 * s} L${x},${y - 8 * s} L${x + 2 * s},${y - 5.4 * s} L${x + .6 * s},${y - 6 * s} L${x - .6 * s},${y - 5.2 * s}Z" fill="#fff"/>` : ''}</g>`;
+  const waves = [[150, 70], [168, 105], [178, 175], [165, 270], [60, 292], [20, 230], [190, 220]]
+    .map(([x, y]) => `<path d="M${x},${y} q3,-3 6,0 t6,0" class="wave"/>`).join('');
+  $('#vn-map').innerHTML = `<svg viewBox="-12 -18 218 330" role="img" aria-label="베트남 지도와 주요 관광지">
+      <defs>
+        <linearGradient id="seaGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e3f4ff"/><stop offset="1" stop-color="#b9e0fb"/></linearGradient>
+        <linearGradient id="landGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d4f2b0"/><stop offset=".55" stop-color="#a8df8e"/><stop offset="1" stop-color="#8fd18a"/></linearGradient>
+        <radialGradient id="pinGrad" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ff7a85"/><stop offset=".6" stop-color="#e5243b"/><stop offset="1" stop-color="#b30d24"/></radialGradient>
+        <filter id="landShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#2b6f9e" flood-opacity=".28"/></filter>
+      </defs>
+      <rect x="-12" y="-18" width="218" height="330" rx="16" fill="url(#seaGrad)"/>
+      ${waves}
+      <text x="176" y="140" class="deco boat">⛵</text>
+      <text x="150" y="295" class="deco fish">🐟</text>
+      <text x="-2" y="150" class="deco cloud">☁️</text>
+      <text x="168" y="12" class="deco cloud c2">☁️</text>
+      <g filter="url(#landShadow)">
+        <path d="${path}" transform="translate(0 5)" fill="#5fae6b"/>
+        <ellipse cx="${mx(103.97)}" cy="${+my(10.23) + 4}" rx="5" ry="6.5" fill="#5fae6b"/>
+        <path d="${path}" fill="url(#landGrad)" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/>
+        <ellipse cx="${mx(103.97)}" cy="${my(10.23)}" rx="5" ry="6.5" fill="url(#landGrad)" stroke="#fff" stroke-width="1.2"/>
+      </g>
+      ${hill(28, 30, 1.1, 1)}${hill(62, 30, .9, 1)}${hill(38, 52, .8, 0)}${hill(70, 92, .7, 0)}
+      ${hill(132, 196, .8, 0)}${hill(140, 182, .65, 0)}${hill(118, 214, .7, 0)}
+      <text x="160" y="170" class="star">✦</text>
       ${pins}
     </svg>`;
   $('#city-list').innerHTML = CITIES.map((c) =>

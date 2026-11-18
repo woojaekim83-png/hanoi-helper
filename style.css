@@ -261,15 +261,28 @@ main { padding: 20px 20px 0; }
 .apps-card .meta { margin-top: 6px; font-size: 11.5px; }
 
 /* 베트남 지도 */
-.vn-wrap { display: grid; grid-template-columns: 1fr 112px; gap: 10px; align-items: center; }
-.vn-map svg { display: block; width: 100%; height: auto; max-height: 420px; }
-.vn-map .land { fill: #ffe9a8; stroke: #e0a800; stroke-width: 1.2; stroke-linejoin: round; }
-.vn-map .pin circle { fill: #fff; stroke: var(--hero-red); stroke-width: 1.4; filter: drop-shadow(0 1px 1.5px rgba(0,0,0,.25)); }
-.vn-map .pin text { font-size: 11px; }
-.vn-map .pin:hover circle, .vn-map .pin:active circle { fill: var(--accent-soft); }
-.city-list { display: flex; flex-direction: column; gap: 4px; }
+.vn-wrap { display: flex; flex-direction: column; gap: 12px; }
+.vn-map svg { display: block; width: 100%; max-width: 330px; margin: 0 auto; height: auto; }
+/* 지도 일러스트: 입체 국토 + 핀이 톡톡 떨어지는 애니메이션 */
+.vn-map .pin text { font-size: 8.6px; }
+.vn-map .pin-shadow { fill: rgba(20, 60, 30, .35); }
+.vn-map .pin-body { transform-box: fill-box; transform-origin: 50% 100%; filter: drop-shadow(0 1.5px 1px rgba(0,0,0,.28));
+  animation: pin-drop .55s cubic-bezier(.3, 1.6, .5, 1) both; animation-delay: calc(var(--i) * 70ms + .1s); }
+.vn-map .pin:active .pin-body { transform: scale(1.18); }
+.vn-map .wave { fill: none; stroke: #fff; stroke-width: 1.2; stroke-linecap: round; opacity: .8; }
+.vn-map .deco { font-size: 13px; }
+.vn-map .boat { animation: bob 3s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.vn-map .fish { font-size: 10px; animation: bob 2.4s ease-in-out infinite reverse; }
+.vn-map .cloud { font-size: 14px; opacity: .9; animation: drift 9s ease-in-out infinite alternate; }
+.vn-map .cloud.c2 { font-size: 11px; animation-duration: 12s; }
+.vn-map .star { font-size: 7px; fill: #fff; opacity: .9; }
+@keyframes pin-drop { from { transform: translateY(-14px) scale(.6); opacity: 0; } }
+@keyframes bob { 0%, 100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-2.5px) rotate(4deg); } }
+@keyframes drift { to { transform: translateX(6px); } }
+@media (prefers-reduced-motion: reduce) { .vn-map * { animation: none !important; } }
+.city-list { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
 .city-list a {
-  display: flex; align-items: center; gap: 6px; padding: 6px 8px; border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center; gap: 3px; padding: 7px 2px; border-radius: var(--r-md); white-space: nowrap;
   background: var(--surface); color: var(--ink); text-decoration: none; font-size: 13px; font-weight: 500;
 }
 .city-list a:active { background: var(--accent-soft); }
