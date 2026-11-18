@@ -68,12 +68,28 @@ def main():
                 old = json.load(f)
         except Exception:
             old = None
-        start = now - timedelta(days=21) if (old and not full) else now.replace(year=now.year - 10)
-        try:
-            new = fetch(code, start, now)
-        except Exception as e:
-            print(code, 'fail — 기존 파일 유지:', e)
-            continue
+        # 받을 구간: 최근 3주 + (10년치가 다 안 모였으면) 그 앞 1년씩 최대 2구간
+        # 한 번에 10년을 요청하면 해외(GitHub) 서버에서 시간이 초과돼서 1년 단위로 나눠 받음
+        target = (now - timedelta(days=3652)).strftime('%Y%m%d')
+        oldest = old['rows'][0][0] if old and old.get('rows') and not full else None
+        recent = now - timedelta(days=21)
+        if old and old.get('rows'):  # 한동안 수집이 멈췄다면 마지막 기록부터 이어서
+            recent = min(recent, datetime.strptime(old['rows'][-1][0], '%Y%m%d').replace(tzinfo=KST))
+        spans = [(recent, now)]
+        edge = datetime.strptime(oldest, '%Y%m%d').replace(tzinfo=KST) if oldest else now
+        for _ in range(2 if oldest else 3):
+            if edge.strftime('%Y%m%d') <= target:
+                break
+            s = max(edge - timedelta(days=365), datetime.strptime(target, '%Y%m%d').replace(tzinfo=KST))
+            spans.append((s, edge))
+            edge = s
+        new = {}
+        for s, e in spans:
+            try:
+                new.update(fetch(code, s, e))
+            except Exception as err:
+                print(code, s.strftime('%Y%m%d'), '~', e.strftime('%Y%m%d'), 'fail:', err)
+                break  # 앞 구간이 비면 중간이 끊기니 여기서 멈춤 (다음 실행 때 이어서)
         if not new:
             print(code, 'empty — 기존 파일 유지')
             continue
