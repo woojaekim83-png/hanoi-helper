@@ -46,7 +46,7 @@ function applyAppName() {
 }
 
 /* ───── 탭 전환 ───── */
-const TABS = ['rate', 'news', 'viet', 'life'];
+const TABS = ['rate', 'news', 'viet', 'life', 'quiz'];
 function showTab(name) {
   if (!TABS.includes(name)) name = 'rate';
   document.querySelectorAll('.tab').forEach((b) => b.setAttribute('aria-selected', b.dataset.tab === name));
@@ -55,6 +55,7 @@ function showTab(name) {
   if (location.hash !== '#' + name) history.replaceState(null, '', '#' + name);
   window.scrollTo(0, 0);
   if (name === 'viet' && typeof fitPhrases === 'function') fitPhrases(); // 화면에 보일 때 글자 크기 맞춤
+  if (name === 'quiz' && typeof renderQuiz === 'function') renderQuiz(); // 날짜가 바뀌었으면 새 도전으로
 }
 document.querySelectorAll('.tab').forEach((b) => b.addEventListener('click', () => showTab(b.dataset.tab)));
 

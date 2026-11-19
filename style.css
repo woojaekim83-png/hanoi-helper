@@ -99,14 +99,14 @@ button:active, .news:active, .sos-item:active, .dock a:active { transform: scale
 /* 상단 탭 */
 .tabs {
   position: sticky; top: 0; z-index: 5;
-  display: grid; grid-template-columns: repeat(4, 1fr);
+  display: grid; grid-template-columns: repeat(5, 1fr);
   background: var(--canvas);
   border-bottom: 1px solid var(--hairline);
 }
 .tab {
   border: 0; background: none; cursor: pointer;
-  padding: 16px 8px 14px;
-  font-size: 15px; color: var(--slate);
+  padding: 9px 2px 8px; line-height: 1.2;
+  font-size: 13.5px; color: var(--slate); white-space: nowrap;
   border-bottom: 3px solid transparent;
   transition: color .15s ease, border-color .15s ease;
 }
@@ -128,7 +128,7 @@ main { padding: 20px 20px 0; }
 
 /* 지역 세그먼트 */
 .segmented {
-  display: grid; grid-template-columns: repeat(4, 1fr);
+  display: grid; grid-template-columns: repeat(5, 1fr);
   background: #eceff3; border-radius: var(--r-lg); padding: 4px; gap: 2px;
 }
 .segmented button {
@@ -597,7 +597,7 @@ a.day:active { background: var(--accent-soft); }
 
 @media (max-width: 380px) {
   main { padding: 16px 16px 0; }
-  .tab { font-size: 14px; padding-left: 2px; padding-right: 2px; }
+  .tab { font-size: 13px; }
   .segmented button { font-size: 14px; }
   .segmented small { display: none; }
   .converter { grid-template-columns: 1fr 108px; }
