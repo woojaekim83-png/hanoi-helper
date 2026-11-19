@@ -27,36 +27,49 @@ function qzBank() {
     add({ id: 'h' + i, cat, q, a, wrong: [w1, w2, w3], hint, exp });
   });
   // ② 베트남어 탭 표현으로 자동 생성 (뜻 맞히기 · 베트남어 고르기 · 단어 뜻)
-  const pick3 = (pool, not, seed) => {
+  // 헷갈리는 오답 거르기: 괄호·문장부호를 뺀 뒤 같거나, 한쪽이 다른 쪽을 품거나, 글자 조각이 절반 이상 겹치면 "비슷함"
+  //   예) "지금 몇 시예요?" ↔ "지금 몇 시예요? (정중하게)", "Cảm ơn" ↔ "Cảm ơn nhiều" 은 같은 문제의 보기로 안 씀
+  const qzNorm = (s) => String(s).toLowerCase().replace(/\(.*?\)/g, '').replace(/[?!.,·~…"“”'’/\s-]/g, '')
+    .normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd');
+  const grams = (s) => { const g = new Set(); for (let i = 0; i < s.length - 1; i++) g.add(s.slice(i, i + 2)); return g; };
+  const qzSimilar = (a, b) => {
+    const x = qzNorm(a), y = qzNorm(b);
+    if (!x || !y || x === y || x.includes(y) || y.includes(x)) return true;
+    const gx = grams(x), gy = grams(y);
+    let n = 0; gx.forEach((g) => gy.has(g) && n++);
+    return n / Math.min(gx.size || 1, gy.size || 1) >= 0.5;
+  };
+  // pool: 후보 [보기로 쓸 글, 짝 글] 목록 · ans: 정답 쪽 [보기 글, 짝 글] — 둘 다 비슷하지 않은 것만 오답으로
+  const pick3 = (pool, ans, seed) => {
     const out = [];
-    const cand = pool.filter((x) => x && x !== not);
-    for (let k = 0; out.length < 3 && k < cand.length * 3; k++) {
-      const x = cand[(seed * 7 + k * 13) % cand.length];
-      if (!out.includes(x)) out.push(x);
+    const ok = (c) => !qzSimilar(c[0], ans[0]) && !(c[1] && ans[1] && qzSimilar(c[1], ans[1])) && out.every((o) => !qzSimilar(o, c[0]));
+    for (let k = 0; out.length < 3 && k < pool.length * 2; k++) {
+      const c = pool[(seed * 7 + k * 13) % pool.length];
+      if (c && c[0] && ok(c)) out.push(c[0]);
     }
     return out.length === 3 ? out : null;
   };
   const words = new Map();
   (window.VIET || []).forEach((g) => {
-    const vis = g.items.map((it) => it[0]), kos = g.items.map((it) => it[2]);
+    const kv = g.items.map((it) => [it[2], it[0]]), vk = g.items.map((it) => [it[0], it[2]]);
     g.items.forEach((it, j) => {
       const [vi, pron, ko, ws] = it;
       const where = `${g.icon} ${g.name}`;
-      const w1 = pick3(kos, ko, j);
+      const w1 = pick3(kv, [ko, vi], j);
       if (w1) add({ id: `p${g.id}${j}a`, cat: 'phrase', q: `“${vi}”의 뜻은?`, say: vi, a: ko, wrong: w1,
         hint: `발음은 “${pron}”, ${g.name} 상황에서 써요`, exp: `${vi} [${pron}] = ${ko} · ${where}` });
-      const w2 = pick3(vis, vi, j + 3);
+      const w2 = pick3(vk, [vi, ko], j + 3);
       if (w2) add({ id: `p${g.id}${j}b`, cat: 'phrase', q: `“${ko}”를 베트남어로 하면?`, a: vi, wrong: w2, sayAns: true,
         hint: `발음: ${pron}`, exp: `${vi} [${pron}] = ${ko} · ${where}` });
       String(ws || '').split('|').forEach((p) => {
-        const [w, m] = p.split(':');
+        const k = p.indexOf(':'), w = k > 0 ? p.slice(0, k) : '', m = k > 0 ? p.slice(k + 1) : ''; // 뜻 안의 ':'는 그대로
         if (w && m && !words.has(w.trim().toLowerCase())) words.set(w.trim().toLowerCase(), { w: w.trim(), m: m.trim(), ex: vi, exKo: ko, g: g.name, gi: g.icon });
       });
     });
   });
-  const wl = [...words.values()], ms = [...new Set(wl.map((x) => x.m))];
+  const wl = [...words.values()], mw = wl.map((x) => [x.m, x.w]);
   wl.forEach((x, i) => {
-    const wr = pick3(ms, x.m, i);
+    const wr = pick3(mw, [x.m, x.w], i);
     if (wr) add({ id: 'w' + i, cat: 'word', q: `베트남어 단어 “${x.w}”의 뜻은?`, say: x.w, a: x.m, wrong: wr,
       hint: `${x.gi} ${x.g} 상황에서 자주 쓰는 단어예요`, exp: `${x.w} = ${x.m} · 예) ${x.ex} = ${x.exKo}` });
   });
