@@ -319,7 +319,7 @@ function renderDeposit() {
       </div>`).join('')}</div>
     ${depSel === 'regular' ? '<p class="dep-note">매달 정한 금액을 빠짐없이 넣어야 이 금리가 적용돼요 (영업점 상품)</p>'
       : p.rows.some((r) => r.base != null) ? '<p class="dep-note">우대금리는 앱에서 조건(자동이체·이벤트 등)을 채우면 받을 수 있어요</p>' : ''}`;
-  $('#dep-meta').innerHTML = `출처: 우리은행 베트남 홈페이지 금리 안내 (모바일 상품 ${day(depData.effective.online)} · 영업점 상품 ${day(depData.effective.counter)} 시행) · 1시간마다 확인 · <a href="${esc(depData.page)}" target="_blank" rel="noopener">원문 보기</a>`;
+  $('#dep-meta').innerHTML = `출처: 우리은행 베트남 홈페이지 (${day(depData.effective.online)}·${day(depData.effective.counter)} 시행) · 매시간 확인 · <a href="${esc(depData.page)}" target="_blank" rel="noopener">원문 보기</a>`;
   // 우리 WON 앱: 설치돼 있으면 바로 열고, 없으면 스토어로 (생활 탭 필수앱과 같은 방식)
   const won = (window.APPS || []).find((a) => a.android === 'vn.com.woori.smart');
   if (won && typeof appLink === 'function') {
