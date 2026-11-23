@@ -104,12 +104,21 @@ def online_products(ts):
 def counter_installment(ts):
     """세로형 표 '기간 | 금리', 'Từ … tháng' 줄만 있고 '기본/우대' 열이 없는 표 = 정기적금(tích lũy định kỳ cố định)"""
     for t in ts:
-        head = ' '.join(t[0]).lower() if t else ''
-        if 'kỳ hạn' not in head or 'cơ bản' in head or len(t[0]) != 2:
+        txt = ' '.join(c for r in t for c in r).lower()
+        if 'cơ bản' in txt or 'ưu đãi' in txt:  # Woori V Free(기본+우대) 표는 제외
             continue
-        rows = [r for r in t[1:] if r[0].lower().startswith('từ') and pct(r[1]) is not None]
+        rows = []
+        for r in t:
+            cells = [c for c in r if c]
+            if not cells or not cells[0].lower().startswith('từ'):
+                continue
+            rates = [pct(c) for c in cells[1:] if pct(c) is not None]
+            if rates:
+                rows.append({'term': term_ko(cells[0]), 'rate': rates[-1]})
         if len(rows) >= 3:
-            return {'rows': [{'term': term_ko(r[0]), 'rate': pct(r[1])} for r in rows]}
+            return {'rows': rows}
+    for i, t in enumerate(ts):  # 못 찾았을 때 표 모양을 기록 (원인 확인용)
+        print(f'표 {i}:', t[:3])
     raise ValueError('정기적금 표를 못 찾음')
 
 
