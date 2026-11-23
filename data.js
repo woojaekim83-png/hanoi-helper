@@ -141,7 +141,8 @@ window.APPS = [
   { name: 'Google 번역', sub: '사진·음성 번역', icon: '🌐', color: '#4285f4', android: 'com.google.android.apps.translate', img: 'images/apps/translate.png', ios: '414706506', iosOpen: 'googletranslate://', open: 'https://translate.google.com/' },
   { name: 'Google 지도', sub: '길찾기·버스·지하철', icon: '🗺️', color: '#34a853', android: 'com.google.android.apps.maps', img: 'images/apps/maps.png', ios: '585027354', iosOpen: 'https://maps.google.com/', open: 'https://www.google.com/maps' },
   { name: '배달K', sub: '한국어 음식배달', icon: '🍱', color: '#ff5a3c', android: 'com.teamjin.deliveryk', img: 'images/apps/deliveryk.png', ios: '1456285291', iosOpen: 'https://www.deliveryk.com/', open: 'deliveryk://docs/' },
-  { name: '우리 WON', sub: '우리은행 베트남', icon: '🏦', color: '#0067ac', android: 'vn.com.woori.smart', img: 'images/apps/wooriwon.png', ios: '1501785125' },
+  { name: '우리 WON', sub: '우리은행 베트남', icon: '🏦', color: '#0067ac', android: 'vn.com.woori.smart', img: 'images/apps/wooriwon.png', ios: '1501785125',
+    open: 'wvbs://', iosOpen: 'wvbs://' }, // 우리 WON 베트남 앱 주소 (VietQR 은행앱 바로가기 목록에 등록된 값)
 ];
 
 // 지역 일러스트 (images/scenes 폴더) — 파일 이름만 바꾸면 다른 그림으로 교체돼요

@@ -13,8 +13,8 @@
   <link rel="apple-touch-icon" href="icon-192.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="베트남도우미">
-  <link rel="stylesheet" href="style.css?v=64">
-  <link rel="stylesheet" href="quiz.css?v=64">
+  <link rel="stylesheet" href="style.css?v=65">
+  <link rel="stylesheet" href="quiz.css?v=65">
 </head>
 <body>
   <div class="app">
@@ -37,6 +37,7 @@
 
     <nav class="tabs" role="tablist">
       <button class="tab" role="tab" data-tab="rate"><span aria-hidden="true">📈</span> 경제</button>
+      <button class="tab" role="tab" data-tab="bank"><span aria-hidden="true"><img class="tab-img" src="images/woori-ci.png" alt=""></span> 은행</button>
       <button class="tab" role="tab" data-tab="news"><span aria-hidden="true">📰</span> 뉴스</button>
       <button class="tab" role="tab" data-tab="viet"><span aria-hidden="true"><svg class="nonla" viewBox="0 0 32 32" width="24" height="24"><path d="M7.5 15 Q6 26 9 31 L23 31 Q26 26 24.5 15Z" fill="#2b2118"/><path d="M11 27 Q16 29.5 21 27 L22 32 L10 32Z" fill="#d6336c"/><ellipse cx="16" cy="19.5" rx="6.6" ry="7.2" fill="#ffd9b0"/><path d="M13.2 19.6 h1.6 M17.2 19.6 h1.6" stroke="#3b2a1a" stroke-width="1.1" stroke-linecap="round"/><path d="M14.4 23.2 Q16 24.4 17.6 23.2" stroke="#c0392b" stroke-width=".9" fill="none" stroke-linecap="round"/><path d="M16 1.5 L30.5 14.5 Q16 18.6 1.5 14.5 Z" fill="#f2d48a" stroke="#b98a2f" stroke-width="1" stroke-linejoin="round"/><path d="M16 1.5 L10 16 M16 1.5 L16 16.8 M16 1.5 L22 16 M16 1.5 L5 15 M16 1.5 L27 15" stroke="#c99a3e" stroke-width=".5" fill="none"/></svg></span> 베트남어</button>
       <button class="tab" role="tab" data-tab="life"><span aria-hidden="true">📌</span> 생활</button>
@@ -80,11 +81,17 @@
           <p class="meta" id="policy-meta"></p>
         </div>
 
+
         <div class="card">
           <h2>지폐 한눈에 보기</h2>
           <p class="meta lead">계산할 때 <b>사진과 금액을 맞춰 보세요.</b> 0이 많아 한 자리 잘못 내기 쉬워요. 원화로는 대략 <b>0 하나 빼고 ÷2</b>예요.</p>
           <ul id="notes" class="notes"></ul>
         </div>
+      </section>
+
+      <!-- 은행: 우리은행 베트남 예·적금 금리 (deposit.json: 1시간마다 공식 홈페이지 금리표 확인) -->
+      <section class="panel" id="panel-bank" hidden>
+        <div class="card dep-card" id="dep-card">          <div class="dep-head">            <span class="dep-pig" aria-hidden="true"><svg viewBox="0 0 48 44" width="44" height="40"><circle cx="30" cy="8.5" r="7" fill="#ffc94d" stroke="#f0a500" stroke-width="1.5"/><path d="M27.5 8.5h5" stroke="#e08e00" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="24" cy="26" rx="17" ry="13" fill="#ff8fb1"/><path d="M13 16 L11 9.5 L18.5 13.5Z" fill="#ff8fb1"/><ellipse cx="7.5" cy="27" rx="4.2" ry="3.6" fill="#ff6f98"/><circle cx="6.3" cy="27" r=".9" fill="#c2185b"/><circle cx="8.8" cy="27" r=".9" fill="#c2185b"/><circle cx="14.5" cy="22" r="1.5" fill="#5a2a3a"/><path d="M20 16.5h9" stroke="#e0567f" stroke-width="2" stroke-linecap="round"/><rect x="14" y="35" width="5" height="6" rx="2" fill="#ff6f98"/><rect x="29" y="35" width="5" height="6" rx="2" fill="#ff6f98"/><path d="M41 24 q4 -1 3 3" stroke="#ff6f98" stroke-width="1.8" fill="none" stroke-linecap="round"/><ellipse cx="28" cy="21" rx="5" ry="2.5" fill="#fff" opacity=".35"/></svg></span>            <div><h2>우리은행 베트남 예·적금 금리</h2><p class="dep-sub" id="dep-sub">불러오는 중…</p></div>          </div>          <div class="dep-tiles" id="dep-tiles" role="tablist" aria-label="상품 선택"></div>          <div class="dep-detail" id="dep-detail"></div>          <a class="dep-cta" id="dep-cta" href="#">우리 WON 앱에서 가입하기 <span aria-hidden="true">→</span></a>          <p class="meta" id="dep-meta"></p>        </div>
       </section>
 
       <!-- 뉴스 -->
@@ -214,19 +221,19 @@
   </dialog>
 
   <!-- ?v= 숫자는 수정할 때마다 올려서 휴대폰에 예전 파일이 남지 않게 합니다 -->
-  <script src="data.js?v=64"></script>
-  <script src="viet1.js?v=64"></script>
-  <script src="viet2.js?v=64"></script>
-  <script src="viet3.js?v=64"></script>
-  <script src="viet4.js?v=64"></script>
-  <script src="viet5.js?v=64"></script>
-  <script src="cities.js?v=64"></script>
-  <script src="app.js?v=64"></script>
-  <script src="features.js?v=64"></script>
-  <script src="quiz1.js?v=64"></script>
-  <script src="quiz2.js?v=64"></script>
-  <script src="quiz-food.js?v=64"></script>
-  <script src="quiz.js?v=64"></script>
-  <script src="quiz-result.js?v=64"></script>
+  <script src="data.js?v=65"></script>
+  <script src="viet1.js?v=65"></script>
+  <script src="viet2.js?v=65"></script>
+  <script src="viet3.js?v=65"></script>
+  <script src="viet4.js?v=65"></script>
+  <script src="viet5.js?v=65"></script>
+  <script src="cities.js?v=65"></script>
+  <script src="app.js?v=65"></script>
+  <script src="features.js?v=65"></script>
+  <script src="quiz1.js?v=65"></script>
+  <script src="quiz2.js?v=65"></script>
+  <script src="quiz-food.js?v=65"></script>
+  <script src="quiz.js?v=65"></script>
+  <script src="quiz-result.js?v=65"></script>
 </body>
 </html>

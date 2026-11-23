@@ -46,7 +46,7 @@ function applyAppName() {
 }
 
 /* ───── 탭 전환 ───── */
-const TABS = ['rate', 'news', 'viet', 'life', 'quiz'];
+const TABS = ['rate', 'bank', 'news', 'viet', 'life', 'quiz'];
 function showTab(name) {
   if (!TABS.includes(name)) name = 'rate';
   document.querySelectorAll('.tab').forEach((b) => b.setAttribute('aria-selected', b.dataset.tab === name));
@@ -283,6 +283,67 @@ async function loadMarket() {
   $('#market').innerHTML = html;
 }
 
+/* ───── 우리은행 베트남 예·적금 금리 ───── */
+// deposit.json: GitHub가 1시간마다 woori.com.vn 금리표(PDF)를 읽어 둔 값. 상품 타일을 누르면 기간별 금리가 아래에 펼쳐져요.
+const DEP_ORDER = ['won', 'challenge', 'goal', 'regular'];
+const DEP_TAG = { won: '목돈 굴리기', challenge: '자유롭게 모으기', goal: '목표 금액 모으기', regular: '매달 같은 금액' };
+let depData = null, depSel = 'won';
+const pctFmt = (n) => (Math.round(n * 10) / 10).toFixed(1) + '%';
+async function loadDeposit() {
+  try { depData = await (await fetch('deposit.json?t=' + Math.floor(Date.now() / 600000), { cache: 'no-cache' })).json(); } catch { depData = null; }
+  if (!depData || !depData.products) { $('#dep-card').hidden = true; return; }
+  try { depSel = store.get('depSel') || 'won'; } catch {}
+  renderDeposit();
+}
+function renderDeposit() {
+  const P = depData.products;
+  const day = (s) => (s ? s.slice(5).replace('-', '.') : '');
+  $('#dep-sub').textContent = `연 %, 베트남 동(VND) · 개인 고객`;
+  $('#dep-tiles').innerHTML = DEP_ORDER.filter((k) => P[k]).map((k) => {
+    const p = P[k], max = Math.max(...p.rows.map((r) => r.rate));
+    return `<button type="button" class="dep-tile${k === depSel ? ' on' : ''}" data-k="${k}" role="tab" aria-selected="${k === depSel}">
+      <span class="dep-kind">${esc(p.kind)}</span>
+      <b class="dep-name">${esc(p.name)}</b>
+      <span class="dep-max"><small>최고 연</small> ${pctFmt(max)}</span>
+      <span class="dep-tag">${DEP_TAG[k] || ''}</span></button>`;
+  }).join('');
+  const p = P[depSel] || P.won, max = Math.max(...p.rows.map((r) => r.rate));
+  $('#dep-detail').innerHTML = `
+    <p class="dep-vi">${esc(p.vi)}</p>
+    <div class="dep-rows">${p.rows.map((r) => `
+      <div class="dep-row${r.rate === max ? ' top' : ''}">
+        <span class="dep-term">${esc(r.term)}</span>
+        <span class="dep-bar"><i style="width:${Math.round((r.rate / max) * 100)}%"></i></span>
+        <b>${pctFmt(r.rate)}</b>
+        ${r.base != null ? `<small>기본 ${pctFmt(r.base)} + 우대 최대 ${pctFmt(Math.round((r.rate - r.base) * 100) / 100)}p</small>` : ''}
+      </div>`).join('')}</div>
+    ${depSel === 'regular' ? '<p class="dep-note">매달 정한 금액을 빠짐없이 넣어야 이 금리가 적용돼요 (영업점 상품)</p>'
+      : p.rows.some((r) => r.base != null) ? '<p class="dep-note">우대금리는 앱에서 조건(자동이체·이벤트 등)을 채우면 받을 수 있어요</p>' : ''}`;
+  $('#dep-meta').innerHTML = `출처: 우리은행 베트남 홈페이지 금리 안내 (모바일 상품 ${day(depData.effective.online)} · 영업점 상품 ${day(depData.effective.counter)} 시행) · 1시간마다 확인 · <a href="${esc(depData.page)}" target="_blank" rel="noopener">원문 보기</a>`;
+  // 우리 WON 앱: 설치돼 있으면 바로 열고, 없으면 스토어로 (생활 탭 필수앱과 같은 방식)
+  const won = (window.APPS || []).find((a) => a.android === 'vn.com.woori.smart');
+  if (won && typeof appLink === 'function') {
+    const cta = $('#dep-cta');
+    cta.href = appLink(won);
+    cta.dataset.ios = won.ios;
+  }
+}
+// 아이폰: 앱 주소(wvbs://)로 열어 보고, 2.5초 뒤에도 화면이 그대로면(앱 없음) 앱스토어로
+$('#dep-cta').addEventListener('click', (e) => {
+  const a = e.currentTarget, href = a.getAttribute('href');
+  if (typeof OS === 'undefined' || OS !== 'ios' || !isScheme(href)) return;
+  e.preventDefault();
+  let left = false;
+  addEventListener('pagehide', () => { left = true; }, { once: true });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) left = true; }, { once: true });
+  location.href = href;
+  setTimeout(() => { if (!left && !document.hidden) location.href = storeUrl(a.dataset.ios); }, 2500);
+});
+$('#dep-tiles').addEventListener('click', (e) => {
+  const t = e.target.closest('.dep-tile'); if (!t) return;
+  depSel = t.dataset.k; store.set('depSel', depSel); renderDeposit();
+});
+
 /* ───── 베트남 기준금리 ───── */
 // policy.json: GitHub가 매일 베트남 시각 09:00에 SBV 홈페이지에서 읽어 둔 기준금리 (못 읽으면 data.js 값)
 async function loadPolicy() {
@@ -457,7 +518,7 @@ const airLevel = (pm) => AIR_LEVELS.find(([max]) => pm <= max);
 /* ───── 시작 ───── */
 renderNewsFilters(); loadNews();
 applyAppName();
-renderPresets(); renderConverter(); renderPolicy(); loadPolicy(); renderNotes(); loadRates(); loadToday(); loadMarket();
+renderPresets(); renderConverter(); renderPolicy(); loadPolicy(); renderNotes(); setTimeout(loadDeposit, 0); loadRates(); loadToday(); loadMarket();
 setTimeout(prefetchWx, 300); // 내 지역 날씨를 먼저 받고 나서 나머지 지역을 미리 받아 둠
 
 // 웹앱(PWA): 오프라인에서도 열리도록 서비스 워커 등록

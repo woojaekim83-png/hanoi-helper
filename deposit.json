@@ -1,0 +1,25 @@
+{
+ "source": "우리은행 베트남 공식 홈페이지 금리 안내(PDF)",
+ "page": "https://woori.com.vn/lai-suat/",
+ "checkedAt": "2026-11-19 15:10",
+ "effective": {"online": "2026-10-27", "counter": "2026-10-23"},
+ "files": {
+  "online": "https://woori.com.vn/wp-content/uploads/2026/10/20261027_LAI-SUAT-TIEN-GUI-TRUC-TUYEN_VN.pdf",
+  "counter": "https://woori.com.vn/wp-content/uploads/2026/10/2026.10.23_Lai-suat-tien-gui-KH-ca-nhan-14.pdf"
+ },
+ "products": {
+  "won": {"name": "WON 정기예금", "vi": "Tiền gửi có kỳ hạn WON", "kind": "예금",
+   "rows": [{"term": "1~3개월", "rate": 4.2}, {"term": "3~6개월", "rate": 4.3}, {"term": "6~12개월", "rate": 4.7},
+            {"term": "12~24개월", "rate": 6.0}, {"term": "24~36개월", "rate": 6.3}, {"term": "36~60개월", "rate": 6.3}]},
+  "challenge": {"name": "WON 챌린지 자유적금", "vi": "Tiền gửi tích lũy WON Challenge", "kind": "적금",
+   "rows": [{"term": "3개월", "rate": 3.5, "base": 2.5}, {"term": "6·9개월", "rate": 4.8, "base": 3.8},
+            {"term": "12·15·18·21개월", "rate": 6.0, "base": 4.5}, {"term": "24개월", "rate": 6.3, "base": 4.8},
+            {"term": "36개월", "rate": 6.3, "base": 4.8}], "bonusMax": 1.5},
+  "goal": {"name": "WON Goal 정기적금", "vi": "Tiền gửi tích lũy WON Goal", "kind": "적금",
+   "rows": [{"term": "6~12개월", "rate": 5.5, "base": 4.5}, {"term": "12~24개월", "rate": 6.5, "base": 5.5},
+            {"term": "24~36개월", "rate": 6.5, "base": 5.5}, {"term": "36개월", "rate": 6.5, "base": 5.5}], "bonusMax": 1.0},
+  "regular": {"name": "일반 정기적금", "vi": "Tiền gửi tích lũy định kỳ cố định", "kind": "적금 · 영업점",
+   "rows": [{"term": "6~12개월", "rate": 4.4}, {"term": "12~24개월", "rate": 6.5}, {"term": "24~36개월", "rate": 7.8},
+            {"term": "36~60개월", "rate": 7.8}]}
+ }
+}

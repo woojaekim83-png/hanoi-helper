@@ -263,7 +263,7 @@ document.querySelectorAll('.fact-group').forEach((d) => d.addEventListener('togg
 //  · 안드로이드: intent 링크 → 설치돼 있으면 앱이 바로 열리고, 없으면 플레이스토어 설치 화면
 //  · 아이폰: 앱 회사가 공식 등록한 링크(유니버설 링크)로 열어요 → 설치돼 있으면 앱이 바로 열림
 //           앱 전용 주소(googletranslate://)는 못 열면 잠시 뒤 앱스토어로 이동
-//           열기 링크를 모르는 앱(우리 WON)은 앱스토어 화면 → [열기]
+//           우리 WON(wvbs://)도 같은 방식 — 앱이 없으면 2.5초 뒤 앱스토어
 const UA = navigator.userAgent;
 const OS = /iPhone|iPad|iPod/i.test(UA) || (/Macintosh/.test(UA) && navigator.maxTouchPoints > 1) ? 'ios'
   : /Android/i.test(UA) ? 'android' : 'other';

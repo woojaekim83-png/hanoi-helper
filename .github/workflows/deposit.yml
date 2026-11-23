@@ -1,0 +1,40 @@
+# 우리은행 베트남 예·적금 금리 수집: 1시간마다 공식 홈페이지 금리표(PDF)를 읽어 deposit.json 갱신
+# 금리가 바뀌었을 때만 올려요. Actions 탭에서 "Run workflow"로 바로 실행할 수도 있어요.
+name: 예금금리 수집
+
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: news          # 뉴스 수집과 동시에 올리지 않도록 같은 그룹
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: 표 읽는 도구 설치
+        run: pip install --quiet pdfplumber
+      - name: 예금금리 읽기
+        run: python scripts/fetch_deposit.py
+      - name: 바뀐 내용 올리기
+        run: |
+          git config user.name "news-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add deposit.json
+          git diff --cached --quiet && echo "변경 없음" && exit 0
+          git commit -m "예금금리 갱신 $(TZ=Asia/Ho_Chi_Minh date '+%m/%d %H:%M')"
+          for i in 1 2 3; do
+            git pull --rebase -X theirs origin main && git push && exit 0
+            sleep 5
+          done
+          exit 1

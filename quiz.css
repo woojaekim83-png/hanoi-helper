@@ -1,6 +1,8 @@
 /* 탭 5개: 아이콘 위, 글자 아래 */
 .tab > span[aria-hidden] { display: block; font-size: 19px; line-height: 1.15; margin-bottom: 2px; }
 .tab .nonla { display: block; margin: -2px auto 0; height: 24px; width: auto; }
+.tab .tab-img { display: block; margin: 0 auto; height: 21px; width: auto; }
+.tabs .tab { font-size: 13px; padding-left: 0; padding-right: 0; }
 
 /* ───── 오늘의 퀴즈 ───── */
 .quiz { --qz: #6f4ad8; --qz-deep: #4b2bb0; --qz-soft: #f0ebfb; }
