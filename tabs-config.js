@@ -35,6 +35,9 @@
     nav.dataset.count = vis.length;
     // 화면 전환·손가락 넘기기 순서도 보이는 탭 기준으로
     TABS.splice(0, TABS.length, ...vis.filter((id) => !byId[id].href));
+    // 손가락 넘기기는 링크 탭(맛집)까지 포함한 순서로 — 맛집 페이지(back.js)도 이 순서를 읽어요
+    window.TAB_ALL = vis.map((id) => ({ id, href: byId[id].href || '' }));
+    store.set('tabOrder', JSON.stringify(window.TAB_ALL));
     $('#tab-gear').onclick = openSheet;
   }
 

@@ -80,10 +80,17 @@ document.querySelector('.tabs').addEventListener('click', (e) => {
     const ms = Math.max(Date.now() - t0, 1), adx = Math.abs(dx), ady = Math.abs(dy);
     const flick = adx >= 25 && adx / ms > 0.35;
     if ((adx < 40 && !flick) || adx < ady * 1.2 || ms > 1000) return;
-    const cur = TABS.indexOf(document.querySelector('.tab[aria-selected="true"]')?.dataset.tab);
-    // 끝에서 계속 밀면 반대쪽 끝으로 (경제 ↔ 생활 순환)
-    const next = (cur + (dx < 0 ? 1 : -1) + TABS.length) % TABS.length;
-    showTab(TABS[next]);
+    // 링크 탭(맛집)까지 포함한 순서 · 끝에서 계속 밀면 반대쪽 끝으로 순환
+    const all = window.TAB_ALL || TABS.map((id) => ({ id, href: '' }));
+    const curId = document.querySelector('.tab[aria-selected="true"]')?.dataset.tab;
+    const cur = all.findIndex((t) => t.id === curId);
+    const nt = all[(cur + (dx < 0 ? 1 : -1) + all.length) % all.length];
+    if (nt.href) { // 맛집처럼 다른 페이지인 탭은 그 페이지로 이동 (돌아오면 보던 탭으로)
+      try { sessionStorage.setItem('returnTab', curId || 'rate'); } catch {}
+      location.href = nt.href;
+      return;
+    }
+    showTab(nt.id);
   }, { passive: true });
 })();
 
