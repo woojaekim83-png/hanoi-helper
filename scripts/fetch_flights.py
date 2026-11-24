@@ -95,6 +95,21 @@ def main():
             uniq.append(r)
     uniq.sort(key=lambda r: r['price'])
 
+    # 앱이 빨리 열리도록 줄이기: 지난 날짜는 빼고, 노선(출발·도착·편도/왕복)마다 싼 순으로
+    # 한국행은 날짜 고르기에 충분하도록 최대 60건, 그 밖의 목적지는 최대 3건만 남겨요
+    today = datetime.now(VN).strftime('%Y-%m-%d')
+    kept, count = [], {}
+    for r in uniq:
+        if r['depart'][:10] < today:
+            continue
+        k = (r['from'], r['to'], r['trip'])
+        cap = 60 if r['to'] in KOREA else 3
+        if count.get(k, 0) < cap:
+            count[k] = count.get(k, 0) + 1
+            kept.append(r)
+    print(f'앱용으로 줄인 뒤 {len(kept)}건')
+    uniq = kept
+
     print('출발  도착   구분  받은건수  (그중 직항)')
     for o, d, t, n, dn in summary:
         print(f'{o}   {d:<5} {"편도" if t == "ow" else "왕복"}  {n:>6}   ({dn})')

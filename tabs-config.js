@@ -1,10 +1,11 @@
 // ⚙️ 탭 설정: 보일 탭과 순서를 사용자가 고르기 (네이버 웨일 가젯처럼)
 // 저장: 이 휴대폰에만 (localStorage 'tabs') — { order: [...], hidden: [...] }
-// 맛집 탭은 미쉐린 페이지(michelin.html)로 이동하는 링크예요.
+// 맛집·항공권 탭은 각각 미쉐린 페이지(michelin.html)·최저가 항공권 페이지(flights.html)로 이동하는 링크예요.
 (function () {
   const nav = document.querySelector('.tabs');
   const ALL = [...nav.querySelectorAll('.tab')].map((b) => ({ id: b.dataset.tab, html: b.innerHTML.trim() }));
   ALL.push({ id: 'food', html: '<span aria-hidden="true">🍽️</span> 맛집', href: 'michelin.html' });
+  ALL.push({ id: 'flight', html: '<span aria-hidden="true">✈️</span> 항공권', href: 'flights.html' });
   const byId = Object.fromEntries(ALL.map((t) => [t.id, t]));
   const DEFAULT = ALL.map((t) => t.id);
   const MIN = 2;
@@ -30,7 +31,7 @@
       return t.href
         ? `<a class="tab" href="${t.href}" data-return="current" role="tab">${t.html}</a>`
         : `<button class="tab" role="tab" data-tab="${id}" aria-selected="${id === cur}">${t.html}</button>`;
-    }).join('') + `<button class="tab tab-gear" type="button" id="tab-gear" aria-label="탭 설정"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 8.6a3.4 3.4 0 1 0 0 6.8 3.4 3.4 0 0 0 0-6.8zm8.3 4.6l1.7 1.3-1.9 3.3-2-.8a7.6 7.6 0 0 1-1.9 1.1l-.3 2.1H12.1l-.3-2.1a7.6 7.6 0 0 1-1.9-1.1l-2 .8-1.9-3.3 1.7-1.3a7.7 7.7 0 0 1 0-2.4L6 9.5l1.9-3.3 2 .8a7.6 7.6 0 0 1 1.9-1.1l.3-2.1h3.8l.3 2.1a7.6 7.6 0 0 1 1.9 1.1l2-.8 1.9 3.3-1.7 1.3a7.7 7.7 0 0 1 0 2.4z" fill="none" stroke="#8a8f98" stroke-width="1.5" stroke-linejoin="round"/></svg></button>`;
+    }).join('') + `<button class="tab tab-gear" type="button" id="tab-gear" aria-label="탭 설정"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="#868e96" d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.49.49 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.48.48 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.49.49 0 0 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32a.49.49 0 0 0-.12-.61l-2.01-1.58zM12 15.6a3.6 3.6 0 1 1 0-7.2 3.6 3.6 0 0 1 0 7.2z"/></svg></button>`;
     nav.style.gridTemplateColumns = `repeat(${vis.length}, 1fr) 40px`;
     nav.dataset.count = vis.length;
     // 화면 전환·손가락 넘기기 순서도 보이는 탭 기준으로

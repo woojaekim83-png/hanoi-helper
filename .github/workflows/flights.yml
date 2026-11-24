@@ -1,8 +1,10 @@
 # 베트남 출발 최저가 항공권 수집 (Travelpayouts 가격 API → flights.json)
-# 지금은 시험 단계라 Actions 탭에서 "Run workflow"로만 실행해요. 데이터가 충분하면 하루 몇 번 자동 실행으로 바꿔요.
+# 하루 3번(베트남 시간 06:40 · 12:40 · 18:40) 자동 실행. Actions 탭에서 "Run workflow"로 바로 실행할 수도 있어요.
 name: 항공권 수집
 
 on:
+  schedule:
+    - cron: '40 23,5,11 * * *'
   workflow_dispatch:
 
 permissions:
