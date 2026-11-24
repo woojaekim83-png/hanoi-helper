@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>미쉐린 가이드 베트남 2026</title>
+  <meta name="theme-color" content="#fff7f0">
+  <meta name="referrer" content="no-referrer">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <style>
+    :root {
+      --canvas: #fff; --page: #fbf6f1; --surface: #f6f2ee; --hairline: #ece5de;
+      --ink: #1f1f1f; --slate: #5d5b54; --steel: #8a8580;
+      --red: #c8102e; --red-soft: #fdecee; --gold: #f2b705; --green: #2f9e44; --pink: #d6336c;
+      --font: Inter, -apple-system, system-ui, 'Segoe UI', 'Malgun Gothic', Helvetica, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--page); color: var(--ink); font: 400 15px/1.55 var(--font); word-break: keep-all; }
+    .wrap { max-width: 560px; margin: 0 auto; padding-bottom: 36px; }
+    .top { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px 0; font-size: 13px; color: var(--steel); }
+    .top a { color: var(--slate); text-decoration: none; font-size: 14px; padding: 6px 0; }
+
+    /* 머리 일러스트 */
+    .hero { position: relative; margin: 10px 16px 0; border-radius: 20px; padding: 22px 20px 18px; overflow: hidden;
+      background: linear-gradient(160deg, #fff1e6 0%, #ffe3e3 100%); }
+    .hero h1 { margin: 0; font-size: 24px; letter-spacing: -.5px; line-height: 1.25; }
+    .hero-head { position: relative; z-index: 1; padding-right: 112px; min-height: 92px; }
+    .hero h1 { white-space: nowrap; }
+    .hero h1 .yr { color: var(--red); }
+    .hero .total .src-link { color: var(--steel); text-decoration: underline; text-underline-offset: 2px; }
+    .hero p { margin: 8px 0 0; font-size: 13.5px; color: var(--slate); max-width: 62%; }
+    .hero svg.cloche { position: absolute; right: 6px; top: 16px; width: 106px; height: 91px; }
+    /* 오토바이: 클로슈 왼쪽 아래에 나란히, 제자리에서 부릉부릉 */
+    .road { position: absolute; top: 66px; right: 66px; width: 66px; height: 42px; pointer-events: none; transform: scale(.78); transform-origin: right bottom; }
+    .road::after { content: ""; position: absolute; left: 2px; right: 2px; bottom: 2px; border-bottom: 2px dashed rgba(200,16,46,.25); }
+    .moto { position: absolute; bottom: 3px; left: 2px; animation: ride 2.4s ease-in-out infinite; }
+    .moto .bob { animation: bob .35s ease-in-out infinite alternate; }
+    .moto .puff { animation: puff .6s ease-out infinite; }
+    @keyframes ride { 0%, 100% { transform: translateX(-3px); } 50% { transform: translateX(4px); } }
+    @keyframes bob { to { transform: translateY(-1.2px); } }
+    @keyframes puff { from { opacity: .9; } to { opacity: 0; transform: translateX(-4px); } }
+    .lantern { position: absolute; top: 0; right: 100px; width: 20px; height: 42px; transform-origin: 50% 0; animation: swing 3.2s ease-in-out infinite; }
+    @keyframes swing { 0%, 100% { transform: rotate(6deg); } 50% { transform: rotate(-6deg); } }
+    .cloche-star { animation: twinkle 2.4s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+    .cloche-star:nth-of-type(2) { animation-delay: .8s; } .cloche-star:nth-of-type(3) { animation-delay: 1.6s; }
+    @keyframes twinkle { 50% { opacity: .35; transform: scale(.8); } }
+
+    /* 숫자 칩 */
+    .stats { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; margin-top: 14px; }
+    .stat { min-width: 0; border: 2px solid transparent; background: rgba(255,255,255,.8); border-radius: 10px; padding: 7px 0 6px; text-align: center; cursor: pointer; font-family: inherit; color: inherit; transition: transform .08s, border-color .15s; }
+    .stat:active { transform: scale(.97); }
+    .stat[aria-pressed="true"] { border-color: var(--red); background: #fff; box-shadow: rgba(200,16,46,.15) 0 4px 10px; }
+    .stat .ico { display: block; font-size: 10px; line-height: 16px; letter-spacing: -3px; height: 16px; white-space: nowrap; }
+    .stat b { display: block; font-size: 17px; line-height: 1.25; color: var(--red); }
+    .stat span { display: block; font-size: 10px; color: var(--slate); white-space: nowrap; letter-spacing: -.5px; }
+    .stat.zero b { color: var(--steel); }
+    .stat.bib b { color: var(--pink); } .stat.sel b { color: #495057; } .stat.green b { color: var(--green); }
+    .hero .sub-line { max-width: none; margin-top: 8px; font-size: 13px; line-height: 1.45; letter-spacing: -.3px; word-break: keep-all; }
+    .hero .total {margin: 10px 0 0; font-size: 12px; color: var(--slate); max-width: none; white-space: nowrap; letter-spacing: -.3px; }
+    .none { text-align: center; padding: 22px 8px 10px; }
+    .none .sad { font-size: 44px; display: block; animation: sway 2.4s ease-in-out infinite; }
+    .none b { display: block; margin-top: 6px; font-size: 15px; }
+    .none p { margin: 4px 0 0; font-size: 13px; color: var(--slate); }
+    @keyframes sway { 50% { transform: rotate(-8deg) translateY(2px); } }
+    .total b { color: var(--ink); }
+
+    .card { background: var(--canvas); border-radius: 16px; margin: 12px 16px 0; padding: 16px; box-shadow: rgba(15,15,15,.04) 0 1px 2px; }
+    .card h2 { margin: 0 0 12px; font-size: 17px; letter-spacing: -.3px; }
+
+    /* 지역 선택 */
+    .cities { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; background: var(--surface); padding: 4px; border-radius: 12px; }
+    .cities button { border: 0; background: none; border-radius: 9px; padding: 9px 4px; font: 600 14px var(--font); color: var(--slate); cursor: pointer; }
+    .cities button[aria-pressed="true"] { background: #fff; color: var(--ink); box-shadow: rgba(15,15,15,.08) 0 1px 3px; }
+    .cities small { display: block; font-size: 10.5px; font-weight: 600; color: var(--red); }
+    .cities[hidden] { display: none; }
+
+    /* 식당 카드 */
+    .list { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+    .rest { display: grid; grid-template-columns: 46px 1fr auto; align-items: center; gap: 12px; padding: 12px;
+      border: 1px solid var(--hairline); border-radius: 14px; text-decoration: none; color: inherit; background: #fff; }
+    .rest:active { background: var(--red-soft); }
+    .rest .plate { width: 46px; height: 46px; border-radius: 50%; background: #fff6ee; border: 1px solid #f6e3d3; display: grid; place-items: center; }
+    .rest b { display: block; font-size: 16px; }
+    .rest small { display: block; font-size: 12.5px; color: var(--slate); }
+    .rest .tags { display: flex; gap: 4px; margin-top: 4px; flex-wrap: wrap; }
+    .tag { font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 9999px; background: var(--red-soft); color: var(--red); }
+    .tag.new { background: #fff3bf; color: #946200; }
+    .tag.bib { background: #fff0f6; color: var(--pink); } .tag.sel { background: #f1f3f5; color: #495057; } .tag.green { background: #ebfbee; color: var(--green); }
+    .rest .plate { font-size: 22px; }
+    .rest .go { font-size: 12px; font-weight: 700; color: #1a73e8; white-space: nowrap; display: flex; align-items: center; gap: 3px; }
+    .empty { font-size: 13.5px; color: var(--slate); padding: 10px 2px 0; }
+
+    /* 설명 카드 */
+    .grades { display: flex; flex-direction: column; gap: 10px; }
+    .grade { display: grid; grid-template-columns: 64px 1fr; gap: 12px; align-items: center; }
+    .grade .ic { height: 44px; border-radius: 12px; display: grid; place-items: center; background: var(--surface); }
+    .grade b { font-size: 14.5px; }
+    .grade p { margin: 2px 0 0; font-size: 13px; color: var(--slate); }
+    .grade .vn { font-size: 11.5px; color: var(--red); font-weight: 600; }
+    .timeline { list-style: none; margin: 0; padding: 0 0 0 16px; border-left: 2px dashed #f1c9cf; display: flex; flex-direction: column; gap: 12px; }
+    .timeline li { position: relative; font-size: 13.5px; }
+    .timeline li::before { content: ''; position: absolute; left: -23px; top: 4px; width: 12px; height: 12px; border-radius: 50%; background: var(--red); border: 2px solid #fff; }
+    .timeline b { display: block; font-size: 13px; color: var(--red); }
+    .tire { display: inline-block; vertical-align: -3px; }
+    .src { margin: 14px 16px 0; font-size: 11.5px; color: var(--steel); text-align: center; }
+    .src a { color: var(--steel); }
+    @media (prefers-reduced-motion: reduce) { .cloche-star, .moto, .moto .bob, .moto .puff, .lantern { animation: none; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top"><span>🍽️ 맛집</span><a href="./" id="back" data-tab="life">← 도우미로</a></div>
+
+    <section class="hero">
+      <svg class="lantern" viewBox="0 0 22 46" aria-hidden="true"><line x1="11" y1="0" x2="11" y2="12" stroke="#b98a2f" stroke-width="1.2"/><rect x="7" y="11" width="8" height="3" rx="1" fill="#f2b705"/><ellipse cx="11" cy="24" rx="9" ry="10.5" fill="#e03131"/><path d="M11 13.5 Q4 24 11 34.5 M11 13.5 Q18 24 11 34.5" stroke="#ffb3b3" stroke-width=".8" fill="none"/><rect x="7" y="33.5" width="8" height="3" rx="1" fill="#f2b705"/><path d="M9 36.5 v7 M11 36.5 v8 M13 36.5 v7" stroke="#f2b705" stroke-width="1"/></svg>
+      <!-- 은빛 클로슈 + 반짝이는 별 일러스트 -->
+      <svg class="cloche" viewBox="0 0 128 110" aria-hidden="true">
+        <ellipse cx="64" cy="96" rx="56" ry="9" fill="#f6d5d9"/>
+        <rect x="10" y="84" width="108" height="9" rx="4.5" fill="#d9dee5"/>
+        <path d="M18 84 Q18 38 64 38 Q110 38 110 84Z" fill="#e9edf2"/>
+        <path d="M30 80 Q31 50 60 45" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" opacity=".8"/>
+        <circle cx="64" cy="33" r="6" fill="#cfd5dd"/>
+        <path class="cloche-star" d="M104 8 l3 7 7 1 -5 5 1.5 7 -6.5 -3.5 -6.5 3.5 1.5 -7 -5 -5 7 -1z" fill="#f2b705"/>
+        <path class="cloche-star" d="M22 18 l2 4.5 4.5 .6 -3.3 3.2 1 4.6 -4.2 -2.3 -4.2 2.3 1 -4.6 -3.3 -3.2 4.5 -.6z" fill="#c8102e"/>
+        <path class="cloche-star" d="M118 50 l1.5 3.2 3.4 .5 -2.5 2.4 .6 3.4 -3 -1.6 -3 1.6 .6 -3.4 -2.5 -2.4 3.4 -.5z" fill="#ff8787"/>
+      </svg>
+      <div class="hero-head"><h1 id="title-line">미쉐린 가이드 베트남 <span class="yr">2026</span></h1>
+      <p class="sub-line" id="sub-line">2026년 6월 4일 하노이에서 발표된 네 번째 베트남판 선정 결과예요.</p></div>
+      <div class="stats" id="stats" role="tablist" aria-label="등급 선택"></div>
+      <p class="total" id="total-line">하노이 · 호찌민 · 다낭 <b>총 193곳 선정</b> · 2·3스타는 아직 없어요 · <a class="src-link" href="https://guide.michelin.com/vn/en/selection/vietnam/restaurants" target="_blank" rel="noopener">출처</a></p>
+      <!-- 베트남 느낌: 논라 쓴 라이더가 오토바이로 지나가요 -->
+      <div class="road" aria-hidden="true"><svg class="moto" viewBox="0 0 70 44" width="62" height="39"><g class="bob"><circle cx="14" cy="36" r="6.5" fill="#3a3f47"/><circle cx="14" cy="36" r="2.6" fill="#cfd5dd"/><circle cx="54" cy="36" r="6.5" fill="#3a3f47"/><circle cx="54" cy="36" r="2.6" fill="#cfd5dd"/><path d="M8 33 Q10 24 22 24 L40 24 Q44 24 46 28 L58 30 Q62 31 61 35 L47 35 Q44 30 38 31 L20 31 Q16 28 8 33Z" fill="#e03131"/><path d="M46 28 L52 16 L56 16" stroke="#3a3f47" stroke-width="2.2" fill="none" stroke-linecap="round"/><rect x="18" y="20" width="16" height="5" rx="2.5" fill="#3a3f47"/><path d="M28 21 Q30 12 36 10 L42 18 L46 20" stroke="#1c64d9" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M30 21 L26 30 L32 31" stroke="#2b3a55" stroke-width="3.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="37" cy="7" r="3.6" fill="#ffd9b0"/><path d="M37 -1.5 L46 6.5 Q37 9 28 6.5Z" fill="#f2d48a" stroke="#b98a2f" stroke-width=".8" stroke-linejoin="round"/><path d="M8 33 q-6 -1 -8 1" stroke="#c8ccd2" stroke-width="2" fill="none" stroke-linecap="round" class="puff"/></g></svg></div>
+    </section>
+
+    <section class="card">
+      <h2 id="list-title">⭐ 미쉐린 1스타 레스토랑</h2>
+      <div class="cities" id="cities"></div>
+      <div class="list" id="list"></div>
+    </section>
+
+    <section class="card">
+      <h2>🔎 별과 빕 구르망, 무슨 뜻일까?</h2>
+      <div class="grades">
+        <div class="grade"><div class="ic">⭐</div><div><b>1스타</b><p>요리가 훌륭한 곳. 근처에 간다면 들러 볼 만한 곳.</p></div></div>
+        <div class="grade"><div class="ic">⭐⭐</div><div><b>2스타</b><p>뛰어난 요리. 일부러 찾아갈 만한 곳.</p></div></div>
+        <div class="grade"><div class="ic">⭐⭐⭐</div><div><b>3스타</b><p>탁월한 요리. 그것만을 위해 여행을 떠날 만한 곳.</p></div></div>
+        <div class="grade"><div class="ic">😋</div><div><b>빕 구르망 (Bib Gourmand)</b><p>합리적인 가격에 좋은 음식을 내는 곳. 이름은 미쉐린 마스코트 ‘비벤덤(Bibendum)’에서 왔어요.</p></div></div>
+        <div class="grade"><div class="ic">🌿</div><div><b>그린 스타</b><p>지속 가능한 미식을 실천하는 곳에 주는 별.</p></div></div>
+        <div class="grade"><div class="ic">🍴</div><div><b>미쉐린 셀렉티드</b><p>별이나 빕 구르망은 아니지만 가이드에 이름을 올린 곳.</p></div></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>🚗 타이어 회사가 왜 맛집을 고를까?</h2>
+      <ol class="timeline">
+        <li><b>1900년</b>프랑스 타이어 회사 미쉐린 형제(앙드레·에두아르)가 운전자를 위한 무료 안내서를 냈어요. 차를 많이 타야 타이어도 많이 팔리니까요. 첫 판은 3만 5천 부.</li>
+        <li><b>1926년</b>처음으로 맛집에 별을 달기 시작했어요. 이때부터 신분을 숨긴 평가원이 직접 먹어 보고 골라요.</li>
+        <li><b>1931년</b>지금처럼 1~3스타 세 단계가 됐어요.</li>
+        <li><b>1997년</b>가성비 맛집을 위한 ‘빕 구르망’이 생겼어요.</li>
+        <li><b>2023년</b>베트남판이 처음 나왔어요 (하노이·호찌민).</li>
+        <li><b>2024년</b>다낭이 추가됐어요.</li>
+        <li><b>2026년</b>네 번째 베트남판. 1스타가 처음으로 두 자릿수(11곳)가 됐고, 새 1스타는 ONVIT(하노이)와 Upstairs(호찌민)예요.</li>
+      </ol>
+    </section>
+
+    <p class="src">목록은 미쉐린 가이드 공식 사이트 기준이에요 (6월 발표 때 193곳 → 현재 사이트 189곳) · <a href="https://guide.michelin.com/vn/en/selection/vietnam/restaurants/1-star-michelin" target="_blank" rel="noopener">미쉐린 가이드 베트남 1스타 목록</a><br>영업시간·예약은 방문 전에 각 식당에 확인하세요</p>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="michelin-data.js"></script>
+  <script src="food-icons.js"></script>
+  <script>
+    const M = window.MICHELIN, KO = window.CUISINE_KO;
+    const CITY = { h: { name: '하노이', en: 'Hanoi', lat: 21.03, lon: 105.85 }, s: { name: '호찌민', en: 'Ho Chi Minh City', lat: 10.78, lon: 106.70 }, d: { name: '다낭', en: 'Da Nang', lat: 16.05, lon: 108.22 } };
+    // 등급 순서: 3스타 → 2스타 → 1스타 → 빕 구르망 → 셀렉티드 → 그린 스타
+    const CATS = [
+      { k: 'star3', ico: '⭐⭐⭐', name: '3스타', title: '⭐⭐⭐ 미쉐린 3스타', tag: '⭐⭐⭐ 3스타' },
+      { k: 'star2', ico: '⭐⭐', name: '2스타', title: '⭐⭐ 미쉐린 2스타', tag: '⭐⭐ 2스타' },
+      { k: 'star1', ico: '⭐', name: '1스타', title: '⭐ 미쉐린 1스타', tag: '⭐ 1스타' },
+      { k: 'bib', ico: '😋', name: '빕구르망', title: '😋 빕 구르망', tag: '😋 빕 구르망', cls: 'bib' },
+      { k: 'selected', ico: '🍴', name: '셀렉티드', title: '🍴 미쉐린 셀렉티드', tag: '🍴 셀렉티드', cls: 'sel' },
+      { k: 'green', ico: '🌿', name: '그린스타', title: '🌿 그린 스타', tag: '🌿 그린 스타', cls: 'green' },
+    ];
+    const $ = (s) => document.querySelector(s);
+    const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    // 앱에서 정한 '내 지역'에서 가장 가까운 미쉐린 도시를 먼저
+    function myCity() {
+      let p = { lat: 21.03, lon: 105.85 };
+      try {
+        const s = JSON.parse(localStorage.getItem('place') || '{}');
+        if (s.mode === 'manual' && s.lat != null) p = s;
+        else { const b = (window.BRANCHES || []).find((x) => x.id === s.id); if (b) p = b; }
+      } catch {}
+      return Object.keys(CITY).sort((a, b) => ((CITY[a].lat - p.lat) ** 2 + (CITY[a].lon - p.lon) ** 2) - ((CITY[b].lat - p.lat) ** 2 + (CITY[b].lon - p.lon) ** 2))[0];
+    }
+    const mine = myCity(), order = [mine, ...Object.keys(CITY).filter((k) => k !== mine)];
+    let cat = 'star1', city = mine;
+    const total = M.star1.length + M.bib.length + M.selected.length + M.star2.length + M.star3.length; // 그린 스타는 셀렉티드에 포함
+    // 요약 한 줄: 화면 폭에 맞춰 글자 크기를 줄여 한 줄에 맞춤
+    const fitLine = (el, f0) => { let f = f0; el.style.fontSize = f + 'px'; while (el.scrollWidth > el.clientWidth && f > 9) { f -= .25; el.style.fontSize = f + 'px'; } };
+    const fitAll = () => { fitLine($('#total-line'), 12.5); fitLine($('#title-line'), 24); };
+    fitAll(); addEventListener('resize', fitAll);
+    const map = (r) => 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(`${r[0]} restaurant ${CITY[r[1]].en}`);
+    const plate = (c) => c.k === 'bib' ? '😋' : c.k === 'selected' ? '🍴' : c.k === 'green' ? '🌿'
+      : '<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M12 2.5l2.6 5.6 6 .7-4.5 4.1 1.2 6-5.3-3-5.3 3 1.2-6L3.4 8.8l6-.7z" fill="#c8102e"/></svg>';
+    function draw() {
+      $('#stats').innerHTML = CATS.map((c) => {
+        const n = M[c.k].length;
+        return `<button type="button" class="stat ${c.cls || ''}${n ? '' : ' zero'}" data-k="${c.k}" aria-pressed="${c.k === cat}">
+          <span class="ico">${c.ico}</span><b>${n || '-'}</b><span>${c.name}</span></button>`;
+      }).join('');
+      const C = CATS.find((c) => c.k === cat), all = M[cat];
+      $('#list-title').textContent = `${C.title} ${all.length ? all.length + '곳' : ''}`;
+      if (!all.length) {
+        $('#cities').hidden = true;
+        $('#list').innerHTML = `<div class="none"><span class="sad">🥲</span><b>베트남에는 아직 ${C.name} 레스토랑이 없어요</b><p>2026년 미쉐린 가이드 베트남 기준이에요. 내년 발표를 기다려 봐요!</p></div>`;
+        return;
+      }
+      $('#cities').hidden = false;
+      $('#cities').innerHTML = order.map((k) => {
+        const n = all.filter((r) => r[1] === k).length;
+        return `<button type="button" data-k="${k}" aria-pressed="${k === city}">${k === mine ? '<small>내 지역</small>' : '<small>&nbsp;</small>'}${CITY[k].name} ${n}</button>`;
+      }).join('');
+      const rows = all.filter((r) => r[1] === city);
+      $('#list').innerHTML = rows.length ? rows.map((r) => `
+        <a class="rest" href="${map(r)}" target="_blank" rel="noopener">
+          <span class="plate">${window.foodIcon ? foodIcon(r[2], r[0]) : plate(C)}</span>
+          <span><b>${esc(r[0])}</b><small>${esc(KO[r[2]] || r[2])} · ${CITY[r[1]].name}</small>
+            <span class="tags"><span class="tag ${C.cls || ''}">${C.tag}</span>${r[3] ? '<span class="tag new">2026 NEW</span>' : ''}</span></span>
+          <span class="go">지도 <svg viewBox="0 0 24 24" width="14" height="14"><path d="M9 6l6 6-6 6" stroke="#1a73e8" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg></span>
+        </a>`).join('') : `<div class="none"><span class="sad">🥲</span><b>${CITY[city].name}에는 아직 없어요</b><p>다른 도시를 눌러 보세요.</p></div>`;
+    }
+    $('#stats').addEventListener('click', (e) => { const b = e.target.closest('.stat'); if (!b) return; cat = b.dataset.k; draw(); });
+    $('#cities').addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; city = b.dataset.k; draw(); });
+    draw();
+  </script>
+  <script src="back.js"></script>
+</body>
+</html>
