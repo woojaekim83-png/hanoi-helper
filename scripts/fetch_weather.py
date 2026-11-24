@@ -7,6 +7,7 @@ GitHub 서버가 대신 받아 두고 앱은 우리 사이트의 파일을 바�
 import json
 import re
 import urllib.request
+import time
 from datetime import datetime, timedelta, timezone
 
 KST = timezone(timedelta(hours=9))
@@ -27,10 +28,18 @@ def points():
     return out
 
 
-def get(url):
-    req = urllib.request.Request(url, headers=UA)
-    data = json.loads(urllib.request.urlopen(req, timeout=40).read().decode('utf-8'))
-    return data if isinstance(data, list) else [data]
+def get(url, tries=3):
+    # open-meteo가 가끔 응답이 늦어(연결 시간 초과) 한 번 실패하면 그 회차 날씨가 빠져요 → 잠깐 쉬었다 최대 3번 시도
+    for i in range(tries):
+        try:
+            req = urllib.request.Request(url, headers=UA)
+            data = json.loads(urllib.request.urlopen(req, timeout=40).read().decode('utf-8'))
+            return data if isinstance(data, list) else [data]
+        except Exception as e:
+            if i == tries - 1:
+                raise
+            print(f'날씨 요청 실패 ({e!r:.120}) — {5 * (i + 1)}초 뒤 다시 시도')
+            time.sleep(5 * (i + 1))
 
 
 def main():
