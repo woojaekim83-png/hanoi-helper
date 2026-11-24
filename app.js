@@ -62,7 +62,14 @@ function showTab(name) {
 document.querySelector('.tabs').addEventListener('click', (e) => {
   const b = e.target.closest('button.tab');
   if (b && b.dataset.tab) showTab(b.dataset.tab);
+  const a = e.target.closest('a.tab');
+  if (a) setTimeout(() => markLinkTab(a), 0); // 돌아올 탭(returnTab)을 먼저 저장한 뒤 밑줄을 옮겨요
 });
+// 링크 탭(맛집)은 화면 전환 대신 페이지를 옮기므로, 떠나기 전에 파란 밑줄을 그 탭으로 옮겨 보여줘요
+// (뒤로가기로 돌아오면 startTab()의 showTab()이 원래 탭으로 되돌려요)
+function markLinkTab(a) {
+  document.querySelectorAll('.tab').forEach((t) => t.setAttribute('aria-selected', t === a));
+}
 
 // 손가락으로 좌우로 쓸어서 탭 이동 (왼쪽으로 쓸면 다음 탭, 오른쪽으로 쓸면 이전 탭)
 (function setupSwipe() {
@@ -87,7 +94,9 @@ document.querySelector('.tabs').addEventListener('click', (e) => {
     const nt = all[(cur + (dx < 0 ? 1 : -1) + all.length) % all.length];
     if (nt.href) { // 맛집처럼 다른 페이지인 탭은 그 페이지로 이동 (돌아오면 보던 탭으로)
       try { sessionStorage.setItem('returnTab', curId || 'rate'); } catch {}
-      location.href = nt.href;
+      const a = document.querySelector(`a.tab[href="${nt.href}"]`);
+      if (a) markLinkTab(a);
+      setTimeout(() => { location.href = nt.href; }, 180); // 밑줄이 옮겨 가는 게 보이도록 잠깐 뒤에 이동
       return;
     }
     showTab(nt.id);
