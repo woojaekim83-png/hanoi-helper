@@ -24,14 +24,14 @@
     .hero { position: relative; margin: 10px 16px 0; border-radius: 20px; padding: 22px 20px 18px; overflow: hidden;
       background: linear-gradient(160deg, #fff1e6 0%, #ffe3e3 100%); }
     .hero h1 { margin: 0; font-size: 24px; letter-spacing: -.5px; line-height: 1.25; }
-    .hero-head { position: relative; z-index: 1; padding-right: 112px; min-height: 92px; }
+    .hero-head { position: relative; z-index: 1; padding-right: 104px; }
     .hero h1 { white-space: nowrap; }
     .hero h1 .yr { color: var(--red); }
     .hero .total .src-link { color: var(--steel); text-decoration: underline; text-underline-offset: 2px; }
     .hero p { margin: 8px 0 0; font-size: 13.5px; color: var(--slate); max-width: 62%; }
-    .hero svg.cloche { position: absolute; right: 6px; top: 16px; width: 106px; height: 91px; }
+    .hero svg.cloche { position: absolute; right: 10px; top: 22px; width: 96px; height: 84px; }
     /* 오토바이: 클로슈 왼쪽 아래에 나란히, 제자리에서 부릉부릉 */
-    .road { position: absolute; top: 66px; right: 66px; width: 66px; height: 42px; pointer-events: none; transform: scale(.78); transform-origin: right bottom; }
+    .road { position: absolute; top: 64px; right: 62px; width: 66px; height: 42px; pointer-events: none; transform: scale(.7); transform-origin: right bottom; }
     .road::after { content: ""; position: absolute; left: 2px; right: 2px; bottom: 2px; border-bottom: 2px dashed rgba(200,16,46,.25); }
     .moto { position: absolute; bottom: 3px; left: 2px; animation: ride 2.4s ease-in-out infinite; }
     .moto .bob { animation: bob .35s ease-in-out infinite alternate; }
@@ -39,7 +39,7 @@
     @keyframes ride { 0%, 100% { transform: translateX(-3px); } 50% { transform: translateX(4px); } }
     @keyframes bob { to { transform: translateY(-1.2px); } }
     @keyframes puff { from { opacity: .9; } to { opacity: 0; transform: translateX(-4px); } }
-    .lantern { position: absolute; top: 0; right: 100px; width: 20px; height: 42px; transform-origin: 50% 0; animation: swing 3.2s ease-in-out infinite; }
+    .lantern { position: absolute; top: 0; right: 92px; width: 20px; height: 42px; transform-origin: 50% 0; animation: swing 3.2s ease-in-out infinite; }
     @keyframes swing { 0%, 100% { transform: rotate(6deg); } 50% { transform: rotate(-6deg); } }
     .cloche-star { animation: twinkle 2.4s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
     .cloche-star:nth-of-type(2) { animation-delay: .8s; } .cloche-star:nth-of-type(3) { animation-delay: 1.6s; }
