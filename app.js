@@ -46,18 +46,23 @@ function applyAppName() {
 }
 
 /* ───── 탭 전환 ───── */
+// 지금 보이는 탭 순서 (⚙️ 탭 설정에서 고른 대로 tabs-config.js가 바꿔 넣어요)
 const TABS = ['rate', 'bank', 'news', 'viet', 'life', 'quiz'];
 function showTab(name) {
-  if (!TABS.includes(name)) name = 'rate';
+  if (!TABS.includes(name)) name = TABS[0] || 'rate';
   document.querySelectorAll('.tab').forEach((b) => b.setAttribute('aria-selected', b.dataset.tab === name));
-  TABS.forEach((t) => ($('#panel-' + t).hidden = t !== name));
+  document.querySelectorAll('main > .panel').forEach((p) => (p.hidden = p.id !== 'panel-' + name));
   store.set('tab', name);
   if (location.hash !== '#' + name) history.replaceState(null, '', '#' + name);
   window.scrollTo(0, 0);
   if (name === 'viet' && typeof fitPhrases === 'function') fitPhrases(); // 화면에 보일 때 글자 크기 맞춤
   if (name === 'quiz' && typeof renderQuiz === 'function') renderQuiz(); // 날짜가 바뀌었으면 새 도전으로
 }
-document.querySelectorAll('.tab').forEach((b) => b.addEventListener('click', () => showTab(b.dataset.tab)));
+// 탭 버튼은 설정에 따라 다시 그려지므로 탭 줄 전체에서 한 번에 받아요 (맛집처럼 링크인 탭은 그냥 이동)
+document.querySelector('.tabs').addEventListener('click', (e) => {
+  const b = e.target.closest('button.tab');
+  if (b && b.dataset.tab) showTab(b.dataset.tab);
+});
 
 // 손가락으로 좌우로 쓸어서 탭 이동 (왼쪽으로 쓸면 다음 탭, 오른쪽으로 쓸면 이전 탭)
 (function setupSwipe() {

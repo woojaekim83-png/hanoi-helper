@@ -334,6 +334,15 @@ main { padding: 20px 20px 0; }
 @media (prefers-reduced-motion: reduce) { .mk-hint, .mk-hint-go { animation: none; } }
 .mk-src { margin: 12px 0 0; padding-top: 10px; border-top: 1px solid var(--hairline); font-size: 12px; color: var(--steel); }
 
+/* 생활: 미쉐린 맛집 배너 */
+.food-banner { display: grid; grid-template-columns: 64px 1fr 14px; align-items: center; gap: 12px; text-decoration: none; color: inherit;
+  background: linear-gradient(160deg, #fff1e6 0%, #ffe3e3 100%); }
+.food-ic { width: 64px; height: 56px; display: grid; place-items: center; }
+.food-txt b { display: block; font-size: 17px; }
+.food-txt small { display: block; font-size: 13px; color: var(--slate); margin-top: 2px; }
+.food-go { font-size: 22px; color: #c8102e; }
+.food-banner:active { filter: brightness(.97); }
+
 /* 우리은행 베트남 예·적금 금리 — 분홍 돼지저금통 */
 .dep-card { --pig: #ff6f98; --pig-soft: #fff0f5; --pig-deep: #c2185b; }
 .dep-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }

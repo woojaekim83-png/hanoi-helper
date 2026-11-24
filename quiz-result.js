@@ -50,6 +50,7 @@ function qzResult() {
       : `
         ${qzEnvelope(true)}
         <p class="qz-env-tip">10문제를 모두 맞히면 열려요 · 내일 다시 도전!</p>`}
+      ${perfect && !qz.practice ? '<div class="hof-res" id="hof-res"></div>' : ''}
       ${!perfect ? '<div class="qz-moto" aria-hidden="true">🛵💨</div>' : ''}
     </div>
     ${wrong.length ? `<div class="qz-review"><h4>📝 오답 노트</h4>${wrong.map((x) => {
@@ -81,6 +82,18 @@ function qzResult() {
     env.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } };
   } else if (env) {
     env.onclick = () => { env.classList.remove('nope'); void env.offsetWidth; env.classList.add('nope'); };
+  }
+  // 만점이면 명예의 전당 안내: 필명이 없으면 등록 버튼, 있으면 이번 달 몇 번째 만점인지
+  const hr = $('#hof-res');
+  if (hr && typeof hofNick === 'function') {
+    const draw = () => {
+      hr.innerHTML = hofNick()
+        ? `<span>🏆 <b>${esc(hofNick())}</b>님, 이번 달 <b>${hofMine()}번째</b> 만점! 명예의 전당에 기록됐어요</span>`
+        : `<span>🏆 명예의 전당에 이름을 올려 보세요</span><button type="button" id="hof-join">필명 등록</button>`;
+      const j = $('#hof-join');
+      if (j) j.onclick = () => hofAskNick(() => { hofSubmit(qz.date); draw(); });
+    };
+    draw();
   }
   $('#qz-practice').onclick = () => {
     qz = { date: qzToday(), practice: true, items: qzNewSet(true), cur: 0, chanceUsed: false, done: false };
