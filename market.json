@@ -33,50 +33,50 @@
    }
   ]
  },
- "updatedAt": "11.24 17:52",
+ "updatedAt": "11.24 18:55",
  "rates": {
   "source": "우리은행 매매기준율",
-  "noticedAt": "2026.11.24 17:38",
+  "noticedAt": "2026.11.24 18:51",
   "items": [
    {
     "code": "USD",
     "flag": "🇺🇸",
     "name": "달러",
     "unit": 1,
-    "value": 1342.5,
-    "change": -2.0
+    "value": 1343.5,
+    "change": -1.0
    },
    {
     "code": "VND",
     "flag": "🇻🇳",
     "name": "동(100)",
     "unit": 100,
-    "value": 5.2,
-    "change": -0.03
+    "value": 5.24,
+    "change": 0.01
    },
    {
     "code": "EUR",
     "flag": "🇪🇺",
     "name": "유로",
     "unit": 1,
-    "value": 1465.34,
-    "change": -0.84
+    "value": 1467.77,
+    "change": 1.59
    },
    {
     "code": "CNY",
     "flag": "🇨🇳",
     "name": "위안",
     "unit": 1,
-    "value": 201.46,
-    "change": -0.25
+    "value": 201.61,
+    "change": -0.1
    },
    {
     "code": "JPY",
     "flag": "🇯🇵",
     "name": "엔(100)",
     "unit": 100,
-    "value": 842.91,
-    "change": -3.22
+    "value": 842.85,
+    "change": -3.28
    }
   ]
  }
