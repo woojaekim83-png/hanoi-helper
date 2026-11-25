@@ -139,9 +139,7 @@ function qzHome() {
       <div><b>${st.perfect}</b><span>만점 횟수</span></div>
       <div><b>${st.solved ? Math.round((st.correct / st.solved) * 100) : 0}%</b><span>정답률</span></div>
     </div>
-    <p class="qz-foot">총 ${qzCount().toLocaleString()}문제 · 기록은 내 기기에만 저장돼요</p>
-    <div id="qz-hof"></div>`;
-  if (typeof hofRender === "function") hofRender($("#qz-hof"));
+    <p class="qz-foot">총 ${qzCount().toLocaleString()}문제 · 기록은 내 기기에만 저장돼요</p>`;
   $('#qz-start').onclick = () => {
     qz = { date: qzToday(), practice: false, items: qzNewSet(false), cur: 0, chanceUsed: false, done: false };
     qzPersist();
@@ -243,11 +241,7 @@ function qzFinish() {
     if (st.last !== today) { st.streak = st.last === y ? st.streak + 1 : 1; st.days++; st.last = today; }
     st.solved += QZ_TOTAL; st.correct += score;
     st.seen = [...(st.seen || []), ...qz.items.map((x) => x.id)].slice(-600); // 최근 푼 문제는 한동안 다시 안 나와요
-    if (score === QZ_TOTAL) {
-      st.perfect++; qz.food = qzPickFood(st);
-      st.monthly = st.monthly || {}; const mk = today.slice(0, 7); st.monthly[mk] = (st.monthly[mk] || 0) + 1; // 명예의 전당: 이번 달 만점 횟수
-      if (typeof hofSubmit === "function") hofSubmit(today);
-    }
+    if (score === QZ_TOTAL) { st.perfect++; qz.food = qzPickFood(st); }
     qzSave('quiz-stats', st);
     qzPersist();
   }
