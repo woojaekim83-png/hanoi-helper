@@ -1,50 +1,50 @@
 {
  "fuel": {
   "source": "Petrolimex 1지역 소매가",
-  "effectiveAt": "2026-11-19 15:00",
+  "effectiveAt": "2026-11-26 15:00",
   "items": [
    {
     "code": "0201007",
     "icon": "⛽",
     "name": "휘발유 RON95-V",
-    "value": 21100,
-    "change": -740
+    "value": 21050,
+    "change": -50
    },
    {
     "code": "0201005",
     "icon": "⛽",
     "name": "휘발유 E10 RON95",
-    "value": 19100,
-    "change": -740
+    "value": 19050,
+    "change": -50
    },
    {
     "code": "0201004",
     "icon": "⛽",
     "name": "휘발유 E5 RON92",
-    "value": 18570,
-    "change": -820
+    "value": 18390,
+    "change": -180
    },
    {
     "code": "0601002",
     "icon": "🛢️",
     "name": "경유 DO 0.05S",
-    "value": 26340,
-    "change": -480
+    "value": 24960,
+    "change": -1380
    }
   ]
  },
- "updatedAt": "11.26 15:52",
+ "updatedAt": "11.26 17:21",
  "rates": {
   "source": "우리은행 매매기준율",
-  "noticedAt": "2026.11.26 15:38",
+  "noticedAt": "2026.11.26 17:16",
   "items": [
    {
     "code": "USD",
     "flag": "🇺🇸",
     "name": "달러",
     "unit": 1,
-    "value": 1343.0,
-    "change": -2.5
+    "value": 1345.0,
+    "change": -0.5
    },
    {
     "code": "VND",
@@ -59,24 +59,24 @@
     "flag": "🇪🇺",
     "name": "유로",
     "unit": 1,
-    "value": 1472.47,
-    "change": -5.16
+    "value": 1476.01,
+    "change": -1.62
    },
    {
     "code": "CNY",
     "flag": "🇨🇳",
     "name": "위안",
     "unit": 1,
-    "value": 201.5,
-    "change": -0.36
+    "value": 201.93,
+    "change": 0.07
    },
    {
     "code": "JPY",
     "flag": "🇯🇵",
     "name": "엔(100)",
     "unit": 100,
-    "value": 843.75,
-    "change": -1.94
+    "value": 844.95,
+    "change": -0.74
    }
   ]
  }
