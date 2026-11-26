@@ -173,9 +173,9 @@
         rows = Object.values(best);
       }
       rows.sort((a, b) => a.price - b.price);
-      const shown = rows.slice(0, 20);
+      const shown = rows.slice(0, 20).sort((a, b) => a.depart.localeCompare(b.depart) || a.price - b.price); // 싼 20개를 출발 빠른 순으로
       $('#list-title').textContent = `${CITY[from]} 출발 · ${to === 'KR' ? '한국행' : '전체 목적지'} ${trip === 'ow' ? '편도' : '왕복'}`;
-      $('#list-meta').textContent = `${rows.length}개 중 싼 순 ${shown.length}개${direct ? ' · 직항만' : ''}${updated ? ` · ${updated} 기준` : ''}`;
+      $('#list-meta').textContent = `${rows.length}개 중 싼 ${shown.length}개 · 출발 빠른 순${direct ? ' · 직항만' : ''}${updated ? ` · ${updated} 기준` : ''}`;
       $('#list').innerHTML = shown.length ? shown.map((r) => {
         const [name, color] = AL[r.airline] || [r.airline, '#495057'], n = daysTo(r.depart);
         const nights = r.trip === 'rt' && r.return ? Math.round((dateOf(r.return) - dateOf(r.depart)) / 864e5) : 0;
