@@ -136,11 +136,11 @@
       '7C': ['제주항공', '#e8590c'], TW: ['티웨이', '#c2255c'], BX: ['에어부산', '#1971c2'], LJ: ['진에어', '#2b8a3e'], KE: ['대한항공', '#1c64d9'],
       OZ: ['아시아나', '#862e9c'], RS: ['에어서울', '#0ca678'], ZE: ['이스타항공', '#d6336c'], '9G': ['썬피닉스', '#f08c00'], FD: ['타이 에어아시아', '#e03131'],
       AK: ['에어아시아', '#e03131'], UO: ['홍콩익스프레스', '#7048e8'], CZ: ['중국남방항공', '#1864ab'], MU: ['중국동방항공', '#1864ab'], TR: ['스쿠트', '#f59f00'] };
-    let FL = [], KRW_PER_VND = 0.052, updated = '';
+    let FL = [], KRW_PER_VND = 0.052, KRW_PER_USD = 1340, updated = '';
     let from = 'HAN', trip = 'ow', to = 'KR', direct = true;
 
-    const vnd = (n) => Math.round(n).toLocaleString('ko-KR') + '동';
-    const krw = (n) => '약 ' + (Math.round(n * KRW_PER_VND / 1000) / 10).toLocaleString('ko-KR') + '만 원';
+    const usd = (n) => '$' + Math.round(n * KRW_PER_VND / KRW_PER_USD).toLocaleString('en-US');
+    const krw = (n) => '약 ' + (Math.round(n * KRW_PER_VND / 1000) / 10).toLocaleString('ko-KR') + '만원';
     const dateOf = (s) => new Date(s.slice(0, 10) + 'T00:00:00');
     const day = (s) => { const d = dateOf(s); return `${d.getMonth() + 1}월 ${d.getDate()}일(${'일월화수목금토'[d.getDay()]})`; };
     const daysTo = (s) => Math.round((dateOf(s) - new Date(new Date().toDateString())) / 864e5);
@@ -182,7 +182,7 @@
         return `<div class="fl">
           <div class="air"><span class="logo" style="background:${color}">${r.airline}</span>${name} · ${r.transfers === 0 ? '직항' : r.transfers + '회 경유'}${r.duration ? ' · ' + hm(r.duration) : ''} ${n <= 7 ? `<span class="tag soon">${n === 0 ? '오늘' : n + '일 뒤'} 출발</span>` : ''}</div>
           <div class="route">${CITY[r.from]} <span>${r.from}</span> → ${AP[r.to] || r.to} <span>${r.to}</span></div>
-          <div class="price"><b>${vnd(r.price)}</b><small>${krw(r.price)} · ${r.trip === 'ow' ? '편도' : '왕복'} 1명</small></div>
+          <div class="price"><b>${krw(r.price)}</b><small>${usd(r.price)} ·${r.trip === 'ow' ? '편도' : '왕복'} 1명</small></div>
           <div class="when">📅 ${day(r.depart)} ${r.depart.slice(11, 16)}${r.trip === 'rt' && r.return ? ` ~ ${day(r.return)} · ${nights}박 ${nights + 1}일` : ' 출발'}</div>
           <div class="row"><span class="ago">${r.flight ? r.airline + r.flight + '편 · ' : ''}<a class="alt" href="${gf(r)}" target="_blank" rel="noopener">구글 항공편</a></span><a class="go" href="${avia(r)}" target="_blank" rel="noopener">예약 사이트에서 확인 ›</a></div>
         </div>`;
@@ -217,6 +217,8 @@
         const m = await (await fetch('market.json?t=' + Date.now(), { cache: 'no-store' })).json();
         const v = (m.rates?.items || []).find((x) => x.code === 'VND');
         if (v && v.value && v.unit) KRW_PER_VND = v.value / v.unit; // 100동 = 5.2원 → 1동 = 0.052원
+        const u = (m.rates?.items || []).find((x) => x.code === 'USD');
+        if (u && u.value && u.unit) KRW_PER_USD = u.value / u.unit;
       } catch {}
       try {
         const d = await (await fetch('flights.json?t=' + Date.now(), { cache: 'no-store' })).json();
